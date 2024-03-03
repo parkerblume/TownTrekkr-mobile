@@ -4,7 +4,7 @@ import { View, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { colors, commonStyles } from '../styles/commonStyles';
 
-const LandingPage = () => {
+const LandingScreen = () => {
   // const navigation = useNavigation();
 
   return (
@@ -21,4 +21,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default LandingScreen;
