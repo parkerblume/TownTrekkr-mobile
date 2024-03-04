@@ -21,7 +21,7 @@ const LoginPage = ( {navigation} ) => {
       return;
     }
 
-    navigation.navigate("Landing");
+    useNavigation.navigate("Landing"); 
   }
 
   return (
@@ -66,7 +66,7 @@ const LoginPage = ( {navigation} ) => {
       </TouchableOpacity>
 
 
-
+      {/* TODO: Test if navigation can be replaced with useNavigation */}
       {/* Text under login button */}
       <Text>
         <Text style={styles.newMember}>New member? </Text>

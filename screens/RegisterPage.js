@@ -32,7 +32,7 @@ const RegisterPage = ( {navigation} ) => {
       return;
     }
     
-    navigation.navigate("Login");
+    useNavigation.navigate("Login");
   }
 
   return (
