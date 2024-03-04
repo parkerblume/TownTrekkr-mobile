@@ -76,7 +76,7 @@ const RegisterPage = ( {navigation} ) => {
       {/* TODO: Add terms and conditions page? */}
       {/* a checkmark box that is required for the signup button to be pressable */}
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <TouchableOpacity style={styles.checkmarkBox} onPress={setCheckmark}></TouchableOpacity>
+        <TouchableOpacity style={styles.checkmarkBox} onPress={ () => setCheckmark(true)}></TouchableOpacity>
         <Text style={styles.termsAndConditionsText}>
           <Text>
             I agree to the&nbsp;
