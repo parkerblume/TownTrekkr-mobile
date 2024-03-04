@@ -10,6 +10,30 @@ const RegisterPage = ( {navigation} ) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [name, setName] = React.useState('');
+  const [checkmark, setCheckmark] = React.useState(false);
+
+
+
+  const signupHandler = () => {
+    if (name === '') {
+      alert('Please enter your name');
+      return;
+    }
+    if (email === '') {
+      alert('Please enter your email');
+      return;
+    }
+    if (password === '') {
+      alert('Please enter a password');
+      return;
+    }
+    if (!checkmark) {
+      alert('Please agree to the terms and conditions');
+      return;
+    }
+    
+    navigation.navigate("Login");
+  }
 
   return (
     <View style={styles.container}>
@@ -53,7 +77,7 @@ const RegisterPage = ( {navigation} ) => {
       {/* TODO: Add terms and conditions page? */}
       {/* a checkmark box that is required for the signup button to be pressable */}
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <TouchableOpacity style={styles.checkmarkBox}></TouchableOpacity>
+        <TouchableOpacity style={styles.checkmarkBox} onPress={setCheckmark(true)}></TouchableOpacity>
         <Text style={styles.termsAndConditionsText}>
           <Text>
             I agree to the
@@ -66,9 +90,10 @@ const RegisterPage = ( {navigation} ) => {
 
 
       {/* TODO: Maybe add keyboard avoiding behavior */}
-      
-      {/* signup button */}
-      <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate("Login")}>
+
+
+      {/* signup button */}      
+      <TouchableOpacity style={styles.nextButton} onPress={signupHandler}>
         <Text style={styles.nextText}>Next</Text>
       </TouchableOpacity>
 

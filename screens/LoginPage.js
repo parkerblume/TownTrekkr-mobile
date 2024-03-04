@@ -10,6 +10,20 @@ const LoginPage = ( {navigation} ) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+
+  const loginHandler = () => {
+    if (email === '') {
+      alert('Please enter your email');
+      return;
+    }
+    if (password === '') {
+      alert('Please enter your password');
+      return;
+    }
+
+    navigation.navigate("Landing");
+  }
+
   return (
     <View style={styles.container}>
 
@@ -47,7 +61,7 @@ const LoginPage = ( {navigation} ) => {
       {/* TODO: Maybe add keyboard avoiding behavior */}
       
       {/* login button */}
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate("Landing")}>
+      <TouchableOpacity style={styles.loginButton} onPress={loginHandler}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
 
