@@ -47,20 +47,20 @@ const RegisterPage = ( {navigation} ) => {
       />
 
 
-
-      <Text style={styles.forgotPassword}>Forgot password?</Text>
+      {/* TODO: Add terms and conditions page? */}
+      <Text style={styles.termsAndConditionsText}>By checking this box, you agree to our terms and conditions</Text>
 
       {/* TODO: Maybe add keyboard avoiding behavior */}
       {/* signup button */}
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate("Login")}>
-        <Text style={styles.loginText}>Next</Text>
+      <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate("Login")}>
+        <Text style={styles.nextText}>Next</Text>
       </TouchableOpacity>
 
       {/* Text under login button */}
       <Text>
-        <Text style={styles.newMember}>Already a member?</Text>
+        <Text style={styles.alreadyMemberText}>Already a member?</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text style={styles.registerNowLink}>Log in</Text>
+          <Text style={styles.loginLinkText}>Log in</Text>
         </TouchableOpacity>
       </Text>
 
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
       padding: 10,
       backgroundColor: 'white',
     },
-    forgotPassword: {
+    termsAndConditionsText: {
       fontSize: 12,
       color: 'grey',
       marginTop: -5,
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
       marginLeft: 32,
       fontStyle: 'italic',
     },
-    loginButton: {
+    nextButton: {
       marginTop: 120,
       alignItems: 'center',
       justifyContent: 'center',
@@ -121,16 +121,16 @@ const styles = StyleSheet.create({
       height: 50,
       borderRadius: 15,
     },
-    loginText: {
+    nextText: {
       color: 'white',
       fontSize: 24,
     },
-    newMember: {
+    alreadyMemberText: {
       fontSize: 12,
       color: 'black',
       marginTop: 20,
     },
-    registerNowLink: {
+    loginLinkText: {
       fontSize: 12,
       color: 'black',
       marginTop: 20,

@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, TouchableOpacity } from 'react-native';
 //import SpinningEarth from './SpinningEarth';
 import { useNavigation } from '@react-navigation/native';
 import { colors, commonStyles } from '../styles/commonStyles';
 
-const LandingPage = () => {
+const LandingPage = ( {navigation} ) => {
   // const navigation = useNavigation();
 
   return (
@@ -17,6 +17,9 @@ const LandingPage = () => {
         <Button title="Sign Up" />
         <Button title="Login" />
       </View>
+      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text>Sign Out!</Text>
+      </TouchableOpacity>
     </View>
   );
 };

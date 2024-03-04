@@ -39,14 +39,14 @@ const LoginPage = ( {navigation} ) => {
 
       {/* TODO: Maybe add keyboard avoiding behavior */}
       {/* login button */}
-      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate("Register")}>
+      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate("Landing")}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
 
       {/* Text under login button */}
       <Text>
         <Text style={styles.newMember}>New member? </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
           <Text style={styles.registerNowLink}>Register now</Text>
         </TouchableOpacity>
       </Text>

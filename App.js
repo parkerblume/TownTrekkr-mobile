@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet} from 'react-native';
 import LoginPage from './screens/LoginPage.js';
 import RegisterPage from './screens/RegisterPage.js';
+import LandingPage from './screens/LandingPage.js';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
         <Stack.Screen name="Login" component={LoginPage}/>
         <Stack.Screen name="Register" component={RegisterPage}/>
+        <Stack.Screen name="Landing" component={LandingPage}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
