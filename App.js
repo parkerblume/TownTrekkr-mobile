@@ -11,11 +11,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='Landing' ///the name of the initial screen
+        initialRouteName='Login' ///the name of the initial screen
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="Landing" component={LandingPage} />
+          
+        <Stack.Screen name="Login" component={LoginPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
