@@ -2,7 +2,6 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
          KeyboardAvoidingView, Keyboard } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { colors } from '../styles/commonStyles';
 
 
@@ -21,7 +20,7 @@ const LoginPage = ( {navigation} ) => {
       return;
     }
 
-    useNavigation.navigate("Landing"); 
+    navigation.navigate("Landing"); 
   }
 
   return (
@@ -66,7 +65,6 @@ const LoginPage = ( {navigation} ) => {
       </TouchableOpacity>
 
 
-      {/* TODO: Test if navigation can be replaced with useNavigation */}
       {/* Text under login button */}
       <Text>
         <Text style={styles.newMember}>New member? </Text>

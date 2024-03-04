@@ -2,7 +2,6 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
          KeyboardAvoidingView, Keyboard } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { colors } from '../styles/commonStyles';
 
 
@@ -32,7 +31,7 @@ const RegisterPage = ( {navigation} ) => {
       return;
     }
     
-    useNavigation.navigate("Login");
+    navigation.navigate("Login");
   }
 
   return (
@@ -77,7 +76,7 @@ const RegisterPage = ( {navigation} ) => {
       {/* TODO: Add terms and conditions page? */}
       {/* a checkmark box that is required for the signup button to be pressable */}
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <TouchableOpacity style={styles.checkmarkBox} onPress={setCheckmark(true)}></TouchableOpacity>
+        <TouchableOpacity style={styles.checkmarkBox} onPress={setCheckmark}></TouchableOpacity>
         <Text style={styles.termsAndConditionsText}>
           <Text>
             I agree to the
@@ -93,7 +92,7 @@ const RegisterPage = ( {navigation} ) => {
 
 
       {/* signup button */}      
-      <TouchableOpacity style={styles.nextButton} onPress={signupHandler}>
+      <TouchableOpacity style={styles.nextButton} onPress={ () => signupHandler}>
         <Text style={styles.nextText}>Next</Text>
       </TouchableOpacity>
 
