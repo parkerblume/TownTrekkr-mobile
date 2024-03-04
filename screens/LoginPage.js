@@ -21,24 +21,23 @@ const LoginPage = () => {
       <Text style={styles.subTitle}>sign in to access your account</Text>
 
       {/* email and password input fields */}
-      <KeyboardAvoidingView behavior="padding">
-        <TextInput
-          style={styles.input}
-          onChangeText={setEmail}
-          value={email}
-          placeholder="Email"
-        />
+      <TextInput
+        style={styles.input}
+        onChangeText={setEmail}
+        value={email}
+        placeholder="Email"
+      />
 
-        <TextInput
-          style={styles.input}
-          onChangeText={setPassword}
-          value={password}
-          placeholder="Password"
-        />
-      </KeyboardAvoidingView>
+      <TextInput
+        style={styles.input}
+        onChangeText={setPassword}
+        value={password}
+        placeholder="Password"
+      />
 
       <Text style={styles.forgotPassword}>Forgot password?</Text>
 
+      {/* TODO: Maybe add keyboard avoiding behavior */}
       {/* login button */}
       <TouchableOpacity style={styles.loginButton} onPress={Keyboard.dismiss}>
         <Text style={styles.loginText}>Login</Text>
@@ -51,7 +50,6 @@ const LoginPage = () => {
           <Text style={styles.registerNowLink}>Register now</Text>
         </TouchableOpacity>
       </Text>
-
 
     </View>
   );
@@ -75,7 +73,7 @@ const styles = StyleSheet.create({
       borderRadius: 100,
     },
     title: {
-      fontSize: 36,
+      fontSize: 40,
       fontWeight: 'bold',
       color: 'black',
       marginTop: 15,
