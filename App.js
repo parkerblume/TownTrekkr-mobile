@@ -3,20 +3,20 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import LandingPage from './components/LandingPage';
+import LoginPage from './screens/LoginPage.js';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName='Login' ///the name of the initial screen
-        screenOptions={{
-          headerShown: false,
-        }}>
-          
-        <Stack.Screen name="Login" component={LoginPage} />
+      <Stack.Navigator>          
+        <Stack.Screen
+          name="Login" 
+          component={LoginPage} 
+          options = {{title: 'Login'}}/>
+
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
