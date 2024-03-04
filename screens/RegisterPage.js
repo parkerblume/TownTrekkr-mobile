@@ -48,7 +48,12 @@ const RegisterPage = ( {navigation} ) => {
 
 
       {/* TODO: Add terms and conditions page? */}
-      <Text style={styles.termsAndConditionsText}>By checking this box, you agree to our terms and conditions</Text>
+      {/* a checkmark box that is required for the signup button to be pressable */}
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <TouchableOpacity style={styles.checkmarkBox}>
+          <Text style={styles.termsAndConditionsText}>I agree to the terms and conditions</Text>
+        </TouchableOpacity>
+      </View>
 
       {/* TODO: Maybe add keyboard avoiding behavior */}
       {/* signup button */}
@@ -136,5 +141,13 @@ const styles = StyleSheet.create({
       marginTop: 20,
       fontWeight: 'bold',
       textDecorationLine: 'underline',
+    },
+    checkmarkBox: {
+      width: 20,
+      height: 20,
+      borderRadius: 5,
+      borderWidth: 1,
+      borderColor: 'black',
+      marginRight: 10,
     },
   });
