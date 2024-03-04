@@ -1,9 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity} from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
+         KeyboardAvoidingView, Keyboard } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../styles/commonStyles';
 
-const LandingPage = () => {
+
+const LoginPage = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -12,29 +15,32 @@ const LandingPage = () => {
 
       <StatusBar backgroundColor='#abc4ab' />
 
-      <Image style={styles.logo} source={require('./assets/earth.png')} fadeDuration={2000}/>
+      <Image style={styles.logo} source={require('../assets/earth.png')} fadeDuration={2000}/>
 
       <Text style={styles.title}>Welcome Back</Text>
       <Text style={styles.subTitle}>sign in to access your account</Text>
 
-      <TextInput
-        style={styles.input}
-        onChangeText={setEmail}
-        value={Text}
-        placeholder="Email"
-      />
+      {/* email and password input fields */}
+      <KeyboardAvoidingView behavior="padding">
+        <TextInput
+          style={styles.input}
+          onChangeText={setEmail}
+          value={email}
+          placeholder="Email"
+        />
 
-      <TextInput
-        style={styles.input}
-        onChangeText={setPassword}
-        value={Text}
-        placeholder="Password"
-      />
+        <TextInput
+          style={styles.input}
+          onChangeText={setPassword}
+          value={password}
+          placeholder="Password"
+        />
+      </KeyboardAvoidingView>
 
       <Text style={styles.forgotPassword}>Forgot password?</Text>
 
       {/* login button */}
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity style={styles.loginButton} onPress={Keyboard.dismiss}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
 
@@ -65,19 +71,19 @@ const styles = StyleSheet.create({
     logo: {
       width: 200,
       height: 200,
-      marginTop: 80,
+      marginTop: 50,
       borderRadius: 100,
     },
     title: {
       fontSize: 36,
       fontWeight: 'bold',
       color: 'black',
-      marginTop: 30,
+      marginTop: 15,
     },
     subTitle: {
       fontSize: 18,
       color: 'black',
-      marginBottom: 80,
+      marginBottom: 40,
     },
     input: {
       height: 40,
@@ -96,17 +102,17 @@ const styles = StyleSheet.create({
       fontStyle: 'italic',
     },
     loginButton: {
-      marginTop: 80,
+      marginTop: 120,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#6d4c3d',
-      width: 200,
-      height: 40,
+      width: 250,
+      height: 50,
       borderRadius: 15,
     },
     loginText: {
       color: 'white',
-      fontSize: 18,
+      fontSize: 24,
     },
     newMember: {
       fontSize: 12,
@@ -116,7 +122,7 @@ const styles = StyleSheet.create({
     registerNowLink: {
       fontSize: 12,
       color: 'black',
-      marginTop: 5,
+      marginTop: 20,
       fontWeight: 'bold',
       textDecorationLine: 'underline',
     },
