@@ -4,31 +4,19 @@ import {createStackNavigator} from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet} from 'react-native';
 import LoginPage from './screens/LoginPage.js';
+import RegisterPage from './screens/RegisterPage.js';
 
-// const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <LoginPage />
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Login" component={LoginPage}/>
+        <Stack.Screen name="Register" component={RegisterPage}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
-    // <NavigationContainer>
-    //   <Stack.Navigator>          
-    //     <Stack.Screen
-    //       name="Login" 
-    //       component={LoginPage} 
-    //       options = {{title: 'Login'}}/>
-
-        
-    //   </Stack.Navigator>
-    // </NavigationContainer>
