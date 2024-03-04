@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
-         KeyboardAvoidingView, Keyboard } from 'react-native';
+         KeyboardAvoidingView, Keyboard, Pressable } from 'react-native';
 import { colors } from '../styles/commonStyles';
 
 
@@ -79,7 +79,7 @@ const RegisterPage = ( {navigation} ) => {
         <TouchableOpacity style={styles.checkmarkBox} onPress={setCheckmark}></TouchableOpacity>
         <Text style={styles.termsAndConditionsText}>
           <Text>
-            I agree to the
+            I agree to the&nbsp;
           </Text>
           <Text style={{fontWeight: 'bold'}}>
             Terms and Conditions
@@ -98,12 +98,17 @@ const RegisterPage = ( {navigation} ) => {
 
 
       {/* Text under login button */}
-      <Text>
-        <Text style={styles.alreadyMemberText}>Already a member?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text style={styles.loginLinkText}>Log in</Text>
-        </TouchableOpacity>
-      </Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+        <Text style={styles.alreadyMemberText}>
+          <Text>
+            Already a member?&nbsp;
+          </Text>
+            <Text style={{fontWeight: 'bold', textDecorationLine: 'underline'}}>
+              Log in
+            </Text>
+        </Text>
+      </TouchableOpacity>
+
 
 
     </View>
@@ -149,10 +154,8 @@ const styles = StyleSheet.create({
     termsAndConditionsText: {
       fontSize: 12,
       color: 'grey',
-      marginTop: -5,
+      marginTop: 1,
       alignSelf: 'flex-start',
-      marginLeft: 32,
-      fontStyle: 'italic',
     },
     nextButton: {
       marginTop: 120,
@@ -168,16 +171,9 @@ const styles = StyleSheet.create({
       fontSize: 24,
     },
     alreadyMemberText: {
-      fontSize: 12,
+      fontSize: 14,
       color: 'black',
       marginTop: 20,
-    },
-    loginLinkText: {
-      fontSize: 12,
-      color: 'black',
-      marginTop: 20,
-      fontWeight: 'bold',
-      textDecorationLine: 'underline',
     },
     checkmarkBox: {
       width: 20,

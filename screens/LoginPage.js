@@ -66,12 +66,16 @@ const LoginPage = ( {navigation} ) => {
 
 
       {/* Text under login button */}
-      <Text>
-        <Text style={styles.newMember}>New member? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-          <Text style={styles.registerNowLink}>Register now</Text>
-        </TouchableOpacity>
-      </Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+        <Text style={styles.newMember}>
+          <Text>
+            New member?&nbsp;
+          </Text>
+            <Text style={{fontWeight: 'bold', textDecorationLine: 'underline'}}>
+              Register here
+            </Text>
+        </Text>
+      </TouchableOpacity>
 
     </View>
   );
@@ -135,15 +139,8 @@ const styles = StyleSheet.create({
       fontSize: 24,
     },
     newMember: {
-      fontSize: 12,
+      fontSize: 14,
       color: 'black',
       marginTop: 20,
-    },
-    registerNowLink: {
-      fontSize: 12,
-      color: 'black',
-      marginTop: 20,
-      fontWeight: 'bold',
-      textDecorationLine: 'underline',
     },
   });
