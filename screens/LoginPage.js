@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { colors } from '../styles/commonStyles';
 
 
-const LoginPage = () => {
+const LoginPage = ( {navigation} ) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -39,7 +39,7 @@ const LoginPage = () => {
 
       {/* TODO: Maybe add keyboard avoiding behavior */}
       {/* login button */}
-      <TouchableOpacity style={styles.loginButton} onPress={Keyboard.dismiss}>
+      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate("Register")}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
 

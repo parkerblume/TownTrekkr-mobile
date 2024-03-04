@@ -6,21 +6,32 @@ import { useNavigation } from '@react-navigation/native';
 import { colors } from '../styles/commonStyles';
 
 
-const RegisterPage = () => {
+const RegisterPage = ( {navigation} ) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [name, setName] = React.useState('');
 
   return (
     <View style={styles.container}>
 
       <StatusBar backgroundColor='#abc4ab' />
 
-      <Image style={styles.logo} source={require('../assets/earth.png')} fadeDuration={2000}/>
+      
 
-      <Text style={styles.title}>Make an account!</Text>
-      <Text style={styles.subTitle}>sign in to access your account</Text>
+      <Text style={styles.title}>Get Started</Text>
+      <Text style={styles.subTitle}>by creating a free account</Text>
+      
+      {/* TODO: Add icon picture of people */}
 
-      {/* email and password input fields */}
+      {/* input fields */}
+
+      <TextInput
+        style={styles.input}
+        onChangeText={setName}
+        value={name}
+        placeholder="Full name"
+      />
+
       <TextInput
         style={styles.input}
         onChangeText={setEmail}
@@ -32,22 +43,24 @@ const RegisterPage = () => {
         style={styles.input}
         onChangeText={setPassword}
         value={password}
-        placeholder="Password"
+        placeholder="Strong password"
       />
+
+
 
       <Text style={styles.forgotPassword}>Forgot password?</Text>
 
       {/* TODO: Maybe add keyboard avoiding behavior */}
-      {/* login button */}
-      <TouchableOpacity style={styles.loginButton} onPress={Keyboard.dismiss}>
-        <Text style={styles.loginText}>Login</Text>
+      {/* signup button */}
+      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate("Login")}>
+        <Text style={styles.loginText}>Next</Text>
       </TouchableOpacity>
 
       {/* Text under login button */}
       <Text>
-        <Text style={styles.newMember}>New member? </Text>
-        <TouchableOpacity>
-          <Text style={styles.registerNowLink}>Register now</Text>
+        <Text style={styles.newMember}>Already a member?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text style={styles.registerNowLink}>Log in</Text>
         </TouchableOpacity>
       </Text>
 
@@ -76,12 +89,12 @@ const styles = StyleSheet.create({
       fontSize: 40,
       fontWeight: 'bold',
       color: 'black',
-      marginTop: 15,
+      marginTop: 100,
     },
     subTitle: {
       fontSize: 18,
       color: 'black',
-      marginBottom: 40,
+      marginBottom: 120,
     },
     input: {
       height: 40,
