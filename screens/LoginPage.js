@@ -15,12 +15,17 @@ const LoginPage = ( {navigation} ) => {
 
       <StatusBar backgroundColor='#abc4ab' />
 
+      {/* logo picture */}
       <Image style={styles.logo} source={require('../assets/earth.png')} fadeDuration={2000}/>
 
+
+      {/* title text */}
       <Text style={styles.title}>Welcome Back</Text>
       <Text style={styles.subTitle}>sign in to access your account</Text>
 
-      {/* email and password input fields */}
+
+
+      {/* input fields */}
       <TextInput
         style={styles.input}
         onChangeText={setEmail}
@@ -37,11 +42,16 @@ const LoginPage = ( {navigation} ) => {
 
       <Text style={styles.forgotPassword}>Forgot password?</Text>
 
+
+
       {/* TODO: Maybe add keyboard avoiding behavior */}
+      
       {/* login button */}
       <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate("Landing")}>
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
+
+
 
       {/* Text under login button */}
       <Text>

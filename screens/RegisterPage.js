@@ -17,14 +17,17 @@ const RegisterPage = ( {navigation} ) => {
       <StatusBar backgroundColor='#abc4ab' />
 
       
-
+      {/* title text */}
       <Text style={styles.title}>Get Started</Text>
       <Text style={styles.subTitle}>by creating a free account</Text>
       
+
+
       {/* TODO: Add icon picture of people */}
 
-      {/* input fields */}
 
+
+      {/* input fields */}
       <TextInput
         style={styles.input}
         onChangeText={setName}
@@ -50,16 +53,25 @@ const RegisterPage = ( {navigation} ) => {
       {/* TODO: Add terms and conditions page? */}
       {/* a checkmark box that is required for the signup button to be pressable */}
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <TouchableOpacity style={styles.checkmarkBox}>
-          <Text style={styles.termsAndConditionsText}>I agree to the terms and conditions</Text>
-        </TouchableOpacity>
+        <TouchableOpacity style={styles.checkmarkBox}></TouchableOpacity>
+        <Text style={styles.termsAndConditionsText}>
+          <Text>
+            I agree to the
+          </Text>
+          <Text style={{fontWeight: 'bold'}}>
+            Terms and Conditions
+          </Text>
+        </Text>
       </View>
 
+
       {/* TODO: Maybe add keyboard avoiding behavior */}
+      
       {/* signup button */}
       <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate("Login")}>
         <Text style={styles.nextText}>Next</Text>
       </TouchableOpacity>
+
 
       {/* Text under login button */}
       <Text>
@@ -68,6 +80,7 @@ const RegisterPage = ( {navigation} ) => {
           <Text style={styles.loginLinkText}>Log in</Text>
         </TouchableOpacity>
       </Text>
+
 
     </View>
   );
