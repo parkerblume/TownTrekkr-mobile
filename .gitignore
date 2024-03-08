@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules/
+yarn.lock
 
 # Expo
 .expo/
@@ -33,3 +34,6 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+
+/%ProgramData%/

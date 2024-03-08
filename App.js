@@ -6,7 +6,10 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import LandingScreen from './screens/LandingScreen';
-
+import { StyleSheet} from 'react-native';
+import LoginPage from './screens/LoginPage.js';
+import RegisterPage from './screens/RegisterPage.js';
+import LandingPage from './screens/LandingPage.js';
 
 const Stack = createStackNavigator();
 
@@ -38,16 +41,11 @@ export default function App() {
           headerShown: false,
         }}>
         <Stack.Screen name="Landing" component={LandingScreen} />
+        <Stack.Screen name="Login" component={LoginPage}/>
+        <Stack.Screen name="Register" component={RegisterPage}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
