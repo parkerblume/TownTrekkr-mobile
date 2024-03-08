@@ -21,39 +21,47 @@ import {
 } from 'three';
 import {loadModel} from '../utils/3d';
 
-const modelGLB = {
-  earth: {
-    type: 'glb',
-    name: 'earth',
-    model: require('../assets/3dEarth/earth.glb'),
-    textures: [
-      {
-        name: 'clouds_surface',
-        image: require('../assets/3dEarth/Textures/Earth_Clouds_6K.png'),
-      },
-      {
-        name: 'Earth_col',
-        image: require('../assets/3dEarth/Textures/Earth_Col_6K.png'),
-      },
-    ],
-    scale: {
-      x: 1,
-      y: 1,
-      z: 1,
-    },
-    position: {
-      x: 0,
-      y: 0,
-      z: -2,
-    },
-    animation: {
-      rotation: {
-        y: 0.01, // to animate horizontally
-        x: 0.003, // to animate vertically
-      },
-    },
-  },
-};
+// const modelGLB = {
+//   earth: {
+//     type: 'gltf',
+//     name: 'earth',
+//     model: require('../assets/3dEarth/earth/scene.gltf'),
+//     textures: [
+//       {
+//         name: "Nuages",
+//         image: require('../assets/3dEarth/earth/textures/NUAGES_baseColor.png')
+//       },
+//       {
+//         name: "TERRE_base",
+//         image: require('../assets/3dEarth/earth/textures/TERRE_baseColor.jpeg')
+//       },
+//       {
+//         name: "TERRE_emis",
+//         image: require('../assets/3dEarth/earth/textures/TERRE_emissive.jpeg')
+//       },
+//       {
+//         name: "TERRE_meta",
+//         image: require('../assets/3dEarth/earth/textures/TERRE_metallicRoughness.png')
+//       }
+//     ],
+//     scale: {
+//       x: 1,
+//       y: 1,
+//       z: 1,
+//     },
+//     position: {
+//       x: 0,
+//       y: 0,
+//       z: -2,
+//     },
+//     animation: {
+//       rotation: {
+//         y: 0.01, // to animate horizontally
+//         x: 0.003, // to animate vertically
+//       },
+//     },
+//   },
+// };
 
 const modelFBX = {
   polyEarth: {
@@ -96,7 +104,7 @@ const onContextCreate = async (gl, data) => {
 
   // Set up our scene and lights.
   const scene = new Scene();
-  // const pointLight = new PointLight(0xffffff, 5, 2000, 10);
+  // const pointLight = new PointLight(0xffffff, 5, 2000, 100);
   // pointLight.position.set(0, 30, 100);
   // scene.add(pointLight);
 
@@ -105,7 +113,7 @@ const onContextCreate = async (gl, data) => {
 
   // Add a directional light for sunlight
   const directionalLight = new DirectionalLight(0x404040, 1);
-  directionalLight.position.set(4, 10, 40); // Position the light diagonally
+  directionalLight.position.set(10, 10, 40); // Position the light diagonally
   directionalLight.castShadow = true; // Enable shadow casting
   scene.add(directionalLight);
   //scene.add(directionalLight.target);
@@ -115,7 +123,7 @@ const onContextCreate = async (gl, data) => {
   directionalLight.shadow.mapSize.height = height;
   directionalLight.shadow.camera.near = 0.5;
   directionalLight.shadow.camera.far = 500;
-  directionalLight.shadow.camera.left = -100;
+  directionalLight.shadow.camera.lreft = -100;
   directionalLight.shadow.camera.right = 100;
   directionalLight.shadow.camera.top = 100;
   directionalLight.shadow.camera.bottom = -100;
@@ -147,7 +155,6 @@ const onContextCreate = async (gl, data) => {
   const render = () => {
     requestAnimationFrame(render);
     update();
-
     renderer.render(scene, camera);
     gl.endFrameEXP();
   };

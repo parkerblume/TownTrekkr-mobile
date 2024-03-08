@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 let pageStyles = StyleSheet.create({
     earthContainer: {
         width:'100%',
-        paddingTop:50,
+        paddingTop:75,
         justifyContent: 'center',
     }, 
     glView: {
@@ -35,21 +35,20 @@ let pageStyles = StyleSheet.create({
     cardFooter: {
         flex: 1,
         padding:15,
-        paddingVertical:40
+        paddingVertical:30
     },
     cardButtons: {
         flexDirection: 'row',
-        borderColor: 'black',
-        borderRadius: 15,
-        borderWidth: 1,
+        justifyContent: 'space-between',   
         overflow: 'hidden',
     },
     button: {
-        flex: 1,
+        width: '45%',
         justifyContent: 'center',
         alignItems: 'center',
         paddingVertical: 15,
-        borderRadius: 10
+        borderRadius: 10,
+        backgroundColor: colors.dark_brown
     },
 });
 

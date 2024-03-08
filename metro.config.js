@@ -12,7 +12,7 @@ config.resolver = {
     ...resolver,
     assetExts: [
         ...resolver.assetExts.filter((ext) => ext !== 'svg'), // keep from prev solution found
-        'db', 'mp3', 'ttf', 'glb', 'fbx', 'mtl', 'obj', 'png', 'jpg', // support for .glb files
+        'db', 'mp3', 'ttf', 'glb', 'gltf', 'fbx', 'mtl', 'obj', 'png', 'jpg', // support for .glb files
       ],
     sourceExts: [...resolver.sourceExts, "svg"],
   };

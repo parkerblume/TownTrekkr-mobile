@@ -23,26 +23,29 @@ const LandingScreen = () => {
       </View>
       <View style={pageStyles.boxContainer}>
         <View style={pageStyles.headerContainer}>
-          <Text style={{ fontSize: 70, color: colors.buttonPrimary, fontFamily: 'Londrina-Solid' }}>Town </Text>
-          <Text style={{ fontSize: 70, color: colors.tan, fontFamily: 'Londrina-Solid' }}>Trekkr</Text>
+          <Text style={{ fontSize: 70, color: colors.dark_brown, fontFamily: 'Londrina-Solid' }}>Town </Text>
+          <Text style={{ fontSize: 70, color: colors.dark_green, fontFamily: 'Londrina-Solid' }}>Trekkr</Text>
         </View>
         <View style={pageStyles.cardContainer}>
           <View style={pageStyles.cardTitle}>
-            <Text style={{fontSize: 50, color: colors.buttonPrimary, fontFamily: 'Londrina-Solid' }}>Welcome!</Text>
-            <Text style={{fontSize: 25, color: colors.greenAccent, fontFamily: 'Londrina-Solid'}}>
+            <Text style={{fontSize: 45, color: colors.dark_brown, fontFamily: 'Londrina-Solid' }}>
+              Welcome Adventurer,
+            </Text>
+            <Text style={{fontSize: 25, color: colors.dark_green, fontFamily: 'Londrina-Solid'}}>
               Build or join a community to guess local spots around your area.
             </Text>
           </View>
           <View style={pageStyles.cardFooter}>
-            <Text style={{fontSize: 20, color: 'black', fontFamily: 'Londrina-Solid', paddingLeft:10, paddingBottom: 2 }}>Start trekking!</Text>
             <View style={pageStyles.cardButtons}>
-              <Pressable style={[pageStyles.button, {backgroundColor: colors.buttonPrimary}]}>
+              <Pressable style={[pageStyles.button]}>
                 <Text style={{fontSize: 20, color: colors.tan, fontFamily: 'Londrina-Solid'}}>
-                  Sign up
+                  Start trekking!
                 </Text>
               </Pressable>
               <Pressable style={[pageStyles.button]}>
-                <Text style={{fontSize: 20, color: colors.greenAccent, fontFamily: 'Londrina-Solid'}}>Log In</Text>
+                <Text style={{fontSize: 20, color: colors.tan, fontFamily: 'Londrina-Solid'}}>
+                  Log In!
+                </Text>
               </Pressable>
             </View>
           </View>
