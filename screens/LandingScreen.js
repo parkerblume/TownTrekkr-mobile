@@ -12,7 +12,15 @@ import SpinningEarth from '../components/SpinningEarth';
 
 
 const LandingScreen = () => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
+
+  const navigateToRegister = () => {
+    navigation.navigate('Register');
+  }
+
+  const navigateToLogin = () => {
+    navigation.navigate('Login');
+  }
 
   return (
     <View style={commonStyles.screenContainer}>
@@ -37,12 +45,12 @@ const LandingScreen = () => {
           </View>
           <View style={pageStyles.cardFooter}>
             <View style={pageStyles.cardButtons}>
-              <Pressable style={[pageStyles.button]}>
+              <Pressable style={[pageStyles.button]} onPress={navigateToRegister}>
                 <Text style={{fontSize: 20, color: colors.tan, fontFamily: 'Londrina-Solid'}}>
                   Start trekking!
                 </Text>
               </Pressable>
-              <Pressable style={[pageStyles.button]}>
+              <Pressable style={[pageStyles.button]} onPress={navigateToLogin}>
                 <Text style={{fontSize: 20, color: colors.tan, fontFamily: 'Londrina-Solid'}}>
                   Log In!
                 </Text>

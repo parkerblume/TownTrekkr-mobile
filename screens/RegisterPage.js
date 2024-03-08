@@ -22,6 +22,9 @@ const RegisterPage = ( {navigation} ) => {
       alert('Please enter your email');
       return;
     }
+    // check for strong password requirements
+    // regex string check.
+    // if wrong, prompt a window or open a view to show what the password needs to be at the very least
     if (password === '') {
       alert('Please enter a password');
       return;
@@ -124,7 +127,7 @@ const styles = StyleSheet.create({
       flexWrap: 'nowrap',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      backgroundColor: '#abc4ab',
+      backgroundColor: colors.background,
     },
     logo: {
       width: 200,
