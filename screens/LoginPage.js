@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
       flexWrap: 'nowrap',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      backgroundColor: colors.background,
+      backgroundColor: colors.tan,
     },
     logo: {
       width: 200,

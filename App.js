@@ -21,7 +21,7 @@ export default function App() {
       await Font.loadAsync({
         'Londrina-Solid': require('./assets/fonts/Londrina_Solid/LondrinaSolid-Regular.ttf'),
         'Londrina-Solid-Bold': require('./assets/fonts/Londrina_Solid/LondrinaSolid-Black.ttf'),
-        'Londrina-Solid-Reg': require('./assets/fonts/Londrina_Solid/LondrinaSolid-Regular.ttf'),
+        'Londrina-Solid-Light': require('./assets/fonts/Londrina_Solid/LondrinaSolid-Light.ttf'),
       });
       setFontLoaded(true);
     }
@@ -39,7 +39,7 @@ export default function App() {
         initialRouteName='Landing' 
         screenOptions={{
           headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS
+          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         }}>
         <Stack.Group>
           <Stack.Screen name="Landing" component={LandingScreen} />

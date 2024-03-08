@@ -1,5 +1,5 @@
-import React, { useCallback, useRef } from 'react';
-import { View, Text, Button, SafeAreaView, Pressable } from 'react-native';
+import React, { useCallback, useRef, useEffect, useState } from 'react';
+import { View, Text, Button, SafeAreaView, Pressable, Animated, Easing } from 'react-native';
 //import SpinningEarth from './SpinningEarth';
 import { useNavigation } from '@react-navigation/native';
 import { colors, commonStyles } from '../styles/commonStyles';
@@ -10,15 +10,52 @@ import * as SplashScreen from 'expo-splash-screen';
 import SpinningEarth from '../components/SpinningEarth';
 
 
-
 const LandingScreen = () => {
   const navigation = useNavigation();
+  const [isUserOnPage, setIsUserOnPage] = useState(true);
+  const [animation] = useState(new Animated.Value(0));
+
+  // shows 3d model on focus
+  useEffect(() => {
+    const onFocus = navigation.addListener('focus', () => {
+      setIsUserOnPage(true);
+    });
+
+    return onFocus;
+  }, [navigation]);
+
+  // hides 3d model on blur
+  useEffect(() => {
+    const onBlur = navigation.addListener('blur', () => {
+      setIsUserOnPage(false);
+    });
+
+    return onBlur;
+  }, [navigation]);
 
   const navigateToRegister = () => {
+    setIsUserOnPage(false);
+    // Animated.timing(animation, {
+    //   toValue: 1,
+    //   duration: 500, // in ms
+    //   useNativeDriver: true,
+    // }).start(() => {
+    //   navigation.navigate('Register');
+    // });
     navigation.navigate('Register');
   }
 
   const navigateToLogin = () => {
+    setIsUserOnPage(false);
+    // Animated.timing(animation, {
+    //   toValue: 1,
+    //   duration: 500, // in ms
+    //   easing: Easing.ease,
+    //   useNativeDriver: false,
+    // }).start(() => {
+    //   navigation.navigate('Login');
+    // });
+
     navigation.navigate('Login');
   }
 
@@ -26,7 +63,7 @@ const LandingScreen = () => {
     <View style={commonStyles.screenContainer}>
       <View style={pageStyles.earthContainer}>
         <View style={pageStyles.glView}>
-          <SpinningEarth />
+          {isUserOnPage ? <SpinningEarth /> : ""}
         </View>
       </View>
       <View style={pageStyles.boxContainer}>

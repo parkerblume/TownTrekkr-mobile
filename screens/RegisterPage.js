@@ -8,25 +8,36 @@ import { colors } from '../styles/commonStyles';
 const RegisterPage = ( {navigation} ) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [name, setName] = React.useState('');
+  const [username, setUsername] = React.useState('');
   const [checkmark, setCheckmark] = React.useState(false);
 
 
+  const isValidPassword = (password) => {
+    const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,30}$/;
+    return passRegex.test(password);
+  }
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  }
 
   const signupHandler = () => {
-    if (name === '') {
-      alert('Please enter your name');
+    if (username === '') {
+      alert('Please enter your username');
       return;
     }
-    if (email === '') {
+    if (!isValidEmail()) {
       alert('Please enter your email');
+      // turn email box red.
       return;
     }
     // check for strong password requirements
     // regex string check.
     // if wrong, prompt a window or open a view to show what the password needs to be at the very least
-    if (password === '') {
+    if (!isValidPassword(password)) {
       alert('Please enter a password');
+      // turn password box red.
       return;
     }
     if (!checkmark) {
@@ -44,7 +55,7 @@ const RegisterPage = ( {navigation} ) => {
 
       
       {/* title text */}
-      <Text style={styles.title}>Get Started</Text>
+      <Text style={[styles.title]}>Get Started</Text>
       <Text style={styles.subTitle}>by creating a free account</Text>
       
 
@@ -56,9 +67,9 @@ const RegisterPage = ( {navigation} ) => {
       {/* input fields */}
       <TextInput
         style={styles.input}
-        onChangeText={setName}
-        value={name}
-        placeholder="Full name"
+        onChangeText={setUsername}
+        value={username}
+        placeholder="Username"
       />
 
       <TextInput
@@ -127,7 +138,7 @@ const styles = StyleSheet.create({
       flexWrap: 'nowrap',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      backgroundColor: colors.background,
+      backgroundColor: colors.tan,
     },
     logo: {
       width: 200,
@@ -136,13 +147,14 @@ const styles = StyleSheet.create({
       borderRadius: 100,
     },
     title: {
-      fontSize: 40,
-      fontWeight: 'bold',
+      fontFamily: 'Londrina-Solid',
+      fontSize: 50,
       color: 'black',
       marginTop: 100,
     },
     subTitle: {
-      fontSize: 18,
+      fontFamily: 'Londrina-Solid-Light',
+      fontSize: 20,
       color: 'black',
       marginBottom: 120,
     },
@@ -157,7 +169,7 @@ const styles = StyleSheet.create({
     termsAndConditionsText: {
       fontSize: 12,
       color: 'grey',
-      marginTop: 1,
+      marginTop: '1%',
       alignSelf: 'flex-start',
     },
     nextButton: {
@@ -165,16 +177,18 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#6d4c3d',
-      width: 250,
+      width: 220,
       height: 50,
       borderRadius: 15,
     },
     nextText: {
+      fontFamily: 'Londrina-Solid',
       color: 'white',
-      fontSize: 24,
+      fontSize: 30,
     },
     alreadyMemberText: {
-      fontSize: 14,
+      fontFamily: 'Londrina-Solid-Light',
+      fontSize: 20,
       color: 'black',
       marginTop: 20,
     },
