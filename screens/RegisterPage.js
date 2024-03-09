@@ -111,7 +111,7 @@ const RegisterPage = ( {navigation} ) => {
           />
         </View>
 
-        {showPassReqs && <PasswordRequirements password={password} show={showPassword} />}
+        {showPassReqs && <PasswordRequirements password={password} />}
 
         {/* TODO: Add terms and conditions page? */}
         {/* a checkmark box that is required for the signup button to be pressable */}
