@@ -13,7 +13,7 @@ import SpinningEarth from '../components/SpinningEarth';
 const LandingScreen = () => {
   const navigation = useNavigation();
   const [isUserOnPage, setIsUserOnPage] = useState(true);
-  const [animation] = useState(new Animated.Value(0));
+  //const [animation] = useState(new Animated.Value(0));
 
   // shows 3d model on focus
   useEffect(() => {

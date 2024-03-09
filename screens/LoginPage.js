@@ -29,7 +29,7 @@ const LoginPage = ( {navigation} ) => {
       <StatusBar backgroundColor='#abc4ab' />
 
       {/* logo picture */}
-      <Image style={styles.logo} source={require('../assets/earth.png')} fadeDuration={2000}/>
+      <Image style={styles.logo} source={require('../assets/Earth.png')} fadeDuration={2000}/>
 
 
       {/* title text */}
