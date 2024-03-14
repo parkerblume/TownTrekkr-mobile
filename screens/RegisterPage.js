@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
 import PasswordRequirements from '../components/PasswordRequirements';
 import { colors } from '../styles/commonStyles';
 import { ScrollView } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 const RegisterPage = ( {navigation} ) => {
@@ -101,10 +101,10 @@ const RegisterPage = ( {navigation} ) => {
           <TouchableOpacity
             onPress={() => setShowPassword(!showPassword)}
             style={styles.iconTouchable}
-            hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}
+            hitSlop={{ top: 50, bottom: 50, left: 70, right: 50 }}
           />
-          <Icon
-            name={showPassword ? 'eye-slash' : 'eye'}
+          <Ionicons
+            name={showPassword ? 'eye-off' : 'eye'}
             size={20}
             color="grey"
             style={styles.hideIcon}
@@ -116,7 +116,9 @@ const RegisterPage = ( {navigation} ) => {
         {/* TODO: Add terms and conditions page? */}
         {/* a checkmark box that is required for the signup button to be pressable */}
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <TouchableOpacity style={styles.checkmarkBox} onPress={ () => setCheckmark(true)}></TouchableOpacity>
+          <TouchableOpacity style={styles.checkmarkBox} onPress={ () => setCheckmark(!checkmark)}>
+            {checkmark && <Ionicons name="checkmark" size={24} color='green' style={styles.checkIcon} />}
+          </TouchableOpacity>
           <Text style={styles.termsAndConditionsText}>
             <Text>
               I agree to the&nbsp;
@@ -199,12 +201,18 @@ const styles = StyleSheet.create({
     },
     iconTouchable: {
       position: 'absolute',
+      backgroundColor: colors.dark_brown,
       right: 22,
-      padding: 5,
+      padding: 0,
     },
     hideIcon: {
       position: 'absolute',
       right: 22,
+    },
+    checkIcon: {
+      position: 'relative',
+      top: -2,
+      right: 2
     },
     termsAndConditionsText: {
       fontSize: 12,
@@ -213,7 +221,7 @@ const styles = StyleSheet.create({
       alignSelf: 'flex-start',
     },
     nextButton: {
-      marginTop: 120,
+      marginTop: 80,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#6d4c3d',

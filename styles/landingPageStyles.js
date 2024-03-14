@@ -4,12 +4,13 @@ import { StyleSheet } from 'react-native';
 let pageStyles = StyleSheet.create({
     earthContainer: {
         width:'100%',
-        paddingTop:75,
+        paddingTop:90,
         justifyContent: 'center',
+        height:'25%',
     }, 
     glView: {
         width: '100%', 
-        aspectRatio: 1, 
+        aspectRatio: 0.75, 
         backgroundColor: 'transparent',
     },
     headerContainer: {
@@ -27,6 +28,7 @@ let pageStyles = StyleSheet.create({
         borderRadius: 50,
         width: '100%',
         paddingHorizontal: 15,
+        height:'100%',
     },
     cardTitle: {
         padding: 15,
