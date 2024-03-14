@@ -1,15 +1,13 @@
 import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, CardStyleInterpolators} from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font';
 import LandingScreen from './screens/LandingScreen';
-import { StyleSheet} from 'react-native';
 import LoginPage from './screens/LoginPage.js';
 import RegisterPage from './screens/RegisterPage.js';
-import LandingPage from './screens/LandingPage.js';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +20,8 @@ export default function App() {
     async function loadFonts() {
       await Font.loadAsync({
         'Londrina-Solid': require('./assets/fonts/Londrina_Solid/LondrinaSolid-Regular.ttf'),
+        'Londrina-Solid-Bold': require('./assets/fonts/Londrina_Solid/LondrinaSolid-Black.ttf'),
+        'Londrina-Solid-Light': require('./assets/fonts/Londrina_Solid/LondrinaSolid-Light.ttf'),
       });
       setFontLoaded(true);
     }
@@ -39,10 +39,15 @@ export default function App() {
         initialRouteName='Landing' 
         screenOptions={{
           headerShown: false,
+          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
         }}>
-        <Stack.Screen name="Landing" component={LandingScreen} />
-        <Stack.Screen name="Login" component={LoginPage}/>
-        <Stack.Screen name="Register" component={RegisterPage}/>
+        <Stack.Group>
+          <Stack.Screen name="Landing" component={LandingScreen} />
+        </Stack.Group>
+        <Stack.Group screenOptions={{'presentation': 'modal'}}>
+          <Stack.Screen name="Login" component={LoginPage}/>
+          <Stack.Screen name="Register" component={RegisterPage}/>
+        </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
   );
