@@ -59,7 +59,7 @@ const RegisterPage = ( {navigation} ) => {
       keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
     >
       <ScrollView contentContainerStyle={styles.scrollViewContainer} scrollEnabled={showPassReqs} >
-        <StatusBar backgroundColor='#abc4ab' />
+        <StatusBar backgroundColor={colors.tan} />
 
         
         {/* title text */}
