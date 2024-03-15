@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import PhotoGuessingArea from '../components/PhotoGuessingArea';
+import PhotoGuessingArea from '../components/GameScreen/PhotoGuessingArea';
 import {colors, commonStyles} from '../styles/commonStyles';
+import BottomNavbar from '../components/BottomNavbar';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import TownSelector from '../components/GameScreen/TownSelector';
 
 const GameScreen = ({ userId, navigation }) => {
   const [currentTown, setCurrentTown] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
+//   const [towns, setTowns] = useState([]); // hold list of all user's towns
 
   useEffect(() => {
     // How we would possible fetch a user's town based on their id, and then grab the photos.
@@ -18,8 +22,12 @@ const GameScreen = ({ userId, navigation }) => {
     //       .catch((error) => console.error(error));
     //   })
     //   .catch((error) => console.error(error));
+
+    // we would fetch user towns in here as well.
   }, [userId]);
 
+  // maybe we don't allow users to switch towns in here
+  // they have to use community list.
   const handleTownChange = (newTown) => {
     // setCurrentTown(newTown);
     // fetchPhoto(newTown.id)
@@ -29,17 +37,21 @@ const GameScreen = ({ userId, navigation }) => {
 
   return (
     <View style={commonStyles.screenContainer}>
-      <View style={styles.townHeader}>
-        <Text style={styles.headerText}>
-            {currentTown ? `Current Town: ${currentTown.name}` : 'No towns you\'re trekkn\' in yet... '}
-        </Text>
-      </View>
-      <View style={styles.gameContainer}>
-        <PhotoGuessingArea
-          photoUrl={photoUrl ? photoUrl : null}
-          townId={currentTown ? currentTown.id : null}
-        />
-      </View>
+        <SafeAreaView style={styles.gameScreenContainer}>
+            <View style={styles.townHeader}>
+                <Text style={styles.headerText}>
+                    Town Name
+                </Text>
+                <TouchableOpacity style={styles.townButton}>
+                    {/* <Text>Switch Towns?</Text> */}
+                </TouchableOpacity>
+            </View>
+            <View style={styles.gameContainer}>
+            <PhotoGuessingArea
+                photoUrl={photoUrl ? photoUrl : null}
+                townId={currentTown ? currentTown.id : null}
+            />
+            </View>
       {/* ) : (
         <Text>Loading...</Text>
       )} */}
@@ -48,31 +60,41 @@ const GameScreen = ({ userId, navigation }) => {
           <Text style={styles.link}>Go find some towns</Text>
         </TouchableOpacity>
       )} */}
+      </SafeAreaView>
+      <BottomNavbar navigation={navigation} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  townHeader: {
-    alignItems: 'baseline',
-    justifyContent: 'flex-end',
-    width: '100%',
-    height: '10%',
-    backgroundColor: colors.dark_brown,
-    borderBottomWidth: 3,
-    borderBottomColor: '#000',
-  },
-  headerText: {
-    marginLeft: 10,
-    marginBottom: 5,
-    fontFamily: 'Londrina-Solid-Light',
-    fontSize: 20
-  },
-  gameContainer: {
-    flex: 0.75,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
+    gameScreenContainer: {
+        flex: 1,
+    },
+    townHeader: {
+        marginTop:10,
+        paddingTop: '10%',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        width: 350,
+        marginBottom: 10,
+        flexDirection: 'row',
+    },
+    headerText: {
+        fontFamily: 'Londrina-Solid-Light',
+        fontSize: 30,
+    },
+    townButton: {
+        backgroundColor: colors.olive,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 30,
+        borderRadius: 10,
+    },
+    gameContainer: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    }
 });
 
 export default GameScreen;

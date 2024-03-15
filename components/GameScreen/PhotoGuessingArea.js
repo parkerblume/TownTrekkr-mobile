@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { colors } from '../styles/commonStyles';
+import { colors } from '../../styles/commonStyles';
 import { FontAwesome } from '@expo/vector-icons';
 
 const PhotoGuessingArea = ({ photoUrl, townId }) => {
