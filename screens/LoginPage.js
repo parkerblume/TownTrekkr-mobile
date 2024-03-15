@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
          KeyboardAvoidingView, Keyboard } from 'react-native';
 import { colors } from '../styles/commonStyles';
+import { login } from '../api/authAPI.js';
 
 
 const LoginPage = ( {navigation} ) => {
@@ -20,7 +21,8 @@ const LoginPage = ( {navigation} ) => {
       return;
     }
 
-    navigation.navigate("Landing"); 
+    let data = login(email, password);
+    console.log(data);
   }
 
   return (
@@ -29,7 +31,7 @@ const LoginPage = ( {navigation} ) => {
       <StatusBar backgroundColor='#abc4ab' />
 
       {/* logo picture */}
-      <Image style={styles.logo} source={require('../assets/Earth.png')} fadeDuration={2000}/>
+      <Image style={styles.logo} source={require('../assets/earth.png')} fadeDuration={2000}/>
 
 
       {/* title text */}

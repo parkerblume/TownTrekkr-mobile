@@ -73,7 +73,7 @@ const LandingScreen = () => {
   }
 
   return (
-    <View style={commonStyles.screenContainer}>
+    <SafeAreaView style={commonStyles.screenContainer}>
       <View style={pageStyles.earthContainer}>
         <View style={pageStyles.glView}>
           {isUserOnPage ? <SpinningEarth /> : ""}
@@ -111,7 +111,7 @@ const LandingScreen = () => {
           </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

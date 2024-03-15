@@ -6,6 +6,7 @@ import PasswordRequirements from '../components/PasswordRequirements';
 import { colors } from '../styles/commonStyles';
 import { ScrollView } from 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { signup } from '../api/authAPI.js';
 
 
 const RegisterPage = ( {navigation} ) => {
@@ -23,33 +24,40 @@ const RegisterPage = ( {navigation} ) => {
   }
 
   const isValidEmail = (email) => {
-    const emailRegex = /^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
+    let emailRegex = /^\S+@\S+$/
     return emailRegex.test(email);
   }
 
   const signupHandler = () => {
+    console.log("sign up");
     if (username === '') {
       alert('Please enter your username');
+      console.log("invalid user");
       return;
     }
     if (!isValidEmail()) {
       alert('Please enter your email');
       // turn email box red.
+      console.log("invalid email");
       return;
     }
     // check for strong password requirements
     // regex string check.
     // if wrong, prompt a window or open a view to show what the password needs to be at the very least
     if (!isValidPassword(password)) {
+      console.log("invalid password");
       alert('Please enter a password');
       // turn password box red.
       return;
     }
     if (!checkmark) {
       alert('Please agree to the terms and conditions');
+      console.log("no checkmark");
       return;
     }
     
+    let data = signup(email, password, username);
+    console.log(data);
     navigation.navigate("Login");
   }
 
@@ -98,16 +106,12 @@ const RegisterPage = ( {navigation} ) => {
             placeholder="Password"
             secureTextEntry={!showPassword}
           />      
-          <TouchableOpacity
-            onPress={() => setShowPassword(!showPassword)}
-            style={styles.iconTouchable}
-            hitSlop={{ top: 50, bottom: 50, left: 70, right: 50 }}
-          />
           <Ionicons
             name={showPassword ? 'eye-off' : 'eye'}
             size={20}
             color="grey"
             style={styles.hideIcon}
+            onPress={() => setShowPassword(!showPassword)}
           />
         </View>
 
@@ -134,7 +138,7 @@ const RegisterPage = ( {navigation} ) => {
 
 
         {/* signup button */}      
-        <TouchableOpacity style={styles.nextButton} onPress={ () => signupHandler}>
+        <TouchableOpacity style={styles.nextButton} onPress={signupHandler}>
           <Text style={styles.nextText}>Next</Text>
         </TouchableOpacity>
 

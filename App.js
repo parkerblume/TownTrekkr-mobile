@@ -8,6 +8,7 @@ import * as Font from 'expo-font';
 import LandingScreen from './screens/LandingScreen';
 import LoginPage from './screens/LoginPage.js';
 import RegisterPage from './screens/RegisterPage.js';
+import GameScreen from './screens/GameScreen.js';
 
 const Stack = createStackNavigator();
 
@@ -36,7 +37,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='Landing' 
+        initialRouteName='GameScreen' 
         screenOptions={{
           headerShown: false,
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
@@ -47,6 +48,10 @@ export default function App() {
         <Stack.Group screenOptions={{'presentation': 'modal'}}>
           <Stack.Screen name="Login" component={LoginPage}/>
           <Stack.Screen name="Register" component={RegisterPage}/>
+        </Stack.Group>
+        {/* move to an authenticated stack file when authentication is implemented */}
+        <Stack.Group>
+          <Stack.Screen name="GameScreen" component={GameScreen} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
