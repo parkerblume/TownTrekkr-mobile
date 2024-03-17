@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     headerText: {
-        fontFamily: 'Londrina-Solid-Light',
+        fontFamily: 'Londrina-Solid',
         fontSize: 30,
     },
     townButton: {

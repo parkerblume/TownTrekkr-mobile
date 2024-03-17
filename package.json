@@ -31,7 +31,12 @@
     "react-native-vector-icons": "^10.0.3",
     "react-native-web": "~0.19.6",
     "three": "0.145.0",
-    "react-native-reanimated": "~3.6.2"
+    "react-native-reanimated": "~3.6.2",
+    "expo-camera": "~14.1.1",
+    "expo-image-picker": "~14.7.1",
+    "expo-media-library": "~15.9.1",
+    "expo-location": "~16.5.5",
+    "expo-image-manipulator": "~11.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

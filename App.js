@@ -9,6 +9,7 @@ import LandingScreen from './screens/LandingScreen';
 import LoginPage from './screens/LoginPage.js';
 import RegisterPage from './screens/RegisterPage.js';
 import GameScreen from './screens/GameScreen.js';
+import ImageHandleScreen from './screens/ImageHandleScreen.js';
 
 const Stack = createStackNavigator();
 
@@ -52,6 +53,7 @@ export default function App() {
         {/* move to an authenticated stack file when authentication is implemented */}
         <Stack.Group>
           <Stack.Screen name="GameScreen" component={GameScreen} />
+          <Stack.Screen name="ImageHandle" component={ImageHandleScreen} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
