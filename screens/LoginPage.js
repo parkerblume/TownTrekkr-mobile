@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
          KeyboardAvoidingView, Keyboard } from 'react-native';
 import { colors } from '../styles/commonStyles';
 import { login } from '../api/authAPI.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const LoginPage = ( {navigation} ) => {
@@ -11,7 +12,7 @@ const LoginPage = ( {navigation} ) => {
   const [password, setPassword] = React.useState('');
 
 
-  const loginHandler = () => {
+  const loginHandler = async () => {
     if (email === '') {
       alert('Please enter your email');
       return;
@@ -21,8 +22,14 @@ const LoginPage = ( {navigation} ) => {
       return;
     }
 
-    let data = login(email, password);
+    let data = await login(email, password);
     console.log(data);
+    if (data)
+    {
+      const userId = data.id;
+      await AsyncStorage.setItem('userId', userId);
+      navigation.navigate("GameScreen");
+    }
   }
 
   return (

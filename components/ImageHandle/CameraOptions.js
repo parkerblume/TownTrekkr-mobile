@@ -36,6 +36,7 @@ const CameraOptions = ({ isVisible, onClose, onImageConfirm }) => {
                 },
             },
         ],
+        { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
     );
     
     return result;
@@ -53,7 +54,7 @@ const CameraOptions = ({ isVisible, onClose, onImageConfirm }) => {
             exif: true,
             allowsEditing: true,
             aspect: [1,1],
-            quality: 0.7,
+            quality: 1,
             width: 350,
             height: 350,
         });
@@ -88,7 +89,7 @@ const CameraOptions = ({ isVisible, onClose, onImageConfirm }) => {
             exif: true,
             allowsEditing: true,
             aspect: [1,1],
-            quality: 0.7,
+            quality: 1,
             width: 350,
             height: 350
         });
@@ -100,6 +101,7 @@ const CameraOptions = ({ isVisible, onClose, onImageConfirm }) => {
                 latitude: exif.GPSLatitude,
                 longitude: exif.GPSLongitude,
             } : null;
+            console.log(result);
 
 
             const editedResult = await manipulatePhoto(result);

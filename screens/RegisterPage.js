@@ -25,7 +25,7 @@ const RegisterPage = ( {navigation} ) => {
 
   const isValidEmail = (email) => {
     let emailRegex = /^\S+@\S+$/
-    return emailRegex.test(email);
+    return true;
   }
 
   const signupHandler = () => {

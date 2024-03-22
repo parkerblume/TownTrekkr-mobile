@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import CameraOptions from './ImageHandle/CameraOptions';
 
-const BottomNavbar = ({ navigation }) => {
+const BottomNavbar = ({ navigation, userId }) => {
     const [isCameraOptionsVisible, setIsCameraOptionsVisible] = useState(false);
     const route = useRoute();
     const isActiveScreen = (screen) => route.name === screen;

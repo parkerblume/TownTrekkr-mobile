@@ -6,13 +6,31 @@ import BottomNavbar from '../components/BottomNavbar';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TownSelector from '../components/GameScreen/TownSelector';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const GameScreen = ({ userId, navigation }) => {
+const GameScreen = ({ navigation }) => {
+  const [userId, setUserId] = useState(null);
   const [currentTown, setCurrentTown] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
 //   const [towns, setTowns] = useState([]); // hold list of all user's towns
 
   useEffect(() => {
+    const getUserId = async () =>
+    {
+      try {
+        const storedUserId = await AsyncStorage.getItem('userId');
+        if (storedUserId !== null)
+        {
+          setUserId(storedUserId);
+          console.log(storedUserId);
+        }
+      } catch (error)
+      {
+        console.log("Error retrieving userId: ", error);
+      }
+    }
+
+    getUserId();
     // How we would possible fetch a user's town based on their id, and then grab the photos.
     // fetchUserTown(userId)
     //   .then((town) => {
@@ -24,7 +42,7 @@ const GameScreen = ({ userId, navigation }) => {
     //   .catch((error) => console.error(error));
 
     // we would fetch user towns in here as well.
-  }, [userId]);
+  }, []);
 
   // maybe we don't allow users to switch towns in here
   // they have to use community list.
@@ -61,7 +79,7 @@ const GameScreen = ({ userId, navigation }) => {
         </TouchableOpacity>
       )} */}
       </SafeAreaView>
-      <BottomNavbar navigation={navigation} />
+      <BottomNavbar navigation={navigation} userId={userId} />
     </View>
   );
 };
