@@ -19,14 +19,31 @@ const StatisticsPage = ( {navigation} ) => {
       </TouchableOpacity>
 
       
-      <View style={styles.townStatBox}>
+      {/* Town Statistics Area */}
+      <View style={styles.townStatContainer}>
         {/* TODO: ADD DROP DOWN SELECTOR */}
         <View style={styles.townStatTitleContainer}>
           <Text>TestTown</Text>
           <Text> Statistics</Text>
         </View>
+      </View>
+
+    
+      {/* Recent Guesses Area */}
+      <View style={styles.recentGuessesContainer}>
+        <Text style={styles.recentGuessesTitle}>Recent Guesses</Text>
+
 
       </View>
+
+
+
+      {/* Lifetime Statistics Area */}
+      <View style={styles.lifetimeStatContainer}>
+
+        <Text style={styles.lifetimeStatTitle}>Lifetime Statistics</Text>
+      </View>
+
 
     </View>
   );
@@ -60,13 +77,13 @@ const styles = StyleSheet.create({
       fontSize: 40,
       fontWeight: 'bold',
     },
-    townStatBox: {
-      width: 300,
+    townStatContainer: {
+      width: 375,
       height: 200,
       backgroundColor: colors.background,
-      borderRadius: 20,
+      borderRadius: 50,
       marginTop: 10,
-      marginLeft: 110,
+      marginLeft: 105,
       borderWidth: 1,
     },
     townStatTitleContainer: {
@@ -74,5 +91,27 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       alignContent: 'center',
+    },
+    recentGuessesContainer: {
+      marginTop: 30,
+    },
+    recentGuessesTitle: {
+      fontSize: 20,
+      fontWeight: 'semibold',
+      textAlign: 'center',
+    },
+    lifetimeStatContainer: {
+      width: 350,
+      height: 350,
+      backgroundColor: colors.background,
+      borderRadius: 50,
+      marginTop: 150,
+      marginRight: 80,
+      borderWidth: 1,
+    },
+    lifetimeStatTitle: {
+      fontSize: 20,
+      fontWeight: 'semibold',
+      textAlign: 'center',
     },
   });
