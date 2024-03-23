@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
          KeyboardAvoidingView, Keyboard, Pressable, Platform } from 'react-native';
-import PasswordRequirements from '../components/PasswordRequirements';
+import PasswordRequirements from '../components/LandingScreen/PasswordRequirements';
 import { colors } from '../styles/commonStyles';
 import { ScrollView } from 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons/Ionicons';

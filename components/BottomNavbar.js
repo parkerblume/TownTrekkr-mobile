@@ -12,7 +12,7 @@ const BottomNavbar = ({ navigation, userId }) => {
     const isActiveScreen = (screen) => route.name === screen;
 
     const handleNavigation = (screen) => {
-        navigation.navigate(screen);
+        navigation.navigate(screen, {userId});
     };
 
     const toggleCameraOptions = () => {
@@ -50,7 +50,7 @@ const BottomNavbar = ({ navigation, userId }) => {
                 </View>
                 <TouchableOpacity
                     style={[styles.navButton, isActiveScreen('TownsScreen') && styles.activeButton]}
-                    //onPress={() => handleNavigation('TownsScreen')} 
+                    onPress={() => handleNavigation('TownsScreen')} 
                 >
                     <MaterialCommunityIcons name="home-group" size={24} color={colors.tan} />
                 </TouchableOpacity>

@@ -10,48 +10,27 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const GameScreen = ({ navigation }) => {
   const [userId, setUserId] = useState(null);
-  const [currentTown, setCurrentTown] = useState(null);
-  const [photoUrl, setPhotoUrl] = useState(null);
-//   const [towns, setTowns] = useState([]); // hold list of all user's towns
+  const [currentTown, setCurrentTown] = useState(null); // set the town through route.params when Community screen is implemented.
+  const [photoUri, setPhotoUri] = useState(null);
 
   useEffect(() => {
-    const getUserId = async () =>
-    {
-      try {
-        const storedUserId = await AsyncStorage.getItem('userId');
-        if (storedUserId !== null)
-        {
-          setUserId(storedUserId);
-          console.log(storedUserId);
-        }
-      } catch (error)
-      {
-        console.log("Error retrieving userId: ", error);
-      }
-    }
-
     getUserId();
-    // How we would possible fetch a user's town based on their id, and then grab the photos.
-    // fetchUserTown(userId)
-    //   .then((town) => {
-    //     setCurrentTown(town);
-    //     fetchPhoto(town ? town.id : null)
-    //       .then((photoUrl) => setPhotoUrl(photoUrl))
-    //       .catch((error) => console.error(error));
-    //   })
-    //   .catch((error) => console.error(error));
-
-    // we would fetch user towns in here as well.
   }, []);
 
-  // maybe we don't allow users to switch towns in here
-  // they have to use community list.
-  const handleTownChange = (newTown) => {
-    // setCurrentTown(newTown);
-    // fetchPhoto(newTown.id)
-    //   .then((photoUrl) => setPhotoUrl(photoUrl))
-    //   .catch((error) => console.error(error));
-  };
+  const getUserId = async () =>
+  {
+    try {
+      const storedUserId = await AsyncStorage.getItem('userId');
+      if (storedUserId !== null)
+      {
+        setUserId(storedUserId);
+        console.log(storedUserId);
+      }
+    } catch (error)
+    {
+      console.log("Error retrieving userId: ", error);
+    }
+  }
 
   return (
     <View style={commonStyles.screenContainer}>
@@ -66,7 +45,7 @@ const GameScreen = ({ navigation }) => {
             </View>
             <View style={styles.gameContainer}>
             <PhotoGuessingArea
-                photoUrl={photoUrl ? photoUrl : null}
+                photoUrl={photoUri ? photoUri : null}
                 townId={currentTown ? currentTown.id : null}
             />
             </View>

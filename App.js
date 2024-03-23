@@ -10,6 +10,7 @@ import LoginPage from './screens/LoginPage.js';
 import RegisterPage from './screens/RegisterPage.js';
 import GameScreen from './screens/GameScreen.js';
 import ImageHandleScreen from './screens/ImageHandleScreen.js';
+import TownsScreen from './screens/TownsScreen.js';
 
 const Stack = createStackNavigator();
 
@@ -54,6 +55,7 @@ export default function App() {
         <Stack.Group>
           <Stack.Screen name="GameScreen" component={GameScreen} />
           <Stack.Screen name="ImageHandle" component={ImageHandleScreen} />
+          <Stack.Screen name="TownsScreen" component={TownsScreen} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>

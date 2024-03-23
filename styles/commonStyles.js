@@ -15,6 +15,10 @@ const commonStyles = StyleSheet.create({
         backgroundColor: colors.background,
         width: '100%'
     },
+    contentContainer: {
+        backgroundColor: colors.background,
+        flex: 1,
+    }
 });
 
 export { colors, commonStyles };

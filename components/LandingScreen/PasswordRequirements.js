@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { colors } from '../styles/commonStyles';
+import { colors } from '../../styles/commonStyles';
 
 export default PasswordRequirements = ({ password }) => {
   const containsLowercase = /[a-z]/.test(password);

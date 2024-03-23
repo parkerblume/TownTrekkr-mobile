@@ -19,7 +19,7 @@ import {
   PointLight,
   Scene,
 } from 'three';
-import {loadModel} from '../utils/3d';
+import {loadModel} from '../../utils/3d';
 
 // const modelGLB = {
 //   earth: {
@@ -68,7 +68,7 @@ const modelFBX = {
     type: 'fbx',
     name: 'polyEarth',
     isometric: false,
-    model: require('../assets/3dEarth/polyEarth.fbx'),
+    model: require('../../assets/3dEarth/polyEarth.fbx'),
     textures: [],
     scale: {
       x: 1,
