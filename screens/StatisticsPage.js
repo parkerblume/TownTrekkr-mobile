@@ -41,7 +41,36 @@ const StatisticsPage = ( {navigation} ) => {
       {/* Lifetime Statistics Area */}
       <View style={styles.lifetimeStatContainer}>
 
-        <Text style={styles.lifetimeStatTitle}>Lifetime Statistics</Text>
+        {/* Row 1 */}
+        <View style={styles.lifetimeRow1Container}>
+          {/* Col 1 */}
+          <View style={{marginRight: 40}}>
+            <Text style={styles.lifetimeStatValue}>1.73%</Text>
+            <Text style={styles.lifetimeStatTitle}>Percent Perfect</Text>
+          </View>
+          {/* Col 2 */}
+          <View>
+          <Text style={styles.lifetimeStatValue}>15</Text>
+            <Text style={styles.lifetimeStatTitle}>Perfect Guesses</Text>
+          </View>
+        </View>
+
+
+        {/* Row 2 */}
+        <View style={styles.lifetimeRow2Container}>
+          {/* Col 1 */}
+          <View style={{marginRight: 40}}>
+            <Text style={styles.lifetimeStatValue}>28m</Text>
+            <Text style={styles.lifetimeStatTitle}>Average Distance</Text>
+          </View>
+          {/* Col 2 */}
+          <View>
+            <Text style={styles.lifetimeStatValue}>867</Text>
+            <Text style={styles.lifetimeStatTitle}>Total Guesses</Text>
+          </View>
+        </View>
+
+        <Text style={styles.lifetimeTitle}>Lifetime Statistics</Text>
       </View>
 
 
@@ -109,9 +138,33 @@ const styles = StyleSheet.create({
       marginRight: 80,
       borderWidth: 1,
     },
+    lifetimeRow1Container: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignContent: 'center',
+      marginTop: 30,
+    },
+    lifetimeRow2Container: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignContent: 'center',
+      marginTop: 30,
+    },
     lifetimeStatTitle: {
-      fontSize: 20,
+      fontSize: 14,
       fontWeight: 'semibold',
-      textAlign: 'center',
+    },
+    lifetimeStatValue: {
+      fontSize: 40,
+      fontWeight: 'bold',
+    },
+    lifetimeTitle: {
+      fontSize: 38,
+      fontWeight: 'semibold',
+      fontStyle: 'italic',
+      marginLeft: 55,
+      marginTop: 25,
     },
   });
