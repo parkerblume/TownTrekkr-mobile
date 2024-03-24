@@ -23,17 +23,34 @@ const StatisticsPage = ( {navigation} ) => {
       <View style={styles.townStatContainer}>
         {/* TODO: ADD DROP DOWN SELECTOR */}
         <View style={styles.townStatTitleContainer}>
-          <Text>TestTown</Text>
-          <Text> Statistics</Text>
+          <Text style={styles.townStatDropdownTitle}>TestTown</Text>
+          <Text style={styles.townStatStatisticsTitle}> Statistics</Text>
         </View>
+
+        {/* Town Statistics */}
+        <View style={styles.townStatRowContainer}>
+          {/* Col 1 */}
+          <View style={{marginRight: 40}}>
+            <Text style={styles.townStatStatName}>Percent Perfect:</Text>
+            <Text style={styles.townStatStatName}>Perfect Guesses:</Text>
+            <Text style={styles.townStatStatName}>Total Guesses:</Text>
+            <Text style={styles.townStatStatName}>Average Distance:</Text>
+          </View>
+          {/* Col 2 */}
+          <View>
+            <Text style={styles.townStatStatValue}>8.00%</Text>
+            <Text style={styles.townStatStatValue}>4</Text>
+            <Text style={styles.townStatStatValue}>50</Text>
+            <Text style={styles.townStatStatValue}>500m</Text>
+          </View>
+        </View>
+
       </View>
 
     
       {/* Recent Guesses Area */}
       <View style={styles.recentGuessesContainer}>
         <Text style={styles.recentGuessesTitle}>Recent Guesses</Text>
-
-
       </View>
 
 
@@ -120,6 +137,35 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       alignContent: 'center',
+      marginRight: 45,
+      marginTop: 15,
+    },
+    townStatDropdownTitle: {
+      fontSize: 36,
+      fontWeight: 'semibold',
+      fontStyle: 'italic',
+    },
+    townStatStatisticsTitle: {
+      fontSize: 36,
+      fontWeight: 'semibold',
+      fontStyle: 'italic',
+    },
+    townStatRowContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignContent: 'center',
+      marginTop: 10,
+      marginRight: 45,
+    },
+    townStatStatName: {
+      fontSize: 24,
+      fontWeight: 'semibold',
+    },
+    townStatStatValue: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      textAlign: 'right',
     },
     recentGuessesContainer: {
       marginTop: 30,
