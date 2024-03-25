@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 import {colors, commonStyles} from '../styles/commonStyles';
-import BottomNavbar from '../components/BottomNavbar';
-import AllTownsComponent from '../components/TownsScreen/AllTownsComponent';
-import MyTownsComponent from '../components/TownsScreen/MyTownsComponent';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AllTownsComponent from '../components/TownsScreen/AllTownsComponent';
+import MyTownsComponent from '../components/TownsScreen/MyTownsComponent';
+import CreateTownsComponent from '../components/TownsScreen/CreateTownsComponent';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -54,8 +54,16 @@ const TownsScreen = ({ navigation, route }) => {
                     </Tab.Navigator>
                 </View>
             </NavigationContainer>
-            {/* I'll be a modal here for creating a new town at some point */}
-            {/* <BottomNavbar navigation={navigation} userId={userId} />  */}
+            
+            <Modal
+                animationType="slide"
+                transparent={false}
+                visible={isCreateModalVisible}
+                onRequestClose={toggleCreateModal}
+            >
+                <CreateTownsComponent userId={userId} onClose={toggleCreateModal} />
+            </Modal>
+
         </View>
     );
 }

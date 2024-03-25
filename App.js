@@ -4,8 +4,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import { useFonts, LondrinaSolid_400Regular, LondrinaSolid_900Black, LondrinaSolid_300Light } from '@expo-google-fonts/londrina-solid';
 import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AuthNavigation from './components/Navigation/AuthNavigation.js';
 import AppNavigation from './components/Navigation/AppNavigation.js';
+import AuthNavigation from './components/Navigation/AuthNavigation.js';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -50,7 +50,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      { isAuthenticated ? <AuthNavigation /> : <AppNavigation /> }
+      { isAuthenticated ? <AppNavigation /> : <AuthNavigation /> }
     </NavigationContainer>
   );
 }

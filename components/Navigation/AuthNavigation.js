@@ -1,24 +1,28 @@
 import React from 'react';
-import GameScreen from './screens/GameScreen.js';
-import ImageHandleScreen from './screens/ImageHandleScreen.js';
-import TownsScreen from './screens/TownsScreen.js';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import BottomNavbar from './components/BottomNavbar.js';
+import {createStackNavigator, CardStyleInterpolators} from '@react-navigation/stack';
+import LandingScreen from '../../screens/LandingScreen';
+import LoginPage from '../../screens/LoginPage.js';
+import RegisterPage from '../../screens/RegisterPage.js';
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const AuthNavigation = () => (
-  <Tab.Navigator
-    tabBar={(props) => <BottomNavbar {...props} />}     
+    <Stack.Navigator
+    initialRouteName='Landing' 
     screenOptions={{
       headerShown: false,
-    }}
-    initialRouteName='GameScreen'
-  >
-    <Tab.Screen name="GameScreen" component={GameScreen} />
-    <Tab.Screen name="ImageHandle" component={ImageHandleScreen} />
-    <Tab.Screen name="TownsScreen" component={TownsScreen} />
-  </Tab.Navigator>
-);
+      cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+    }}>
+      <Stack.Group>
+        <Stack.Screen name="Landing" component={LandingScreen} />
+      </Stack.Group>
+      <Stack.Group screenOptions={{'presentation': 'modal'}}>
+        <Stack.Screen name="Login">
+          {(props) => <LoginPage {...props} onLogin= {handleLogin} />}
+        </Stack.Screen>
+        <Stack.Screen name="Register" component={RegisterPage}/>
+      </Stack.Group>
+    </Stack.Navigator>
+  );
 
 export default AuthNavigation;
