@@ -1,16 +1,16 @@
 import { colors } from './commonStyles';
-import { StyleSheet } from 'react-native'; 
+import { StyleSheet, Platform } from 'react-native'; 
 
 let pageStyles = StyleSheet.create({
     earthContainer: {
         width:'100%',
-        paddingTop:90,
-        justifyContent: 'center',
-        height:'25%',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flex: 2
     }, 
     glView: {
         width: '100%', 
-        aspectRatio: 0.75, 
+        aspectRatio: 1, 
         backgroundColor: 'transparent',
     },
     headerContainer: {
@@ -20,29 +20,29 @@ let pageStyles = StyleSheet.create({
     }, 
     boxContainer: {
         width:'100%',
-        position: 'absolute',
-        bottom: 0,
+        flex: 3,
+        justifyContent: 'flex-end',
     },
     cardContainer: {
         backgroundColor: colors.tan,
-        borderRadius: 50,
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
         width: '100%',
         paddingHorizontal: 15,
-        height:'100%',
+        paddingBottom: Platform.OS === 'ios' ? 40 : 30,
+        overflow: 'hidden'
     },
     cardTitle: {
         padding: 15,
-        marginBottom:'10%'
+        marginBottom:20
     },
     cardFooter: {
-        flex: 1,
-        padding:15,
-        paddingVertical:30
+        paddingHorizontal:15,
+        //paddingBottom: '10%',
     },
     cardButtons: {
         flexDirection: 'row',
-        justifyContent: 'space-between',   
-        overflow: 'hidden',
+        justifyContent: 'space-between',
     },
     button: {
         width: '45%',

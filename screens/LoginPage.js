@@ -7,7 +7,7 @@ import { login } from '../api/authAPI.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const LoginPage = ( {navigation} ) => {
+const LoginPage = ( {navigation, onLogin} ) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -28,7 +28,7 @@ const LoginPage = ( {navigation} ) => {
     {
       const userId = data.id;
       await AsyncStorage.setItem('userId', userId);
-      navigation.navigate("GameScreen");
+      onLogin();
     }
   }
 

@@ -43,7 +43,7 @@ const PhotoGuessingArea = ({ photoUrl, townId }) => {
         </View>
         <View style={styles.footerContainer}>
             <Text style={[styles.textField, {fontSize: 15}]}> 
-                Woah, is that a penis?&nbsp;
+                Bad picture or inappropriate?&nbsp;
             </Text>
             <Text style={styles.linkText}>Report it</Text>
             

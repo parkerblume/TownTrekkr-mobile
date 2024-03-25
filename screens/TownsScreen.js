@@ -55,7 +55,7 @@ const TownsScreen = ({ navigation, route }) => {
                 </View>
             </NavigationContainer>
             {/* I'll be a modal here for creating a new town at some point */}
-            <BottomNavbar navigation={navigation} userId={userId} /> 
+            {/* <BottomNavbar navigation={navigation} userId={userId} />  */}
         </View>
     );
 }

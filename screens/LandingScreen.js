@@ -71,12 +71,13 @@ const LandingScreen = () => {
   }
 
   return (
-    <SafeAreaView style={commonStyles.screenContainer}>
-      <View style={pageStyles.earthContainer}>
+    <View style={commonStyles.screenContainer}>
+      <SafeAreaView style={pageStyles.earthContainer} edges={['top']}>
         <View style={pageStyles.glView}>
           {isUserOnPage ? <SpinningEarth /> : ""}
         </View>
-      </View>
+      </SafeAreaView>
+
       <View style={pageStyles.boxContainer}>
         <View style={pageStyles.headerContainer}>
           <Text style={{ fontSize: 70, color: colors.dark_brown, fontFamily: 'Londrina-Solid' }}>Town </Text>
@@ -109,7 +110,7 @@ const LandingScreen = () => {
           </View>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

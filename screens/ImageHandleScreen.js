@@ -31,6 +31,7 @@ const ImageHandleScreen = ({ navigation, route }) => {
         getUserId();
     }, []);
 
+
     const handleTitleChange = (text) =>
     {
         setTitle(text);
@@ -48,6 +49,8 @@ const ImageHandleScreen = ({ navigation, route }) => {
     {
         navigation.goBack();
     }
+
+    if (!imageResult) { return null; }
 
     return (
         <View style={commonStyles.screenContainer}>

@@ -99,8 +99,8 @@ const onContextCreate = async (gl, data) => {
   renderer.setSize(width, height);
 
   // Create our camera
-  let camera = new PerspectiveCamera(75, width / height, 0.1, 1000);
-  camera.position.set(0,0,200);
+  let camera = new PerspectiveCamera(75, width / height, 0.1, 500);
+  camera.position.set(0,0,175);
 
   // Set up our scene and lights.
   const scene = new Scene();
@@ -168,7 +168,7 @@ const SpinningEarth = props => {
     const [gl, setGL] = useState(null);
   
     return (
-      <View style={{flex: 1}}>
+      <>
         {selected ? (
           <GLView style={{ flex: 1 }} 
                   onContextCreate={gl => {
@@ -180,7 +180,7 @@ const SpinningEarth = props => {
         ) : (
           <View><Text>Loading...</Text></View>
         )}
-      </View>
+      </>
     );
 };
   
