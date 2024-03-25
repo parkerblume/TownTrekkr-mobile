@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { View, TouchableOpacity, StyleSheet, Modal, Text } from 'react-native';
-import { colors } from '../styles/commonStyles';
+import { colors } from '../../styles/commonStyles';
 import { useRoute } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-import CameraOptions from './ImageHandle/CameraOptions';
+import CameraOptions from '../ImageHandle/CameraOptions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const BottomNavbar = ({ state, descriptors, navigation }) => {
@@ -48,7 +48,6 @@ const BottomNavbar = ({ state, descriptors, navigation }) => {
             <SafeAreaView style={styles.navContainer} edges={['bottom']}>
                 {state.routes.map((route, index) => {
                     const { options } = descriptors[route.key];
-                    const label = route.name;
                     const isFocused = state.index === index;
 
                     const onPress = () => {
@@ -170,18 +169,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.dark_brown,
         borderTopColor: colors.olive,
         borderTopWidth: 2,
-        // position: 'absolute',
-        // bottom: 0,
-        // left: 0,
-        // right: 0,
-        // flexDirection: 'row',
-        // justifyContent: 'space-around',
-        // alignItmes: 'center',
-        // backgroundColor: colors.dark_brown,
-        // borderTopColor: colors.olive,
-        // borderTopWidth: 2,
-        // paddingVertical: '5%',
-        // zIndex: 10,
     },
     navButton: {
         padding: 12,
