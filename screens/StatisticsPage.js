@@ -50,7 +50,20 @@ const StatisticsPage = ( {navigation} ) => {
     
       {/* Recent Guesses Area */}
       <View style={styles.recentGuessesContainer}>
-        <Text style={styles.recentGuessesTitle}>Recent Guesses</Text>
+
+        {/* Temporary button to navigate to recent guesses page for testing */}
+        <TouchableOpacity onPress={() => navigation.navigate("RecentGuesses")}>
+          <Text style={styles.recentGuessesTitle}>Recent Guesses</Text>
+        </TouchableOpacity>
+
+        {/* 4 squares that hold recent guesses */}
+        <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
+          <View style={{width: 75, height: 75, backgroundColor: 'white', opacity: 0.5, borderRadius: 10, marginRight: 10, borderWidth: 1}}></View>
+          <View style={{width: 75, height: 75, backgroundColor: 'white', opacity: 0.5, borderRadius: 10, marginRight: 10, borderWidth: 1}}></View>
+          <View style={{width: 75, height: 75, backgroundColor: 'white', opacity: 0.5, borderRadius: 10, marginRight: 10, borderWidth: 1}}></View>
+          <View style={{width: 75, height: 75, backgroundColor: 'white', opacity: 0.5, borderRadius: 10, borderWidth: 1}}></View>
+        </View>
+
       </View>
 
 
@@ -168,7 +181,7 @@ const styles = StyleSheet.create({
       textAlign: 'right',
     },
     recentGuessesContainer: {
-      marginTop: 30,
+      marginTop: 40,
     },
     recentGuessesTitle: {
       fontSize: 20,
@@ -180,7 +193,7 @@ const styles = StyleSheet.create({
       height: 350,
       backgroundColor: colors.background,
       borderRadius: 50,
-      marginTop: 150,
+      marginTop: 60,
       marginRight: 80,
       borderWidth: 1,
     },

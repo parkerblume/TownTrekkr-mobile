@@ -8,7 +8,7 @@ import { colors } from '../styles/commonStyles';
 const RecentGuessesPage = ( {navigation} ) => {
 
   const entrySeparator = () => {
-    return <View style={{ height: 1, backgroundColor: "grey", marginHorizontal: 10}} />;
+    return <View style={{ height: 1, backgroundColor: "grey" }} />;
     };
   
   const emptyArray = () => {
@@ -19,6 +19,10 @@ const RecentGuessesPage = ( {navigation} ) => {
     );
   };
 
+  // Dummy array for testing purposes
+  const arr = ["Guess 1", "Guess 2", "Guess 3", "Guess 4", "Guess 5", "Guess 6", "Guess 7", "Guess 8", "Guess 9", "Guess 10"];
+  //const arr = [];
+  
   return (
     <View style={styles.container}>
 
@@ -38,19 +42,23 @@ const RecentGuessesPage = ( {navigation} ) => {
 
       {/* Set arr to fetched array of JSON? objects from database */}
 
+      <View style={styles.listContainer} >
 
       <FlatList 
-        data={arr}
+          data={arr}
 
 
-        renderItem={({item, index}) => {
-          return <Text>{item}</Text>
-        }}
-        
-        keyExtractor={(index) => index.toString()}
-        ItemSeparatorComponent={entrySeparator}
-        ListEmptyComponent={emptyArray}
-      />
+          renderItem={({item, index}) => {
+            return <Text style={styles.item}>{item}</Text>
+          }}
+          
+          keyExtractor={(index) => index.toString()}
+          ItemSeparatorComponent={entrySeparator}
+          ListEmptyComponent={emptyArray}
+
+          
+        />
+      </View>
 
 
     </View>
@@ -91,9 +99,15 @@ const styles = StyleSheet.create({
       color: 'black',
       marginTop: 15,
     }, 
+    listContainer: {
+      flex: 1,
+      width: "90%",
+      marginTop: 20,
+    },
     item: {
-      padding: 10,
+      paddingLeft: 20,
+      paddingTop: 10,
       fontSize: 18,
-      height: 44,
+      height: 100,
     },
   });
