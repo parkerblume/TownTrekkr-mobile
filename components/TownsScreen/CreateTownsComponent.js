@@ -1,21 +1,80 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Animated, TextInput, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Animated, TextInput, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import {colors, commonStyles} from '../../styles/commonStyles';
 import { Ionicons } from '@expo/vector-icons';
+import MapComponent from './MapComponent';
+import { createTown, addUserToTown } from '../../api/authAPI';
 
 const CreateTownsComponent = ({ userId, onClose }) => {
     const [townName, setTownName] = useState('');
     const [townDescription, setTownDescription] = useState('');
+    const [mapCoordinates, setMapCoordinates] = useState(null);
+    const [createButtonDisabled, setCreateButtonDisabled] = useState(true);
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [failedToAddUser, setFailedToAddUser] = useState(false);
 
     const handleTownNameChange = (name) => 
     {
         setTownName(name);
-    }
+    };
 
     const handleTownDescriptionChange = (description) => 
     {
         setTownDescription(description);
-    }
+    };
+
+    const handleCoordinateChange = (topLeftCoord, bottomRightCoord) =>
+    {
+        if (topLeftCoord && bottomRightCoord)
+        {
+            setMapCoordinates({ topLeftCoord, bottomRightCoord });
+            setCreateButtonDisabled(false);
+        }
+        else
+        {
+            setMapCoordinates(null);
+            setCreateButtonDisabled(true);
+        }
+    };
+
+    const handleCreateTown = async () => 
+    {
+        try{
+            console.log("create town", mapCoordinates);
+            let townData = await createTown(townName, townDescription, 
+                mapCoordinates.topLeftCoord, mapCoordinates.bottomRightCoord, userId);
+        
+            if (!townData)
+            {
+                setErrorMessage('Failed to create your town... Try again!');
+                return;
+            }
+
+            console.log("townData");
+            //await addToTown(townData.id);
+        } catch (error) {
+            setErrorMessage('An error occured. Please try again later.');
+        }
+    };
+
+    const addToTown = async (townId) =>
+    {
+        try
+        {
+            let userAdded = await addUserToTown(townId, userId);
+            if (!userAdded)
+            {
+                setErrorMessage('Failed to add you to the the town...');
+                return;
+            }
+
+            setSuccessMessage('Your town has been created!');
+            setErrorMessage('');
+        } catch (error) {
+            setErrorMessage('An error occured. Please try again later.');
+        }
+    };
 
     return(
         <View style={commonStyles.screenContainer}>
@@ -29,39 +88,56 @@ const CreateTownsComponent = ({ userId, onClose }) => {
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
-            <ScrollView style={styles.contentContainer} scrollEnabled={true}>
-                <View style={styles.mapContainer}>
+            <KeyboardAvoidingView style={styles.keyboardAvoidingContainer} behavior={Platform.OS === 'ios' ? 'padding': 'height'}>
+                <ScrollView style={styles.contentContainer} scrollEnabled={true}>
+                    <View style={styles.mapContainer}>
+                        <MapComponent onCoordinateChange={handleCoordinateChange}/>
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <View style={styles.inputField}>
+                            <Text style={[styles.label]}>Town Name</Text>
+                            <TextInput 
+                                style={styles.input}
+                                onChangeText={handleTownNameChange}
+                                value={townName}
+                            />
+                        </View>
 
-                </View>
-                <View style={styles.inputContainer}>
-                    <View style={styles.inputField}>
-                        <Text style={[styles.label]}>Town Name</Text>
-                        <TextInput 
-                            style={styles.input}
-                            onChangeText={handleTownNameChange}
-                            value={townName}
-                        />
+                        <View style={styles.inputField}>
+                            <Text style={[styles.label]}>Town Description</Text>
+                            <TextInput 
+                                style={styles.input}
+                                onChangeText={handleTownDescriptionChange}
+                                maxLength={64}
+                                value={townDescription}
+                                placeholder={'Just a quick little description of you town\'s area'}
+                            />
+                        </View>
+                    </View>
+                    <View style={styles.footerButtonContainer}>
+                        <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={onClose}>
+                            <Text style={styles.buttonText}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                                style={[styles.button, 
+                                    (!mapCoordinates || townName === '' || townDescription === '') && styles.disabledButton]} 
+                                disabled={(!mapCoordinates || townName === '' || townDescription === '')} 
+                                onPress={handleCreateTown}
+                        >
+                            <Text style={styles.buttonText}>Create Town</Text>
+                        </TouchableOpacity>
                     </View>
 
-                    <View style={styles.inputField}>
-                        <Text style={[styles.label]}>Town Description</Text>
-                        <TextInput 
-                            style={styles.input}
-                            onChangeText={handleTownDescriptionChange}
-                            value={townDescription}
-                            placeholder={'Just a quick little description of you town\'s area'}
-                        />
+                    <View style={styles.messageContainer}>
+                        {successMessage !== '' && (
+                            <Text style={[styles.textField, styles.successMessage]}>{successMessage}</Text>
+                        )}
+                        {errorMessage !== '' && (
+                            <Text style={[styles.textField, styles.errorMessage]}>{errorMessage}</Text>
+                        )}
                     </View>
-                </View>
-                <View style={styles.footerButtonContainer}>
-                    <TouchableOpacity style={styles.button} >
-                        <Text style={styles.buttonText}>Cancel</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.button, styles.cancelButton]} >
-                        <Text style={styles.buttonText}>Create Town</Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </View>
     );
 
@@ -77,7 +153,8 @@ const styles = StyleSheet.create({
         borderBottomColor: colors.olive,
         borderBottomWidth: 5,
         paddingVertical: 10,
-        paddingHorizontal: '2%'
+        paddingLeft:'2%',
+        paddingRight:'2%'
     },
     headerTextContainer: {
         width: '75%',
@@ -93,6 +170,10 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%'
     },
+    keyboardAvoidingContainer: {
+        flex: 1,
+        width: '100%'
+    },
     mapContainer: {
         width: '100%',
         height: 300,
@@ -105,6 +186,18 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 10,
         shadowOffset: { width: 0, height: 0 }, 
+        backgroundColor: colors.olive,
+    },
+    messageContainer: {
+        width: '100%',
+        alignItems: 'center',
+        marginTop: '5%'
+    },
+    successMessage: {
+        color: colors.olive,
+    },
+    errorMessage: {
+        color: colors.dark_brown,
     },
     textField: {
         fontFamily: 'Londrina-Solid',
@@ -136,7 +229,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     button: {
-        backgroundColor: colors.olive,
+        backgroundColor: colors.dark_brown,
         paddingHorizontal: 20,
         paddingVertical: 10,
         borderRadius: 5,
@@ -146,7 +239,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     cancelButton: {
-        backgroundColor: colors.dark_brown,
+        backgroundColor: colors.olive,
+    },
+    disabledButton: {
+        opacity: 0.5,
     },
     buttonText: {
         color: colors.tan,

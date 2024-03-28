@@ -12,7 +12,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const TownsScreen = ({ navigation, route }) => {
     const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
-    const userId = route.params;
+    const userId = route.params.userId;
 
     const toggleCreateModal = () => {
         setIsCreateModalVisible(!isCreateModalVisible);
