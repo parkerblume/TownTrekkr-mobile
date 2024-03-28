@@ -34,14 +34,14 @@ const StatisticsPage = ( {navigation} ) => {
             <Text style={styles.townStatStatName}>Percent Perfect:</Text>
             <Text style={styles.townStatStatName}>Perfect Guesses:</Text>
             <Text style={styles.townStatStatName}>Total Guesses:</Text>
-            <Text style={styles.townStatStatName}>Average Distance:</Text>
+            <Text style={styles.townStatStatName}>Average Score:</Text>
           </View>
           {/* Col 2 */}
           <View>
             <Text style={styles.townStatStatValue}>8.00%</Text>
             <Text style={styles.townStatStatValue}>4</Text>
             <Text style={styles.townStatStatValue}>50</Text>
-            <Text style={styles.townStatStatValue}>500m</Text>
+            <Text style={styles.townStatStatValue}>500</Text>
           </View>
         </View>
 
@@ -90,8 +90,8 @@ const StatisticsPage = ( {navigation} ) => {
         <View style={styles.lifetimeRow2Container}>
           {/* Col 1 */}
           <View style={{marginRight: 40}}>
-            <Text style={styles.lifetimeStatValue}>28m</Text>
-            <Text style={styles.lifetimeStatTitle}>Average Distance</Text>
+            <Text style={styles.lifetimeStatValue}>28</Text>
+            <Text style={styles.lifetimeStatTitle}>Average Score</Text>
           </View>
           {/* Col 2 */}
           <View>
