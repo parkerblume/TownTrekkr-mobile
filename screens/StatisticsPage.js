@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
       flexWrap: 'nowrap',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      backgroundColor: colors.tan,
+      backgroundColor: colors.background,
     },
     backButtonContainer: {
       flexDirection: 'row',
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     townStatContainer: {
       width: 375,
       height: 200,
-      backgroundColor: colors.background,
+      backgroundColor: colors.tan,
       borderRadius: 50,
       marginTop: 10,
       marginLeft: 105,
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     lifetimeStatContainer: {
       width: 350,
       height: 350,
-      backgroundColor: colors.background,
+      backgroundColor: colors.tan,
       borderRadius: 50,
       marginTop: 60,
       marginRight: 80,

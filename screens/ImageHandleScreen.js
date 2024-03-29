@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Image, SafeAreaView } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Image, SafeAreaView, TextInput } from 'react-native';
 import {commonStyles, colors} from '../styles/commonStyles';
 import CameraOptions from '../components/ImageHandle/CameraOptions';
-import { TextInput } from 'react-native-gesture-handler';
 import { postUpload } from '../api/postAPI';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
