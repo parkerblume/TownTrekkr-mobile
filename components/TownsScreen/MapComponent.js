@@ -23,9 +23,9 @@ const MapComponent = ({ onCoordinateChange }) => {
             setUserLocation(location.coords);
 
             // pre-render a region on mount
-            const { latitude, longitude } = location.coords;
-            setTopLeftCoord({ latitude: latitude + 0.005, longitude: longitude - 0.005 });
-            setBottomRightCoord({ latitude: latitude - 0.005, longitude: longitude + 0.005 });
+            // const { latitude, longitude } = location.coords;
+            // setTopLeftCoord({ latitude: latitude + 0.005, longitude: longitude - 0.005 });
+            // setBottomRightCoord({ latitude: latitude - 0.005, longitude: longitude + 0.005 });
           }
         };
     
@@ -161,7 +161,7 @@ const MapComponent = ({ onCoordinateChange }) => {
                         pinColor={colors.tan}
                         draggable
                         onDragEnd={(event) => handleMarkerDrag(event.nativeEvent.coordinate, "bottomRightCorner")} />}
-                {polygonCoords && 
+                {polygonCoords.length > 1 && 
                     <Polygon
                     coordinates={polygonCoords}
                     fillColor={colors.fill_transparancy_green}

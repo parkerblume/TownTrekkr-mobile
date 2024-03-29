@@ -78,18 +78,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: '12%',
-        borderBottomColor: colors.olive,
-        borderBottomWidth: 5,
     },
     headerTextContainer: {
         width: '75%',
         justifyContent: 'flex-end',
         alignItems: 'baseline',
-        paddingLeft: '5%',
+        paddingLeft: '2%',
     },
     headerButtonContainer: {
         width: '25%',
-        paddingRight: '5%'
+        paddingRight: '2%'
     },
     createButton: {
         alignItems: 'center',

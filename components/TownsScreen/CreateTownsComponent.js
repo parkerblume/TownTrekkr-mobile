@@ -12,7 +12,6 @@ const CreateTownsComponent = ({ userId, onClose }) => {
     const [createButtonDisabled, setCreateButtonDisabled] = useState(true);
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [failedToAddUser, setFailedToAddUser] = useState(false);
 
     const handleTownNameChange = (name) => 
     {
@@ -40,8 +39,8 @@ const CreateTownsComponent = ({ userId, onClose }) => {
 
     const handleCreateTown = async () => 
     {
+        setErrorMessage('');
         try{
-            console.log("create town", mapCoordinates);
             let townData = await createTown(townName, townDescription, 
                 mapCoordinates.topLeftCoord, mapCoordinates.bottomRightCoord, userId);
         
@@ -51,26 +50,8 @@ const CreateTownsComponent = ({ userId, onClose }) => {
                 return;
             }
 
-            console.log("townData");
-            //await addToTown(townData.id);
-        } catch (error) {
-            setErrorMessage('An error occured. Please try again later.');
-        }
-    };
-
-    const addToTown = async (townId) =>
-    {
-        try
-        {
-            let userAdded = await addUserToTown(townId, userId);
-            if (!userAdded)
-            {
-                setErrorMessage('Failed to add you to the the town...');
-                return;
-            }
-
+            setCreateButtonDisabled(true);
             setSuccessMessage('Your town has been created!');
-            setErrorMessage('');
         } catch (error) {
             setErrorMessage('An error occured. Please try again later.');
         }
@@ -116,12 +97,14 @@ const CreateTownsComponent = ({ userId, onClose }) => {
                     </View>
                     <View style={styles.footerButtonContainer}>
                         <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={onClose}>
-                            <Text style={styles.buttonText}>Cancel</Text>
+                            <Text style={styles.buttonText}>
+                                {successMessage !== '' ? 'Leave Screen' : 'Cancel'}
+                            </Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
                                 style={[styles.button, 
-                                    (!mapCoordinates || townName === '' || townDescription === '') && styles.disabledButton]} 
-                                disabled={(!mapCoordinates || townName === '' || townDescription === '')} 
+                                    (createButtonDisabled || !mapCoordinates || townName === '' || townDescription === '') && styles.disabledButton]} 
+                                disabled={(createButtonDisabled || !mapCoordinates || townName === '' || townDescription === '')} 
                                 onPress={handleCreateTown}
                         >
                             <Text style={styles.buttonText}>Create Town</Text>
@@ -153,7 +136,7 @@ const styles = StyleSheet.create({
         borderBottomColor: colors.olive,
         borderBottomWidth: 5,
         paddingVertical: 10,
-        paddingLeft:'2%',
+        paddingLeft:"2%",
         paddingRight:'2%'
     },
     headerTextContainer: {

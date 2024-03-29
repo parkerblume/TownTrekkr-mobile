@@ -1,36 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Image, SafeAreaView } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Image, SafeAreaView, TextInput } from 'react-native';
 import {commonStyles, colors} from '../styles/commonStyles';
 import CameraOptions from '../components/ImageHandle/CameraOptions';
-import { TextInput } from 'react-native-gesture-handler';
 import { postUpload } from '../api/postAPI';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ImageHandleScreen = ({ navigation, route }) => {
-    const { imageResult, location } = route.params;
-    const [userId, setUserId] = useState(null);
+    const { imageResult, location, userId } = route.params;
     const [title, setTitle] = useState('');
     const [towns, setTowns] = useState(null); // eventually populate towns
-
-    useEffect(() => {
-        const getUserId = async () =>
-        {
-          try {
-            const storedUserId = await AsyncStorage.getItem('userId');
-            if (storedUserId !== null)
-            {
-              setUserId(storedUserId);
-              console.log(storedUserId);
-            }
-          } catch (error)
-          {
-            console.log("Error retrieving userId: ", error);
-          }
-        }
-    
-        getUserId();
-    }, []);
-
 
     const handleTitleChange = (text) =>
     {

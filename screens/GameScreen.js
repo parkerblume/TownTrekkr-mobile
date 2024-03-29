@@ -1,40 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import PhotoGuessingArea from '../components/GameScreen/PhotoGuessingArea';
 import {colors, commonStyles} from '../styles/commonStyles';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { MaterialIcons } from '@expo/vector-icons';
+import GameComponent from '../components/GameScreen/GameComponent';
 
-const GameScreen = ({ navigation }) => {
-  const [currentTown, setCurrentTown] = useState(null); // set the town through route.params when Community screen is implemented.
-  const [photoUri, setPhotoUri] = useState(null);
+const GameScreen = ({ navigation, route }) => {
+  const userId = route.params?.userId;
+  const currentTown = route.params?.currentTown; // set the town through route.params when Community screen is implemented.
 
   return (
     <View style={commonStyles.screenContainer}>
-        <SafeAreaView style={styles.gameScreenContainer} edges={['top']}>
-            <View style={styles.townHeader}>
-                <Text style={styles.headerText}>
-                    Town Name
+      {currentTown ? 
+        (<GameComponent town={currentTown} />)
+        : 
+        (
+          <SafeAreaView style={styles.townHeader} edges={['top']}>
+            <View style={styles.infoContainer}>
+              <Text style={styles.headerText}>
+                Hold on!
+              </Text>
+              <MaterialIcons name="nordic-walking" size={100} color={colors.dark_brown} />
+              <View style={styles.textContainer}>
+                <Text style={styles.textField}>
+                  You're currently not trekk'n in a town...
                 </Text>
-                <TouchableOpacity style={styles.townButton}>
-                    {/* <Text>Switch Towns?</Text> */}
+                <TouchableOpacity style={styles.townButton} onPress={() => navigation.navigate("TownsScreen", { userId })}>
+                  <Text style={styles.buttonText}>Tap here to go find a town!</Text>
                 </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.gameContainer}>
-            <PhotoGuessingArea
-                photoUrl={photoUri ? photoUri : null}
-                townId={currentTown ? currentTown.id : null}
-            />
-            </View>
-      {/* ) : (
-        <Text>Loading...</Text>
-      )} */}
-      {/* {!currentTown && (
-        <TouchableOpacity onPress={() => navigation.navigate('TownsScreen')}>
-          <Text style={styles.link}>Go find some towns</Text>
-        </TouchableOpacity>
-      )} */}
-      </SafeAreaView>
-      {/* <BottomNavbar navigation={navigation} userId={userId} /> */}
+          </SafeAreaView>
+        )
+      }
     </View>
   );
 };
@@ -46,17 +44,33 @@ const styles = StyleSheet.create({
       justifyContent: 'center'
     },
     townHeader: {
-      marginTop:10,
-      paddingTop: '10%',
-      alignItems: 'flex-end',
+      alignItems: 'center',
       justifyContent: 'center',
-      width: 350,
-      marginBottom: 10,
-      flexDirection: 'row',
+      width: '100%',
+      flexDirection: 'column',
     },
     headerText: {
-      fontFamily: 'Londrina-Solid',
+      fontFamily: 'Londrina-Solid-Bold',
       fontSize: 30,
+      color: colors.dark_brown
+    },
+    infoContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: '20%',
+      padding: '10%',
+      borderColor: colors.olive,
+      borderTopWidth: 3,
+      borderBottomWidth: 3,
+      shadowColor: colors.dark_brown,
+      shadowOpacity: 0.8,
+      shadowRadius: 10,
+      shadowOffset: { width: 0, height: 0 }, 
+      backgroundColor: colors.olive,
+    },
+    textField: {
+      fontFamily: 'Londrina-Solid',
+      fontSize: 18,
     },
     townButton: {
       backgroundColor: colors.olive,
@@ -65,10 +79,9 @@ const styles = StyleSheet.create({
       height: 30,
       borderRadius: 10,
     },
-    gameContainer: {
-      flex: 1,
-      justifyContent: 'flex-start',
-      alignItems: 'center',
+    buttonText: {
+      fontFamily: 'Londrina-Solid-Light',
+      fontSize: 15
     }
 });
 

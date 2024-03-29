@@ -33,7 +33,10 @@ const LoginPage = ( {navigation, onLogin} ) => {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height' }
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+    >
 
       <StatusBar backgroundColor='#abc4ab' />
 
@@ -86,7 +89,7 @@ const LoginPage = ( {navigation, onLogin} ) => {
         </Text>
       </TouchableOpacity>
 
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
