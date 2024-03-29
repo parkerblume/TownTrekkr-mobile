@@ -8,6 +8,12 @@ import * as Font from 'expo-font';
 import LandingScreen from './screens/LandingScreen';
 import LoginPage from './screens/LoginPage.js';
 import RegisterPage from './screens/RegisterPage.js';
+<<<<<<< HEAD
+=======
+import LandingPage from './screens/LandingPage.js';
+import StatisticsPage from './screens/StatisticsPage.js';
+import RecentGuessesPage from './screens/RecentGuessesPage.js';
+>>>>>>> mobile-david
 
 const Stack = createStackNavigator();
 
@@ -35,19 +41,12 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName='Landing' 
-        screenOptions={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS
-        }}>
-        <Stack.Group>
-          <Stack.Screen name="Landing" component={LandingScreen} />
-        </Stack.Group>
-        <Stack.Group screenOptions={{'presentation': 'modal'}}>
-          <Stack.Screen name="Login" component={LoginPage}/>
-          <Stack.Screen name="Register" component={RegisterPage}/>
-        </Stack.Group>
+      <Stack.Navigator initialRouteName="Statistics" screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Login" component={LoginPage}/>
+        <Stack.Screen name="Register" component={RegisterPage}/>
+        <Stack.Screen name="Landing" component={LandingPage}/>
+        <Stack.Screen name="Statistics" component={StatisticsPage}/>
+        <Stack.Screen name="RecentGuesses" component={RecentGuessesPage}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
