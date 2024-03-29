@@ -27,10 +27,10 @@ const BottomNavbar = ({ state, descriptors, navigation }) => {
             
             if (storedUserId !== null) { setUserId(storedUserId); }
             if (storedUsername !== null) { setUsername(storedUsername) }
-    } catch (error)
-    {
-        console.log("Error retrieving userId: ", error);
-    }
+        } catch (error)
+        {
+            console.log("Error retrieving userId: ", error);
+        }
     }
 
     const toggleCameraOptions = () => {
