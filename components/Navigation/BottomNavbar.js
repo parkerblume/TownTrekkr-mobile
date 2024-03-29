@@ -9,27 +9,29 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const BottomNavbar = ({ state, descriptors, navigation }) => {
     const [userId, setUserId] = useState(null);
+    const [username, setUsername] = useState(null);
+
     const [isCameraOptionsVisible, setIsCameraOptionsVisible] = useState(false);
     // const currentRoute = state.routes[state.index].name;
     // const isActiveScreen = (screen) => currentRoute.name === screen;
 
     useEffect(() => {
         getUserId();
-      }, []);
-    
-      const getUserId = async () =>
-      {
+    }, []);
+
+    const getUserId = async () =>
+    {
         try {
-          const storedUserId = await AsyncStorage.getItem('userId');
-          if (storedUserId !== null)
-          {
-            setUserId(storedUserId);
-          }
-        } catch (error)
-        {
-          console.log("Error retrieving userId: ", error);
-        }
-      }
+            const storedUserId = await AsyncStorage.getItem('userId');
+            const storedUsername = await AsyncStorage.getItem('username');
+            
+            if (storedUserId !== null) { setUserId(storedUserId); }
+            if (storedUsername !== null) { setUsername(storedUsername) }
+    } catch (error)
+    {
+        console.log("Error retrieving userId: ", error);
+    }
+    }
 
     const toggleCameraOptions = () => {
         setIsCameraOptionsVisible(!isCameraOptionsVisible);

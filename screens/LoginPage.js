@@ -28,6 +28,7 @@ const LoginPage = ( {navigation, onLogin} ) => {
     {
       const userId = data.id;
       await AsyncStorage.setItem('userId', userId);
+      await AsyncStorage.setItem('username', userId)
       onLogin();
     }
   }

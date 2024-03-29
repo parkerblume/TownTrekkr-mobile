@@ -38,7 +38,7 @@ export const signup = async (email, password, username) =>
   }
 };
 
-export const createTown = async (name, description, topLeftCoord, botRightCoord, creatingUser_id) =>
+export const createTown = async (name, description, topLeftCoord, botRightCoord, creatingUser_id, creatingUsername) =>
 {
   try {
     const sendingData =
@@ -47,7 +47,8 @@ export const createTown = async (name, description, topLeftCoord, botRightCoord,
       description,
       topLeftCoord,
       botRightCoord,
-      creatingUser_id
+      creatingUser_id,
+      creatingUsername
     };
 
     const response = await fetch(`${BASE_URL}/createtown`, {
