@@ -5,7 +5,8 @@ const colors = {
     dark_brown: '#6D4C3D',
     dark_green: '#727D71',
     tan: '#DCC9B6',
-    olive: '#A39171'
+    olive: '#A39171',
+    fill_transparancy_green: 'rgba(114, 125, 113, 0.5)'
 };
 
 const commonStyles = StyleSheet.create({
@@ -14,6 +15,10 @@ const commonStyles = StyleSheet.create({
         alignItems: 'center', 
         backgroundColor: colors.background,
         width: '100%'
+    },
+    contentContainer: {
+        backgroundColor: colors.background,
+        flex: 1,
     },
 });
 

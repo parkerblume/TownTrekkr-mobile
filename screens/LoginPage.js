@@ -3,14 +3,16 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
          KeyboardAvoidingView, Keyboard } from 'react-native';
 import { colors } from '../styles/commonStyles';
+import { login } from '../api/authAPI.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const LoginPage = ( {navigation} ) => {
+const LoginPage = ( {navigation, onLogin} ) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
 
-  const loginHandler = () => {
+  const loginHandler = async () => {
     if (email === '') {
       alert('Please enter your email');
       return;
@@ -20,7 +22,14 @@ const LoginPage = ( {navigation} ) => {
       return;
     }
 
-    navigation.navigate("Landing"); 
+    let data = await login(email, password);
+    console.log(data);
+    if (data)
+    {
+      const userId = data.id;
+      await AsyncStorage.setItem('userId', userId);
+      onLogin();
+    }
   }
 
   return (
@@ -90,7 +99,7 @@ const styles = StyleSheet.create({
       flexWrap: 'nowrap',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      backgroundColor: colors.background,
+      backgroundColor: colors.tan,
     },
     logo: {
       width: 200,

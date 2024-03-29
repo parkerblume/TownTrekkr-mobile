@@ -26,8 +26,6 @@ const RecentGuessesPage = ( {navigation} ) => {
   return (
     <View style={styles.container}>
 
-      <StatusBar backgroundColor={colors.tan} />
-
 
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("Statistics")}>
         <Text style={styles.backButtonText}>&lt;</Text>

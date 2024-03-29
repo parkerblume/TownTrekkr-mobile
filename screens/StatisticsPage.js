@@ -11,8 +11,6 @@ const StatisticsPage = ( {navigation} ) => {
   return (
     <View style={styles.container}>
 
-      <StatusBar backgroundColor={colors.tan} />
-
 
       <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("Login")}>
         <Text style={styles.backButtonText}>&lt;</Text>
@@ -52,7 +50,8 @@ const StatisticsPage = ( {navigation} ) => {
       <View style={styles.recentGuessesContainer}>
 
         {/* Temporary button to navigate to recent guesses page for testing */}
-        <TouchableOpacity onPress={() => navigation.navigate("RecentGuesses")}>
+        {/* Look at how i did TownsScreen CreateTownComponent for the Modal, to open up recent guesses :) */}
+        <TouchableOpacity >
           <Text style={styles.recentGuessesTitle}>Recent Guesses</Text>
         </TouchableOpacity>
 

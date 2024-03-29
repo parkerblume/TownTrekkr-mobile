@@ -15,7 +15,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPList": {
+        "NSPhotoLibraryUsageDescription": "Your app uses photos"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -30,7 +33,10 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/Londrina_Solid/LondrinaSolid-Regular.ttf"]
+          "fonts": [
+            "node_modules/@expo-google-fonts/londrina-solid/LondrinaSolid_400Regular.ttf",
+            "node_modules/@expo-google-fonts/londrina-solid/LondrinaSolid_300Light.ttf",
+            "node_modules/@expo-google-fonts/londrina-solid/LondrinaSolid_900Black.ttf"]
         }
       ]
     ]
