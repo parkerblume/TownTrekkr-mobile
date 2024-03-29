@@ -24,7 +24,7 @@ export const signup = async (email, password, username) =>
 {
   try {
     const response = await fetch(`${BASE_URL}/signup`, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
