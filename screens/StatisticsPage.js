@@ -11,10 +11,11 @@ const StatisticsPage = ( {navigation} ) => {
   return (
     <View style={styles.container}>
 
+      <StatusBar backgroundColor={colors.background} />
 
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("Login")}>
+      {/* <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("Login")}>
         <Text style={styles.backButtonText}>&lt;</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       
       {/* Town Statistics Area */}
@@ -140,8 +141,8 @@ const styles = StyleSheet.create({
       height: 200,
       backgroundColor: colors.tan,
       borderRadius: 50,
-      marginTop: 10,
-      marginLeft: 105,
+      marginTop: '15%',
+      marginLeft: '30%',
       borderWidth: 1,
     },
     townStatTitleContainer: {
@@ -149,42 +150,40 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       alignContent: 'center',
-      marginRight: 45,
-      marginTop: 15,
+      marginRight: '15%',
+      marginTop: '6%',
     },
     townStatDropdownTitle: {
       fontSize: 36,
-      fontWeight: 'semibold',
-      fontStyle: 'italic',
+      fontFamily: 'Londrina-Solid',
     },
     townStatStatisticsTitle: {
       fontSize: 36,
-      fontWeight: 'semibold',
-      fontStyle: 'italic',
+      fontFamily: 'Londrina-Solid',
     },
     townStatRowContainer: {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
       alignContent: 'center',
-      marginTop: 10,
-      marginRight: 45,
+      marginTop: '3%',
+      marginRight: '16%',
     },
     townStatStatName: {
       fontSize: 24,
-      fontWeight: 'semibold',
+      fontFamily: 'Londrina-Solid',
     },
     townStatStatValue: {
       fontSize: 24,
-      fontWeight: 'bold',
       textAlign: 'right',
+      fontFamily: 'Londrina-Solid-Light',
     },
     recentGuessesContainer: {
-      marginTop: 40,
+      marginTop: '10%',
     },
     recentGuessesTitle: {
-      fontSize: 20,
-      fontWeight: 'semibold',
+      fontSize: 22,
+      fontFamily: 'Londrina-Solid',
       textAlign: 'center',
     },
     lifetimeStatContainer: {
@@ -192,8 +191,8 @@ const styles = StyleSheet.create({
       height: 350,
       backgroundColor: colors.tan,
       borderRadius: 50,
-      marginTop: 60,
-      marginRight: 80,
+      marginTop: '15%',
+      marginRight: '25%',
       borderWidth: 1,
     },
     lifetimeRow1Container: {
@@ -201,7 +200,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       alignContent: 'center',
-      marginTop: 30,
+      marginTop: '10%',
     },
     lifetimeRow2Container: {
       flexDirection: 'row',
@@ -211,18 +210,17 @@ const styles = StyleSheet.create({
       marginTop: 30,
     },
     lifetimeStatTitle: {
-      fontSize: 14,
-      fontWeight: 'semibold',
+      fontSize: 16,
+      fontFamily: 'Londrina-Solid'
     },
     lifetimeStatValue: {
-      fontSize: 40,
-      fontWeight: 'bold',
+      fontSize: 44,
+      fontFamily: 'Londrina-Solid-Light'
     },
     lifetimeTitle: {
       fontSize: 38,
-      fontWeight: 'semibold',
-      fontStyle: 'italic',
-      marginLeft: 55,
-      marginTop: 25,
+      fontFamily: 'Londrina-Solid',
+      marginLeft: '20%',
+      marginTop: '10%',
     },
   });
