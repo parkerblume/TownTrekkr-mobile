@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
-         KeyboardAvoidingView, Keyboard } from 'react-native';
+         KeyboardAvoidingView, Keyboard, Platform } from 'react-native';
 import { colors } from '../styles/commonStyles';
 import { login } from '../api/authAPI.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -28,12 +28,16 @@ const LoginPage = ( {navigation, onLogin} ) => {
     {
       const userId = data.id;
       await AsyncStorage.setItem('userId', userId);
+      await AsyncStorage.setItem('username', userId)
       onLogin();
     }
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height' }
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+    >
 
       <StatusBar backgroundColor={colors.tan}/>
       {/* logo picture */}
@@ -85,7 +89,7 @@ const LoginPage = ( {navigation, onLogin} ) => {
         </Text>
       </TouchableOpacity>
 
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -21,7 +21,7 @@ export default function App() {
 
   useEffect(() => {
     console.log("Testing, just in case");
-    if (savedLogin) { handleLogin() }
+    //if (savedLogin) { handleLogin() }
   }, []);
 
   // filler for now so I don't have to keep logging in.
@@ -49,9 +49,9 @@ export default function App() {
   }
 
   return (
-      <NavigationContainer>
-        { !isAuthenticated ? <AppNavigation /> : <AuthNavigation /> }
-      </NavigationContainer>
+    <NavigationContainer>
+      { isAuthenticated ? <AppNavigation /> : <AuthNavigation handleLogin={handleLogin} /> }
+    </NavigationContainer>
   );
 }
 

@@ -6,7 +6,7 @@ import RegisterPage from '../../screens/RegisterPage.js';
 
 const Stack = createStackNavigator();
 
-const AuthNavigation = () => (
+const AuthNavigation = ({ handleLogin }) => (
     <Stack.Navigator
     initialRouteName='Landing' 
     screenOptions={{
@@ -18,7 +18,7 @@ const AuthNavigation = () => (
       </Stack.Group>
       <Stack.Group screenOptions={{'presentation': 'modal'}}>
         <Stack.Screen name="Login">
-          {(props) => <LoginPage {...props} onLogin= {handleLogin} />}
+          {(props) => <LoginPage {...props} onLogin={handleLogin} />}
         </Stack.Screen>
         <Stack.Screen name="Register" component={RegisterPage}/>
       </Stack.Group>

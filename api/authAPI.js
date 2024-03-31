@@ -24,7 +24,7 @@ export const signup = async (email, password, username) =>
 {
   try {
     const response = await fetch(`${BASE_URL}/signup`, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -38,7 +38,7 @@ export const signup = async (email, password, username) =>
   }
 };
 
-export const createTown = async (name, description, topLeftCoord, botRightCoord, creatingUser_id) =>
+export const createTown = async (name, description, topLeftCoord, botRightCoord, creatingUser_id, creatingUsername) =>
 {
   try {
     const sendingData =
@@ -47,9 +47,9 @@ export const createTown = async (name, description, topLeftCoord, botRightCoord,
       description,
       topLeftCoord,
       botRightCoord,
-      creatingUser_id
+      creatingUser_id,
+      creatingUsername
     };
-    console.log(sendingData);
 
     const response = await fetch(`${BASE_URL}/createtown`, {
       method: 'POST',
@@ -59,8 +59,8 @@ export const createTown = async (name, description, topLeftCoord, botRightCoord,
       body: JSON.stringify(sendingData),
     });
     const data = await response.json();
-
-    if (data.ok) { return data; }
+    console.log(data.town);
+    if (data.town) { return true; }
     else { return null; }
 
   } catch (error) {

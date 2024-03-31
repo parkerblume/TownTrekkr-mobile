@@ -9,37 +9,36 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const BottomNavbar = ({ state, descriptors, navigation }) => {
     const [userId, setUserId] = useState(null);
+    const [username, setUsername] = useState(null);
+
     const [isCameraOptionsVisible, setIsCameraOptionsVisible] = useState(false);
     // const currentRoute = state.routes[state.index].name;
     // const isActiveScreen = (screen) => currentRoute.name === screen;
 
     useEffect(() => {
-        console.log("Testing, just in case");
         getUserId();
-      }, []);
-    
-      const getUserId = async () =>
-      {
+    }, []);
+
+    const getUserId = async () =>
+    {
         try {
-          const storedUserId = await AsyncStorage.getItem('userId');
-          if (storedUserId !== null)
-          {
-            setUserId(storedUserId);
-            console.log(storedUserId);
-          }
+            const storedUserId = await AsyncStorage.getItem('userId');
+            const storedUsername = await AsyncStorage.getItem('username');
+            
+            if (storedUserId !== null) { setUserId(storedUserId); }
+            if (storedUsername !== null) { setUsername(storedUsername) }
         } catch (error)
         {
-          console.log("Error retrieving userId: ", error);
+            console.log("Error retrieving userId: ", error);
         }
-      }
+    }
 
     const toggleCameraOptions = () => {
         setIsCameraOptionsVisible(!isCameraOptionsVisible);
     };
     
     const handleImageConfirm = (imageResult, location) => {
-        console.log(imageResult);
-        navigation.navigate('ImageHandle', { imageResult, location });
+        navigation.navigate('ImageHandle', { imageResult, location, userId });
         setIsCameraOptionsVisible(false);
     };
 
@@ -120,39 +119,6 @@ const BottomNavbar = ({ state, descriptors, navigation }) => {
                         </TouchableOpacity>
                     );
                 })}
-                {/* <TouchableOpacity
-                    style={[styles.navButton, isActiveScreen('GameScreen') && styles.activeButton]}
-                    onPress={() => handleNavigation('GameScreen')} 
-                >
-                    <FontAwesome5 name="map-marked-alt" size={24} color={colors.tan} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[styles.navButton, isActiveScreen('StatsScreen') && styles.activeButton]}
-                    // onPress={() => handleNavigation('StatsScreen')} 
-                >
-                    <Ionicons name="stats-chart-outline" size={24} color={colors.tan} />
-                </TouchableOpacity>
-                <View style={styles.cameraContainer}>
-                    <TouchableOpacity
-                        style={styles.cameraButton}
-                        onPress={toggleCameraOptions} 
-                    >
-                        <FontAwesome5 name="camera-retro" size={30} color={colors.tan} />
-                    </TouchableOpacity>
-                </View>
-                <TouchableOpacity
-                    style={[styles.navButton, isActiveScreen('TownsScreen') && styles.activeButton]}
-                    onPress={() => handleNavigation('TownsScreen')} 
-                >
-                    <MaterialCommunityIcons name="home-group" size={24} color={colors.tan} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[styles.navButton, isActiveScreen('ProfileScreen') && styles.activeButton]}
-                //onPress={() => handleNavigation('ProfileScreen')} 
-                >
-                    <MaterialIcons name="nordic-walking" size={24} color={colors.tan} />
-                </TouchableOpacity> */}
-
             </SafeAreaView>
 
             { isCameraOptionsVisible && <CameraOptions isVisible={isCameraOptionsVisible} onClose={toggleCameraOptions} onImageConfirm={handleImageConfirm} /> }
