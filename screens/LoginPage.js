@@ -39,8 +39,7 @@ const LoginPage = ( {navigation, onLogin} ) => {
       keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
     >
 
-      <StatusBar backgroundColor='#abc4ab' />
-
+      <StatusBar backgroundColor={colors.tan}/>
       {/* logo picture */}
       <Image style={styles.logo} source={require('../assets/earth.png')} fadeDuration={2000}/>
 

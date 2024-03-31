@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useEffect, useState } from 'react';
-import { View, Text, Button, SafeAreaView, Pressable } from 'react-native';
+import { View, Text, Button, SafeAreaView, Pressable, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { colors, commonStyles } from '../styles/commonStyles';
 import { pageStyles } from '../styles/landingPageStyles';
@@ -72,6 +72,8 @@ const LandingScreen = () => {
 
   return (
     <View style={commonStyles.screenContainer}>
+      <StatusBar backgroundColor={colors.background}/>
+
       <SafeAreaView style={pageStyles.earthContainer} edges={['top']}>
         <View style={pageStyles.glView}>
           {isUserOnPage ? <SpinningEarth /> : ""}

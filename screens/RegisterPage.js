@@ -67,18 +67,13 @@ const RegisterPage = ( {navigation} ) => {
       keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
     >
       <ScrollView contentContainerStyle={styles.scrollViewContainer} scrollEnabled={showPassReqs} >
-        <StatusBar backgroundColor='#abc4ab' />
+        <StatusBar backgroundColor={colors.tan} />
 
         
         {/* title text */}
         <Text style={[styles.title]}>Get Started</Text>
         <Text style={styles.subTitle}>by creating a free account</Text>
         
-
-
-        {/* TODO: Add icon picture of people */}
-
-
 
         {/* input fields */}
         <TextInput
@@ -134,8 +129,6 @@ const RegisterPage = ( {navigation} ) => {
         </View>
 
 
-        {/* TODO: Maybe add keyboard avoiding behavior */}
-
 
         {/* signup button */}      
         <TouchableOpacity style={styles.nextButton} onPress={signupHandler}>
@@ -172,12 +165,6 @@ const styles = StyleSheet.create({
       flexGrow: 1,
       justifyContent: 'flex-start',
       alignItems: 'center',
-    },
-    logo: {
-      width: 200,
-      height: 200,
-      marginTop: 50,
-      borderRadius: 100,
     },
     title: {
       fontFamily: 'Londrina-Solid',
