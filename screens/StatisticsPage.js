@@ -1,8 +1,9 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
-         KeyboardAvoidingView, Keyboard } from 'react-native';
+         KeyboardAvoidingView, Keyboard, FlatList } from 'react-native';
 import { colors } from '../styles/commonStyles';
+import GuessBox from '../components/StatisticsScreen/GuessBox';
 
 
 const StatisticsPage = ( {navigation} ) => {
@@ -59,14 +60,19 @@ const StatisticsPage = ( {navigation} ) => {
 
     
       {/* Recent Guesses Area */}
+
+      <Text style={styles.recentGuessesTitle}>Recent Guesses</Text>
+      <Text style={styles.recentGuessesSubTitle}>Slide to see more</Text>
+
+
       <View style={styles.recentGuessesContainer}>
         {/* Look at how i did TownsScreen CreateTownComponent for the Modal, to open up recent guesses :) */}        
         
         <FlatList
           data={arr}
           renderItem={({item, index}) => (
-            <View style={{width: 75, height: 75, backgroundColor: 'white', opacity: 0.5, borderRadius: 10, marginRight: 10, borderWidth: 1}}></View>
-          )}
+              <GuessBox />
+            )}
           horizontal={true}
           keyExtractor={(index) => index.toString()}
           ItemSeparatorComponent={entrySeparator}
@@ -188,15 +194,23 @@ const styles = StyleSheet.create({
       fontFamily: 'Londrina-Solid-Light',
     },
     recentGuessesContainer: {
-      marginTop: '10%',
+      marginTop: '5%',
       flexDirection: 'row', 
       justifyContent: 'center', 
       alignItems: 'center', 
-      alignContent: 'center', 
+      alignContent: 'center',
+      marginLeft: '5%',
+      marginRight: '5%', 
     },
     recentGuessesTitle: {
       fontSize: 22,
       fontFamily: 'Londrina-Solid',
+      textAlign: 'center',
+      marginTop: '5%',
+    },
+    recentGuessesSubTitle: {
+      fontSize: 16,
+      fontFamily: 'Londrina-Solid-Light',
       textAlign: 'center',
     },
     lifetimeStatContainer: {
