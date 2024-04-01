@@ -111,14 +111,13 @@ const styles = StyleSheet.create({
       borderRadius: 100,
     },
     title: {
-      fontSize: 40,
-      fontWeight: 'bold',
-      color: 'black',
+      fontSize: 50,
+      fontFamily: 'Londrina-Solid',
       marginTop: 15,
     },
     subTitle: {
-      fontSize: 18,
-      color: 'black',
+      fontFamily: 'Londrina-Solid-Light',
+      fontSize: 20,
       marginBottom: 40,
     },
     input: {
@@ -138,21 +137,23 @@ const styles = StyleSheet.create({
       fontStyle: 'italic',
     },
     loginButton: {
-      marginTop: 120,
+      marginTop: '20%',
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#6d4c3d',
-      width: 250,
+      width: 220,
       height: 50,
       borderRadius: 15,
     },
     loginText: {
       color: 'white',
-      fontSize: 24,
+      fontSize: 30,
+      fontFamily: 'Londrina-Solid',
     },
     newMember: {
-      fontSize: 14,
+      fontSize: 20,
       color: 'black',
       marginTop: 20,
+      fontFamily: 'Londrina-Solid-Light',
     },
   });

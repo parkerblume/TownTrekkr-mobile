@@ -130,14 +130,14 @@ const RegisterPage = ( {navigation} ) => {
 
 
 
-        {/* signup button */}      
+        {/* next button */}      
         <TouchableOpacity style={styles.nextButton} onPress={signupHandler}>
           <Text style={styles.nextText}>Next</Text>
         </TouchableOpacity>
 
 
-        {/* Text under login button */}
-        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+        {/* Text under next button */}
+        <TouchableOpacity onPress={() => navigation.navigate("EmailVerification")}>
           <Text style={styles.alreadyMemberText}>
             <Text>
               Already a member?&nbsp;
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
       alignSelf: 'flex-start',
     },
     nextButton: {
-      marginTop: 80,
+      marginTop: '20%',
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#6d4c3d',

@@ -3,6 +3,7 @@ import {createStackNavigator, CardStyleInterpolators} from '@react-navigation/st
 import LandingScreen from '../../screens/LandingScreen';
 import LoginPage from '../../screens/LoginPage.js';
 import RegisterPage from '../../screens/RegisterPage.js';
+import EmailVerificationScreen from '../../screens/EmailVerificationScreen.js';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,7 @@ const AuthNavigation = ({ handleLogin }) => (
           {(props) => <LoginPage {...props} onLogin={handleLogin} />}
         </Stack.Screen>
         <Stack.Screen name="Register" component={RegisterPage}/>
+        <Stack.Screen name="EmailVerification" component={EmailVerificationScreen}/>
       </Stack.Group>
     </Stack.Navigator>
   );
