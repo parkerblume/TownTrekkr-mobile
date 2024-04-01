@@ -7,15 +7,26 @@ import { colors } from '../styles/commonStyles';
 
 const StatisticsPage = ( {navigation} ) => {
 
+  const entrySeparator = () => {
+    return <View style={{ height: 1, backgroundColor: "grey" }} />;
+    };
+  
+  const emptyArray = () => {
+    return (
+      <View style={{ alignItems: "center" }}>
+        <Text style={styles.item}>No recent guesses!</Text>
+      </View>
+    );
+  };
+
+  // Dummy array for testing purposes
+  const arr = ["Guess 1", "Guess 2", "Guess 3", "Guess 4", "Guess 5", "Guess 6", "Guess 7", "Guess 8", "Guess 9", "Guess 10"];
+
 
   return (
     <View style={styles.container}>
 
       <StatusBar backgroundColor={colors.background} />
-
-      {/* <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("Login")}>
-        <Text style={styles.backButtonText}>&lt;</Text>
-      </TouchableOpacity> */}
 
       
       {/* Town Statistics Area */}
@@ -49,20 +60,18 @@ const StatisticsPage = ( {navigation} ) => {
     
       {/* Recent Guesses Area */}
       <View style={styles.recentGuessesContainer}>
-
-        {/* Temporary button to navigate to recent guesses page for testing */}
-        {/* Look at how i did TownsScreen CreateTownComponent for the Modal, to open up recent guesses :) */}
-        <TouchableOpacity >
-          <Text style={styles.recentGuessesTitle}>Recent Guesses</Text>
-        </TouchableOpacity>
-
-        {/* 4 squares that hold recent guesses */}
-        <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
-          <View style={{width: 75, height: 75, backgroundColor: 'white', opacity: 0.5, borderRadius: 10, marginRight: 10, borderWidth: 1}}></View>
-          <View style={{width: 75, height: 75, backgroundColor: 'white', opacity: 0.5, borderRadius: 10, marginRight: 10, borderWidth: 1}}></View>
-          <View style={{width: 75, height: 75, backgroundColor: 'white', opacity: 0.5, borderRadius: 10, marginRight: 10, borderWidth: 1}}></View>
-          <View style={{width: 75, height: 75, backgroundColor: 'white', opacity: 0.5, borderRadius: 10, borderWidth: 1}}></View>
-        </View>
+        {/* Look at how i did TownsScreen CreateTownComponent for the Modal, to open up recent guesses :) */}        
+        
+        <FlatList
+          data={arr}
+          renderItem={({item, index}) => (
+            <View style={{width: 75, height: 75, backgroundColor: 'white', opacity: 0.5, borderRadius: 10, marginRight: 10, borderWidth: 1}}></View>
+          )}
+          horizontal={true}
+          keyExtractor={(index) => index.toString()}
+          ItemSeparatorComponent={entrySeparator}
+          ListEmptyComponent={emptyArray}
+        />
 
       </View>
 
@@ -180,6 +189,10 @@ const styles = StyleSheet.create({
     },
     recentGuessesContainer: {
       marginTop: '10%',
+      flexDirection: 'row', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      alignContent: 'center', 
     },
     recentGuessesTitle: {
       fontSize: 22,
