@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
-         KeyboardAvoidingView, Keyboard, Platform } from 'react-native';
-import { colors } from '../styles/commonStyles';
+         KeyboardAvoidingView, Keyboard, Platform, SafeAreaView } from 'react-native';
+import { colors, commonStyles } from '../styles/commonStyles';
 import { login } from '../api/authAPI.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const LoginPage = ( {navigation, onLogin} ) => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [onFocus, setOnFocus] = useState(false);
 
 
   const loginHandler = async () => {
@@ -27,17 +29,25 @@ const LoginPage = ( {navigation, onLogin} ) => {
     if (data)
     {
       const userId = data.id;
+      const username = data.username;
       await AsyncStorage.setItem('userId', userId);
-      await AsyncStorage.setItem('username', userId)
+      await AsyncStorage.setItem('username', username);
       onLogin();
     }
   }
 
+  const handleOnFocus = () => {
+    setOnFocus(!onFocus);
+  }
+
   return (
-    <KeyboardAvoidingView style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height' }
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
-    >
+    <KeyboardAvoidingView style={styles.container}  
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height' }
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+      >
+        <ScrollView style={commonStyles.scrollViewContainer} 
+          contentContainerStyle={styles.scrollViewContent} enabled={onFocus}
+        >
 
       <StatusBar backgroundColor={colors.tan}/>
       {/* logo picture */}
@@ -51,31 +61,30 @@ const LoginPage = ( {navigation, onLogin} ) => {
 
 
       {/* input fields */}
-      <TextInput
-        style={styles.input}
-        onChangeText={setEmail}
-        value={email}
-        placeholder="Email"
-      />
+          <TextInput
+            style={styles.input}
+            onChangeText={setEmail}
+            value={email}
+            placeholder="Email"
+            onFocus={handleOnFocus}
+            onBlur={handleOnFocus}
+          />
 
-      <TextInput
-        style={styles.input}
-        onChangeText={setPassword}
-        value={password}
-        placeholder="Password"
-      />
+          <TextInput
+            style={styles.input}
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Password"
+            onFocus={handleOnFocus}
+            onBlur={handleOnFocus}
+          />
 
-      <Text style={styles.forgotPassword}>Forgot password?</Text>
-
-
-
-      {/* TODO: Maybe add keyboard avoiding behavior */}
-      
-      {/* login button */}
-      <TouchableOpacity style={styles.loginButton} onPress={loginHandler}>
-        <Text style={styles.loginText}>Login</Text>
-      </TouchableOpacity>
-
+          <Text style={styles.forgotPassword}>Forgot password?</Text>
+          
+          {/* login button */}
+          <TouchableOpacity style={styles.loginButton} onPress={loginHandler}>
+            <Text style={styles.loginText}>Login</Text>
+          </TouchableOpacity>
 
       {/* Text under login button */}
       <TouchableOpacity onPress={() => navigation.navigate("Register")}>
@@ -88,6 +97,8 @@ const LoginPage = ( {navigation, onLogin} ) => {
             </Text>
         </Text>
       </TouchableOpacity>
+
+      </ScrollView>
 
     </KeyboardAvoidingView>
   );
@@ -104,6 +115,16 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: colors.tan,
     },
+    keyboardAvoidingView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    scrollViewContent: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+    },
     logo: {
       width: 200,
       height: 200,
@@ -111,14 +132,16 @@ const styles = StyleSheet.create({
       borderRadius: 100,
     },
     title: {
-      fontSize: 40,
+      fontSize: 50,
       fontWeight: 'bold',
+      fontFamily: 'Londrina-Solid',
       color: 'black',
       marginTop: 15,
     },
     subTitle: {
-      fontSize: 18,
+      fontSize: 20,
       color: 'black',
+      fontFamily: 'Londrina-Solid-Light',
       marginBottom: 40,
     },
     input: {
@@ -148,11 +171,14 @@ const styles = StyleSheet.create({
     },
     loginText: {
       color: 'white',
-      fontSize: 24,
+      fontSize: 30,
+      fontFamily: 'Londrina-Solid'
     },
     newMember: {
-      fontSize: 14,
+      fontFamily: 'Londrina-Solid-Light',
+      fontSize: 20,
       color: 'black',
       marginTop: 20,
+
     },
   });

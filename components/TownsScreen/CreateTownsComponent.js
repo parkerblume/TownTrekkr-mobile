@@ -70,7 +70,7 @@ const CreateTownsComponent = ({ userId, onClose }) => {
                 </View>
             </SafeAreaView>
             <KeyboardAvoidingView style={styles.keyboardAvoidingContainer} behavior={Platform.OS === 'ios' ? 'padding': 'height'}>
-                <ScrollView style={styles.contentContainer} scrollEnabled={true}>
+                <ScrollView style={commonStyles.scrollViewContainer} scrollEnabled={true}>
                     <View style={styles.mapContainer}>
                         <MapComponent onCoordinateChange={handleCoordinateChange}/>
                     </View>
@@ -148,10 +148,6 @@ const styles = StyleSheet.create({
         width: '25%',
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
-    },
-    contentContainer: {
-        flex: 1,
-        width: '100%'
     },
     keyboardAvoidingContainer: {
         flex: 1,

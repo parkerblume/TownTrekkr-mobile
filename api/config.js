@@ -1,1 +1,1 @@
-export const BASE_URL='https://town-trekkr-9fb24187970d.herokuapp.com';
+export const BASE_URL='https://town-trekkr-9fb24187970d.herokuapp.com/api';

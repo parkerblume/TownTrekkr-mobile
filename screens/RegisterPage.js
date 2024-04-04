@@ -28,7 +28,7 @@ const RegisterPage = ( {navigation} ) => {
     return true;
   }
 
-  const signupHandler = () => {
+  const signupHandler = async () => {
     console.log("sign up");
     if (username === '') {
       alert('Please enter your username');
@@ -56,7 +56,7 @@ const RegisterPage = ( {navigation} ) => {
       return;
     }
     
-    let data = signup(email, password, username);
+    let data = await signup(email, password, username);
     console.log(data);
     navigation.navigate("Login");
   }

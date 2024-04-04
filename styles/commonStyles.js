@@ -20,6 +20,10 @@ const commonStyles = StyleSheet.create({
         backgroundColor: colors.background,
         flex: 1,
     },
+    scrollViewContainer: {
+        flex: 1,
+        width: '100%'
+    }
 });
 
 export { colors, commonStyles };

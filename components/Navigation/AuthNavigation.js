@@ -17,7 +17,7 @@ const AuthNavigation = ({ handleLogin }) => (
         <Stack.Screen name="Landing" component={LandingScreen} />
       </Stack.Group>
       <Stack.Group screenOptions={{'presentation': 'modal'}}>
-        <Stack.Screen name="Login">
+        <Stack.Screen name="Login" options={{ gestureResponseDistance: 500 }}>
           {(props) => <LoginPage {...props} onLogin={handleLogin} />}
         </Stack.Screen>
         <Stack.Screen name="Register" component={RegisterPage}/>
