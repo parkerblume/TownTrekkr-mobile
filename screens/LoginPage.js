@@ -13,17 +13,19 @@ const LoginPage = ( {navigation, onLogin} ) => {
 
 
   const loginHandler = async () => {
-    if (email === '') {
+    if (email === '')
+    {
       alert('Please enter your email');
       return;
     }
-    if (password === '') {
+    if (password === '')
+    {
       alert('Please enter your password');
       return;
     }
 
     let data = await login(email, password);
-    console.log(data);
+    //console.log(data);
     if (data)
     {
       const userId = data.id;
@@ -41,7 +43,7 @@ const LoginPage = ( {navigation, onLogin} ) => {
 
       <StatusBar backgroundColor={colors.tan}/>
       {/* logo picture */}
-      <Image style={styles.logo} source={require('../assets/earth.png')} fadeDuration={2000}/>
+      <Image style={styles.logo} source={require('../assets/earth.png')} fadeDuration={1000}/>
 
 
       {/* title text */}
@@ -67,9 +69,6 @@ const LoginPage = ( {navigation, onLogin} ) => {
 
       <Text style={styles.forgotPassword}>Forgot password?</Text>
 
-
-
-      {/* TODO: Maybe add keyboard avoiding behavior */}
       
       {/* login button */}
       <TouchableOpacity style={styles.loginButton} onPress={loginHandler}>

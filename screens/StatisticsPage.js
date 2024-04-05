@@ -66,8 +66,7 @@ const StatisticsPage = ( {navigation} ) => {
 
 
       <View style={styles.recentGuessesContainer}>
-        {/* Look at how i did TownsScreen CreateTownComponent for the Modal, to open up recent guesses :) */}        
-        
+
         <FlatList
           data={arr}
           renderItem={({item, index}) => (
@@ -145,8 +144,7 @@ const styles = StyleSheet.create({
       alignSelf: 'flex-start',
       marginLeft: 32,
     },
-    backButtonText:
-    {
+    backButtonText: {
       color: colors.buttonPrimary,
       fontSize: 40,
       fontWeight: 'bold',
