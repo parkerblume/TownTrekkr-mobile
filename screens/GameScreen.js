@@ -4,15 +4,42 @@ import {colors, commonStyles} from '../styles/commonStyles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import GameComponent from '../components/GameScreen/GameComponent';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const GameScreen = ({ navigation, route }) => {
   const userId = route.params?.userId;
-  const currentTown = route.params?.currentTown; // set the town through route.params when Community screen is implemented.
+  const [currentTown, setCurrentTown] = useState(null);
+  
+  useEffect(() => {
+    const fetchCurrentTown = async () => {
+      try {
+        // try to gather an already saved town, otherwise if routed here save that town
+        const storedTown = await AsyncStorage.getItem('currentTown');
+        if (route.params?.currentTown) 
+        {
+          const { id, name } = route.params.currentTown;
+          const townObject = { id, name };
+          setCurrentTown(townObject);
+          await AsyncStorage.setItem('currentTown', JSON.stringify(townObject));
+        }
+        else if (storedTown)
+        {
+          setCurrentTown(JSON.parse(storedTown));
+        }
+      } catch (error) {
+        console.log('Error retrieving current town from AsyncStorage: ', error);
+      }
+    }
+
+    fetchCurrentTown();
+  }, [route.params?.currentTown]);
+
+
 
   return (
     <View style={commonStyles.screenContainer}>
       {currentTown ? 
-        (<GameComponent town={currentTown} />)
+        (<GameComponent currentTown={currentTown} />)
         : 
         (
           <SafeAreaView style={styles.townHeader} edges={['top']}>

@@ -1,4 +1,4 @@
-import {BASE_URL} from './config';
+import {BASE_URL, LOCAL_URL} from './config';
 
 export const login = async (email, password) => 
 {
@@ -92,13 +92,16 @@ export const addUserToTown = async (townId, userId) =>
 };
 
 export const getTowns = async (userId) => {
+  console.log("In get towns...");
+  console.log(userId);
   try {
-    let url = `${BASE_URL}/gettowns`;
+    let url = `${BASE_URL}/town/gettowns`;
     
     // append userId as query parameter, if it it exists
     if (userId) {
       url += `?userId=${userId}`;
     }
+    console.log(url);
 
     const response = await fetch(url, {
       method: 'GET',

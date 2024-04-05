@@ -6,6 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppNavigation from './components/Navigation/AppNavigation.js';
 import AuthNavigation from './components/Navigation/AuthNavigation.js';
+import { navigationRef } from './components/Navigation/RootNavigation.js';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,7 +22,7 @@ export default function App() {
 
   useEffect(() => {
     console.log("Testing, just in case");
-    //if (savedLogin) { handleLogin() }
+    if (savedLogin) { handleLogin() }
   }, []);
 
   // filler for now so I don't have to keep logging in.
@@ -49,7 +50,7 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       { isAuthenticated ? <AppNavigation /> : <AuthNavigation handleLogin={handleLogin} /> }
     </NavigationContainer>
   );

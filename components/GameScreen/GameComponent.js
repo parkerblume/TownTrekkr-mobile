@@ -6,6 +6,7 @@ import {colors, commonStyles} from '../../styles/commonStyles';
 
 const GameComponent = ({ currentTown }) =>
 {
+    console.log(currentTown);
     const [photoUri, setPhotoUri] = useState(null);
 
     return (

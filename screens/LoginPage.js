@@ -32,6 +32,7 @@ const LoginPage = ( {navigation, onLogin} ) => {
       const username = data.username;
       await AsyncStorage.setItem('userId', userId);
       await AsyncStorage.setItem('username', username);
+      console.log("Should've saved storage");
       onLogin();
     }
   }

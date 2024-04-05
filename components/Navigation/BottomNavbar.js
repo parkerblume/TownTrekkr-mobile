@@ -27,6 +27,8 @@ const BottomNavbar = ({ state, descriptors, navigation }) => {
             
             if (storedUserId !== null) { setUserId(storedUserId); }
             if (storedUsername !== null) { setUsername(storedUsername) }
+
+            console.log("User's id: " + storedUserId);
         } catch (error)
         {
             console.log("Error retrieving userId: ", error);
@@ -57,7 +59,7 @@ const BottomNavbar = ({ state, descriptors, navigation }) => {
                         });
 
                         if (!isFocused && !event.defaultPrevented) {
-                            navigation.navigate(route.name, { userId });
+                            navigation.navigate(route.name, { userId, username });
                         }
                     };
 

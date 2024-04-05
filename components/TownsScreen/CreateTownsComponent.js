@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import MapComponent from './MapComponent';
 import { createTown, addUserToTown } from '../../api/authAPI';
 
-const CreateTownsComponent = ({ userId, onClose }) => {
+const CreateTownsComponent = ({ userId, username, onClose }) => {
     const [townName, setTownName] = useState('');
     const [townDescription, setTownDescription] = useState('');
     const [mapCoordinates, setMapCoordinates] = useState(null);
@@ -42,7 +42,7 @@ const CreateTownsComponent = ({ userId, onClose }) => {
         setErrorMessage('');
         try{
             let townData = await createTown(townName, townDescription, 
-                mapCoordinates.topLeftCoord, mapCoordinates.bottomRightCoord, userId);
+                mapCoordinates.topLeftCoord, mapCoordinates.bottomRightCoord, userId, username);
         
             if (!townData)
             {
