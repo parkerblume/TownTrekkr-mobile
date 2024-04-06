@@ -25,7 +25,7 @@ npm-debug.*
 yarn-debug.*
 yarn-error.*
 
-config.js
+api/config.js
 
 # macOS
 .DS_Store

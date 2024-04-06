@@ -3,7 +3,7 @@ import {BASE_URL} from './config';
 export const login = async (email, password) => 
 {
     try {
-      const response = await fetch(`${BASE_URL}/login`, {
+      const response = await fetch(`${BASE_URL}/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export const login = async (email, password) =>
 export const signup = async (email, password, username) => 
 {
   try {
-    const response = await fetch(`${BASE_URL}/signup`, {
+    const response = await fetch(`${BASE_URL}/user/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export const createTown = async (name, description, topLeftCoord, botRightCoord,
       creatingUsername
     };
 
-    const response = await fetch(`${BASE_URL}/createtown`, {
+    const response = await fetch(`${BASE_URL}/town/createtown`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export const createTown = async (name, description, topLeftCoord, botRightCoord,
 export const addUserToTown = async (townId, userId) =>
 {
   try {
-    const response = await fetch(`${BASE_URL}/adduser`, {
+    const response = await fetch(`${BASE_URL}/town/adduser`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
