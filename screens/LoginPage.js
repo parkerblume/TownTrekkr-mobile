@@ -5,11 +5,15 @@ import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
 import { colors } from '../styles/commonStyles';
 import { login } from '../api/authAPI.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 
 const LoginPage = ( {navigation, onLogin} ) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [showPassword, setShowPassword] = React.useState(false);
+
 
 
   const loginHandler = async () => {
@@ -60,12 +64,29 @@ const LoginPage = ( {navigation, onLogin} ) => {
         placeholder="Email"
       />
 
-      <TextInput
+      {/* <TextInput
         style={styles.input}
         onChangeText={setPassword}
         value={password}
         placeholder="Password"
-      />
+      /> */}
+
+      <View style={styles.passInputContainer}>
+          <TextInput
+            style={styles.input}
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Password"
+            secureTextEntry={!showPassword}
+          />      
+          <Ionicons
+            name={showPassword ? 'eye' : 'eye-off'}
+            size={20}
+            color="grey"
+            style={styles.hideIcon}
+            onPress={() => setShowPassword(!showPassword)}
+          />
+      </View>
 
       <Text style={styles.forgotPassword}>Forgot password?</Text>
 
@@ -154,5 +175,13 @@ const styles = StyleSheet.create({
       color: 'black',
       marginTop: 20,
       fontFamily: 'Londrina-Solid-Light',
+    },
+    hideIcon: {
+      position: 'absolute',
+      right: 22,
+    },
+    passInputContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
     },
   });

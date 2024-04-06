@@ -102,7 +102,7 @@ const RegisterPage = ( {navigation} ) => {
             secureTextEntry={!showPassword}
           />      
           <Ionicons
-            name={showPassword ? 'eye-off' : 'eye'}
+            name={showPassword ? 'eye' : 'eye-off'}
             size={20}
             color="grey"
             style={styles.hideIcon}
