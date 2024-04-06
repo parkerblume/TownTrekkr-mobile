@@ -36,4 +36,30 @@ export const postUpload = async (image, location, townId, userId) =>
     {
         console.error(error);
     }
-}
+};
+
+export const getGuesses = async (userId) =>
+{
+    try {
+      let url = `${BASE_URL}/user/getguesses?userId=${userId}`;
+      
+  
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        return data;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching towns:', error);
+      throw error;
+    }
+  };

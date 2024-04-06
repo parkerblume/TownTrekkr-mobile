@@ -15,6 +15,7 @@ const TownStatisticsComponent = ({userId}) => {
     // const towns = getTowns(userId);
 
     const [towns, setTowns] = React.useState([]);
+    const [currentTown, setCurrentTown] = React.useState('');
 
 
 
@@ -22,7 +23,7 @@ const TownStatisticsComponent = ({userId}) => {
 
 
     React.useEffect(() => {
-        const fetchData = async () => {
+        const fetchTowns = async () => {
             try {
                 const response = await getTowns(userId);
                 setTowns(response); 
@@ -31,14 +32,16 @@ const TownStatisticsComponent = ({userId}) => {
             }
         };
 
-        fetchData();
+        fetchTowns();
     }, []);
 
     const getTownName = () => {
         if (towns.length > 0) {
-            return towns[0].name;
+            setCurrentTown(towns[0].name);
+        } 
+        else {
+            setCurrentTown('No Towns Found');
         }
-        return "No Towns Found";
     }
 
     return (
@@ -56,7 +59,7 @@ const TownStatisticsComponent = ({userId}) => {
 
                     {/* TODO: ADD DROP DOWN SELECTOR */}
                     <View style={styles.townStatTitleContainer}>
-                        <Text style={styles.townStatDropdownTitle}>{getTownName()}</Text>
+                        <Text style={styles.townStatDropdownTitle}>{currentTown}</Text>
                         <Text style={styles.townStatStatisticsTitle}> Statistics</Text>
                     </View>
 
