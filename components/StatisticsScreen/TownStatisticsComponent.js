@@ -1,13 +1,65 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity } from 'react-native';
 import { colors } from '../../styles/commonStyles';
+import { getTowns } from '../../api/authAPI.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 const TownStatisticsComponent = () => {
 
+    // const test = async () => {
+    //     let data = await getTowns(userId);
+    //     data.map(data => <Text>{JSON.stringify(data.name)}</Text>);
+    // }
+    // const towns = getTowns(userId);
+
+    const [towns, setTowns] = React.useState([]);
+    const [username, setUsername] = React.useState('');
+    const [userId, setUserId] = React.useState('');
+
+
+
+
+    const getUserId = async () =>
+    {
+        try {
+            const storedUserId = await AsyncStorage.getItem('userId');
+            const storedUsername = await AsyncStorage.getItem('username');
+            
+            if (storedUserId !== null) { setUserId(storedUserId); }
+            if (storedUsername !== null) { setUsername(storedUsername) }
+        } catch (error)
+        {
+            console.log("Error retrieving userId: ", error);
+        }
+    }
+
+    React.useEffect(() => {
+        getUserId();
+        const fetchData = async () => {
+            try {
+                const response = await getTowns(userId);
+                // console.log(response);
+                setTowns(response); 
+            } catch (error) {
+                console.error('Error fetching towns:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <>
+
+
+            <Text style={{marginTop: 40}}>UserID: {userId}</Text>
+            {towns.map((town, index) => (
+                <View key={index}>
+                    <Text>{town.name}</Text>
+                </View>
+            ))}
             {/* Town Statistics Area */}
             <View style={styles.townStatContainer}>
 

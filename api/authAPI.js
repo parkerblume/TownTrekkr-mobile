@@ -92,12 +92,13 @@ export const addUserToTown = async (townId, userId) =>
 
 export const getTowns = async (userId) => {
   try {
-    let url = `${BASE_URL}/gettowns`;
+    let url = `${BASE_URL}/town/gettowns`;
     
     // append userId as query parameter, if it it exists
     if (userId) {
       url += `?userId=${userId}`;
     }
+    console.log("UserID in getTowns call:" + userId);
 
     const response = await fetch(url, {
       method: 'GET',
