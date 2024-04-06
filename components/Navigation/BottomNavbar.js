@@ -57,7 +57,7 @@ const BottomNavbar = ({ state, descriptors, navigation }) => {
                         });
 
                         if (!isFocused && !event.defaultPrevented) {
-                            navigation.navigate(route.name, { userId });
+                            navigation.navigate(route.name, { userId, username });
                         }
                     };
 

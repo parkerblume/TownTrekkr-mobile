@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-const TownStatisticsComponent = () => {
+const TownStatisticsComponent = ({userId}) => {
 
     // const test = async () => {
     //     let data = await getTowns(userId);
@@ -15,28 +15,13 @@ const TownStatisticsComponent = () => {
     // const towns = getTowns(userId);
 
     const [towns, setTowns] = React.useState([]);
-    const [username, setUsername] = React.useState('');
-    const [userId, setUserId] = React.useState('');
 
 
 
 
-    const getUserId = async () =>
-    {
-        try {
-            const storedUserId = await AsyncStorage.getItem('userId');
-            const storedUsername = await AsyncStorage.getItem('username');
-            
-            if (storedUserId !== null) { setUserId(storedUserId); }
-            if (storedUsername !== null) { setUsername(storedUsername) }
-        } catch (error)
-        {
-            console.log("Error retrieving userId: ", error);
-        }
-    }
+
 
     React.useEffect(() => {
-        getUserId();
         const fetchData = async () => {
             try {
                 const response = await getTowns(userId);

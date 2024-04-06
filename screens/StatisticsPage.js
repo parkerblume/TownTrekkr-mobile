@@ -7,7 +7,9 @@ import GuessBox from '../components/StatisticsScreen/GuessBox';
 import TownStatisticsComponent from '../components/StatisticsScreen/TownStatisticsComponent';
 
 
-const StatisticsPage = ( {navigation} ) => {
+const StatisticsPage = ( {navigation, route} ) => {
+
+  const userId = route.params?.userId;
 
   const entrySeparator = () => {
     return <View style={{ height: 1, backgroundColor: "grey" }} />;
@@ -31,7 +33,7 @@ const StatisticsPage = ( {navigation} ) => {
       <StatusBar backgroundColor={colors.background} />
 
       
-      <TownStatisticsComponent />
+      <TownStatisticsComponent userId={userId}/>
 
     
       {/* Recent Guesses Area */}
