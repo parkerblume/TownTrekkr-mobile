@@ -5,6 +5,7 @@ import TownsScreen from '../../screens/TownsScreen.js';
 import StatisticsPage from '../../screens/StatisticsPage.js';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BottomNavbar from '../../components/Navigation/BottomNavbar.js';
+import ProfileScreen from '../../screens/ProfileScreen.js';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,6 +20,7 @@ const AppNavigation = () => (
     <Tab.Screen name="GameScreen" component={GameScreen} />
     <Tab.Screen name="StatsScreen" component={StatisticsPage} />
     <Tab.Screen name="ImageHandle" component={ImageHandleScreen} />
+    <Tab.Screen name="ProfileScreen" component={ProfileScreen} />
     <Tab.Screen name="TownsScreen" component={TownsScreen} />
   </Tab.Navigator>
 );
