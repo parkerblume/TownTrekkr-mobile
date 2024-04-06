@@ -27,6 +27,8 @@ const BottomNavbar = ({ state, descriptors, navigation }) => {
             
             if (storedUserId !== null) { setUserId(storedUserId); }
             if (storedUsername !== null) { setUsername(storedUsername) }
+            console.log("Stored userId: ", storedUserId);
+            console.log("Stored username: ", storedUsername);
         } catch (error)
         {
             console.log("Error retrieving userId: ", error);

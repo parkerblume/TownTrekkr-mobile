@@ -33,8 +33,9 @@ const LoginPage = ( {navigation, onLogin} ) => {
     if (data)
     {
       const userId = data.id;
+      const username = data.username;
       await AsyncStorage.setItem('userId', userId);
-      await AsyncStorage.setItem('username', userId)
+      await AsyncStorage.setItem('username', username);
       onLogin();
     }
   }
