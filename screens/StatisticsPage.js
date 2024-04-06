@@ -124,48 +124,6 @@ const styles = StyleSheet.create({
       fontSize: 40,
       fontWeight: 'bold',
     },
-    townStatContainer: {
-      width: 375,
-      height: 200,
-      backgroundColor: colors.tan,
-      borderRadius: 50,
-      marginTop: '15%',
-      marginLeft: '30%',
-      borderWidth: 1,
-    },
-    townStatTitleContainer: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignContent: 'center',
-      marginRight: '15%',
-      marginTop: '6%',
-    },
-    townStatDropdownTitle: {
-      fontSize: 36,
-      fontFamily: 'Londrina-Solid',
-    },
-    townStatStatisticsTitle: {
-      fontSize: 36,
-      fontFamily: 'Londrina-Solid',
-    },
-    townStatRowContainer: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignContent: 'center',
-      marginTop: '3%',
-      marginRight: '16%',
-    },
-    townStatStatName: {
-      fontSize: 24,
-      fontFamily: 'Londrina-Solid',
-    },
-    townStatStatValue: {
-      fontSize: 24,
-      textAlign: 'right',
-      fontFamily: 'Londrina-Solid-Light',
-    },
     recentGuessesContainer: {
       marginTop: '5%',
       flexDirection: 'row', 
