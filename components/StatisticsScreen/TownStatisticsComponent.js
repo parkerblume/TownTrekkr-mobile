@@ -44,6 +44,13 @@ const TownStatisticsComponent = ({userId}) => {
         }
     }
 
+    const getTotalGuesses = () => {
+        if (currentTown !== '') {
+            
+        }
+        return 0;
+    }
+
     return (
         <>
 
@@ -74,10 +81,10 @@ const TownStatisticsComponent = ({userId}) => {
                         </View>
                         {/* Col 2 */}
                         <View>
-                            <Text style={styles.townStatStatValue}>-1</Text>
-                            <Text style={styles.townStatStatValue}>-1</Text>
-                            <Text style={styles.townStatStatValue}>-1</Text>
-                            <Text style={styles.townStatStatValue}>-1</Text>
+                            <Text style={styles.townStatStatValue}>-</Text>
+                            <Text style={styles.townStatStatValue}>-</Text>
+                            <Text style={styles.townStatStatValue}>{getTotalGuesses()}</Text>
+                            <Text style={styles.townStatStatValue}>-</Text>
                         </View>
                     </View>
 

@@ -37,12 +37,12 @@ const LifetimeStatisticsComponent = ({userId}) => {
                 <View style={styles.lifetimeRow1Container}>
                 {/* Col 1 */}
                 <View style={{marginRight: 40}}>
-                    <Text style={styles.lifetimeStatValue}>-1</Text>
+                    <Text style={styles.lifetimeStatValue}>-</Text>
                     <Text style={styles.lifetimeStatTitle}>Percent Perfect</Text>
                 </View>
                 {/* Col 2 */}
                 <View>
-                <Text style={styles.lifetimeStatValue}>-1</Text>
+                <Text style={styles.lifetimeStatValue}>-</Text>
                     <Text style={styles.lifetimeStatTitle}>Perfect Guesses</Text>
                 </View>
                 </View>
@@ -52,7 +52,7 @@ const LifetimeStatisticsComponent = ({userId}) => {
                 <View style={styles.lifetimeRow2Container}>
                 {/* Col 1 */}
                 <View style={{marginRight: 40}}>
-                    <Text style={styles.lifetimeStatValue}>-1</Text>
+                    <Text style={styles.lifetimeStatValue}>-</Text>
                     <Text style={styles.lifetimeStatTitle}>Average Score</Text>
                 </View>
                 {/* Col 2 */}
