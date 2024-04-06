@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
 import { colors } from '../styles/commonStyles';
 import GuessBox from '../components/StatisticsScreen/GuessBox';
 import TownStatisticsComponent from '../components/StatisticsScreen/TownStatisticsComponent';
+import LifetimeStatisticsComponent from '../components/StatisticsScreen/LifetimeStatisticsComponent';
 
 
 const StatisticsPage = ( {navigation, route} ) => {
@@ -58,41 +59,8 @@ const StatisticsPage = ( {navigation, route} ) => {
       </View>
 
 
+      <LifetimeStatisticsComponent userId={userId}/>
 
-      {/* Lifetime Statistics Area */}
-      <View style={styles.lifetimeStatContainer}>
-
-        {/* Row 1 */}
-        <View style={styles.lifetimeRow1Container}>
-          {/* Col 1 */}
-          <View style={{marginRight: 40}}>
-            <Text style={styles.lifetimeStatValue}>1.73%</Text>
-            <Text style={styles.lifetimeStatTitle}>Percent Perfect</Text>
-          </View>
-          {/* Col 2 */}
-          <View>
-          <Text style={styles.lifetimeStatValue}>15</Text>
-            <Text style={styles.lifetimeStatTitle}>Perfect Guesses</Text>
-          </View>
-        </View>
-
-
-        {/* Row 2 */}
-        <View style={styles.lifetimeRow2Container}>
-          {/* Col 1 */}
-          <View style={{marginRight: 40}}>
-            <Text style={styles.lifetimeStatValue}>28</Text>
-            <Text style={styles.lifetimeStatTitle}>Average Score</Text>
-          </View>
-          {/* Col 2 */}
-          <View>
-            <Text style={styles.lifetimeStatValue}>867</Text>
-            <Text style={styles.lifetimeStatTitle}>Total Guesses</Text>
-          </View>
-        </View>
-
-        <Text style={styles.lifetimeTitle}>Lifetime Statistics</Text>
-      </View>
 
 
     </View>
@@ -145,42 +113,5 @@ const styles = StyleSheet.create({
       fontSize: 16,
       fontFamily: 'Londrina-Solid-Light',
       textAlign: 'center',
-    },
-    lifetimeStatContainer: {
-      width: 350,
-      height: 350,
-      backgroundColor: colors.tan,
-      borderRadius: 50,
-      marginTop: '15%',
-      marginRight: '25%',
-      borderWidth: 1,
-    },
-    lifetimeRow1Container: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignContent: 'center',
-      marginTop: '10%',
-    },
-    lifetimeRow2Container: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignContent: 'center',
-      marginTop: 30,
-    },
-    lifetimeStatTitle: {
-      fontSize: 16,
-      fontFamily: 'Londrina-Solid'
-    },
-    lifetimeStatValue: {
-      fontSize: 44,
-      fontFamily: 'Londrina-Solid-Light'
-    },
-    lifetimeTitle: {
-      fontSize: 38,
-      fontFamily: 'Londrina-Solid',
-      marginLeft: '20%',
-      marginTop: '10%',
-    },
+    },    
   });

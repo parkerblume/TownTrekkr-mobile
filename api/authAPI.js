@@ -98,7 +98,7 @@ export const getTowns = async (userId) => {
     if (userId) {
       url += `?userId=${userId}`;
     }
-    console.log("UserID in getTowns call:" + userId);
+    // console.log("UserID in getTowns call:" + userId);
 
     const response = await fetch(url, {
       method: 'GET',

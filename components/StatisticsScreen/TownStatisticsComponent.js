@@ -25,7 +25,6 @@ const TownStatisticsComponent = ({userId}) => {
         const fetchData = async () => {
             try {
                 const response = await getTowns(userId);
-                // console.log(response);
                 setTowns(response); 
             } catch (error) {
                 console.error('Error fetching towns:', error);
@@ -35,22 +34,29 @@ const TownStatisticsComponent = ({userId}) => {
         fetchData();
     }, []);
 
+    const getTownName = () => {
+        if (towns.length > 0) {
+            return towns[0].name;
+        }
+        return "No Towns Found";
+    }
+
     return (
         <>
 
 
-            <Text style={{marginTop: 40}}>UserID: {userId}</Text>
+            {/* <Text style={{marginTop: 40}}>UserID: {userId}</Text>
             {towns.map((town, index) => (
                 <View key={index}>
                     <Text>{town.name}</Text>
                 </View>
-            ))}
+            ))} */}
             {/* Town Statistics Area */}
             <View style={styles.townStatContainer}>
 
                     {/* TODO: ADD DROP DOWN SELECTOR */}
                     <View style={styles.townStatTitleContainer}>
-                        <Text style={styles.townStatDropdownTitle}>TestTown</Text>
+                        <Text style={styles.townStatDropdownTitle}>{getTownName()}</Text>
                         <Text style={styles.townStatStatisticsTitle}> Statistics</Text>
                     </View>
 
@@ -65,10 +71,10 @@ const TownStatisticsComponent = ({userId}) => {
                         </View>
                         {/* Col 2 */}
                         <View>
-                            <Text style={styles.townStatStatValue}>8.00%</Text>
-                            <Text style={styles.townStatStatValue}>4</Text>
-                            <Text style={styles.townStatStatValue}>50</Text>
-                            <Text style={styles.townStatStatValue}>500</Text>
+                            <Text style={styles.townStatStatValue}>-1</Text>
+                            <Text style={styles.townStatStatValue}>-1</Text>
+                            <Text style={styles.townStatStatValue}>-1</Text>
+                            <Text style={styles.townStatStatValue}>-1</Text>
                         </View>
                     </View>
 
