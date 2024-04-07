@@ -13,7 +13,7 @@ const EmailVerificationScreen = ( {navigation} ) => {
   const [inputs, setInputs] = React.useState(Array(4).fill(''));
 
   const sendCodeToEmail = () => {
-    sendEmail("da162852@ucf.edu");
+    //sendEmail();
     console.log("Code sent to email");
   };
 

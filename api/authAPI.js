@@ -122,7 +122,7 @@ export const getTowns = async (userId) => {
 
 export const sendEmail = async (email) => {
   try {
-    let url = `${BASE_URL}/user/sendemail`;
+    let url = `${BASE_URL}/api/user/sendemail`;
     
 
     // console.log("UserID in getTowns call:" + userId);
