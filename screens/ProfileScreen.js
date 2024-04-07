@@ -3,12 +3,9 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
          KeyboardAvoidingView, Keyboard, FlatList } from 'react-native';
 import { colors } from '../styles/commonStyles';
-import GuessBox from '../components/StatisticsScreen/GuessBox';
-import TownStatisticsComponent from '../components/StatisticsScreen/TownStatisticsComponent';
-import LifetimeStatisticsComponent from '../components/StatisticsScreen/LifetimeStatisticsComponent';
+import PicWithUsernameComponent from '../components/ProfileScreen/PicWithUsernameComponent';
 
-
-const StatisticsPage = ( {navigation, route} ) => {
+const ProfileScreen = ( {navigation, route} ) => {
 
   const userId = route.params?.userId;
   const username = route.params?.username;
@@ -21,17 +18,13 @@ const StatisticsPage = ( {navigation, route} ) => {
       <StatusBar backgroundColor={colors.background} />
 
       
-
-        <Text style={{marginTop: 50}}>UserID: {userId}</Text>
-        <Text>username: {username}</Text>
-
-
+        <PicWithUsernameComponent username={username} />
 
     </View>
   );
 };
 
-export default StatisticsPage;
+export default ProfileScreen;
 
 const styles = StyleSheet.create({
     container: {
