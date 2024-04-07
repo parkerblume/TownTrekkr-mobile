@@ -91,15 +91,13 @@ export const addUserToTown = async (townId, userId) =>
   }
 };
 
-export const getTowns = async (userId) => {
-  console.log("In get towns...");
-  console.log(userId);
+export const getTowns = async (userId, page = 1, limit = 20) => {
   try {
-    let url = `${BASE_URL}/town/gettowns`;
+    let url = `${BASE_URL}/town/gettowns?page=${page}&limit=${limit}`;
     
     // append userId as query parameter, if it it exists
     if (userId) {
-      url += `?userId=${userId}`;
+      url += `&userId=${userId}`;
     }
     console.log(url);
 

@@ -12,6 +12,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const TownsScreen = ({ navigation, route }) => {
     const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
+    const [userCreatedTown, setUserCreatedTown] = useState(false);
     const userId = route.params.userId;
     const username = route.params.username;
     console.log(userId);
@@ -52,7 +53,7 @@ const TownsScreen = ({ navigation, route }) => {
                                     }} 
                                     tabBarPosition='top'
                     >
-                        <Tab.Screen name="All Towns" component={AllTownsComponent} />
+                        <Tab.Screen name="All Towns" component={AllTownsComponent} initialParams={{ userId: userId }} />
                         <Tab.Screen name="My Towns" 
                             component={MyTownsComponent}
                             initialParams={{ userId: userId }}

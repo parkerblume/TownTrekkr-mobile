@@ -13,7 +13,7 @@ const GameScreen = ({ navigation, route }) => {
   useEffect(() => {
     const fetchCurrentTown = async () => {
       try {
-        // try to gather an already saved town, otherwise if routed here save that town
+        // if routed here save that town, otherwise pull from local storage
         const storedTown = await AsyncStorage.getItem('currentTown');
         if (route.params?.currentTown) 
         {

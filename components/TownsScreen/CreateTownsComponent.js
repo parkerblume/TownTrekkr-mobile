@@ -69,7 +69,7 @@ const CreateTownsComponent = ({ userId, username, onClose }) => {
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
-            <KeyboardAvoidingView style={styles.keyboardAvoidingContainer} behavior={Platform.OS === 'ios' ? 'padding': 'height'}>
+            <KeyboardAvoidingView style={commonStyles.keyboardAvoidingContainer} behavior={Platform.OS === 'ios' ? 'padding': 'height'}>
                 <ScrollView style={commonStyles.scrollViewContainer} scrollEnabled={true}>
                     <View style={styles.mapContainer}>
                         <MapComponent onCoordinateChange={handleCoordinateChange}/>
