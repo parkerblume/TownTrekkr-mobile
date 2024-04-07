@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
          KeyboardAvoidingView, Keyboard, Platform } from 'react-native';
 import { colors } from '../styles/commonStyles';
 import { login } from '../api/authAPI.js';
+import { sendEmail } from '../api/authAPI.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -12,6 +13,7 @@ const EmailVerificationScreen = ( {navigation} ) => {
   const [inputs, setInputs] = React.useState(Array(4).fill(''));
 
   const sendCodeToEmail = () => {
+
     console.log("Code sent to email");
   };
 
