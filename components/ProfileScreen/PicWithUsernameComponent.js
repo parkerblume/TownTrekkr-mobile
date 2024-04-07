@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { colors } from '../../styles/commonStyles';
-import { getGuesses } from '../../api/postAPI.js';
 
 
 const PicWithUsernameComponent = ({username}) => {
@@ -20,10 +19,9 @@ const PicWithUsernameComponent = ({username}) => {
                 <Image style={styles.profilePic} source={require('../../assets/silhouette.png')} />
 
                 <Text style={styles.username}>{getUsername()}</Text>
-
-                <Image style={styles.icon} source={require('../../assets/earth.png')} />
-
             </View>
+
+
         </>
     );
 };
@@ -51,5 +49,5 @@ const styles = StyleSheet.create({
         marginTop: '8%',
         fontSize: 40,
         fontFamily: 'Londrina-Solid',
-    }
+    },
 });

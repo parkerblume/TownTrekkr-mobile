@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
          KeyboardAvoidingView, Keyboard, FlatList } from 'react-native';
 import { colors } from '../styles/commonStyles';
 import PicWithUsernameComponent from '../components/ProfileScreen/PicWithUsernameComponent';
+import ProfileComponent from '../components/ProfileScreen/ProfileComponent';
 
 const ProfileScreen = ( {navigation, route} ) => {
 
@@ -20,6 +21,12 @@ const ProfileScreen = ( {navigation, route} ) => {
       
         <PicWithUsernameComponent username={username} />
 
+
+        <Image style={styles.earth} source={require('../assets/earth.png')} />
+
+
+        <ProfileComponent userId={userId} />
+
     </View>
   );
 };
@@ -35,4 +42,11 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: colors.background,
     },   
+    earth: {
+      borderRadius: 100,
+      width: 200,
+      height: 200,
+      marginTop: '0%',
+    },
+
   });
