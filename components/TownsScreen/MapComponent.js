@@ -101,15 +101,12 @@ const MapComponent = ({ onCoordinateChange }) => {
 
       const handleCoordinatesChange = () => 
       {
-        console.log(topLeftCoord, bottomRightCoord);
         if (topLeftCoord && bottomRightCoord) 
         { 
-            console.log("not null coords");
             onCoordinateChange(topLeftCoord, bottomRightCoord); 
         }
         else
         {
-            console.log("null coord");
             onCoordinateChange(null, null);
         }
       }

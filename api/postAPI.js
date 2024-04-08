@@ -86,3 +86,23 @@ export const getPhotoImage = async (fileId) =>
         console.error(error);
     }
 }
+
+export const postUserGuess = async (userId, fileId, score, distanceAway, hasLiked = false) =>
+{
+    try {
+        const response = await fetch(`${BASE_URL}/user/makeguess`, {
+            method: 'POST',
+            body: JSON.stringify({ userId, fileId, score, distanceAway, hasLiked }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) { return response.json(); }
+        else { return null; }
+
+    } catch (error)
+    {
+        console.error(error);
+    }
+}
