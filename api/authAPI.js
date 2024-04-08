@@ -122,7 +122,7 @@ export const getTowns = async (userId) => {
 
 export const sendEmail = async (email) => {
   try {
-    let url = `${BASE_URL}/api/user/sendemail`;
+    let url = `${BASE_URL}/user/sendemail`;
     
 
     // console.log("UserID in getTowns call:" + userId);
@@ -132,6 +132,7 @@ export const sendEmail = async (email) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({email}),
     });
 
     const data = await response.json();
