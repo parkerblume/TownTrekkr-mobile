@@ -10,6 +10,7 @@ const ProfileScreen = ( {navigation, route} ) => {
 
   const userId = route.params?.userId;
   const username = route.params?.username;
+  const email = route.params?.email;
 
 
 
@@ -25,7 +26,7 @@ const ProfileScreen = ( {navigation, route} ) => {
         <Image style={styles.earth} source={require('../assets/earth.png')} />
 
 
-        <ProfileComponent userId={userId} />
+        <ProfileComponent userId={userId} email={email}/>
 
     </View>
   );

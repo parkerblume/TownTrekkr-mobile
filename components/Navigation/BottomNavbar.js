@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const BottomNavbar = ({ state, descriptors, navigation }) => {
     const [userId, setUserId] = useState(null);
     const [username, setUsername] = useState(null);
+    const [email, setEmail] = useState(null);
 
     const [isCameraOptionsVisible, setIsCameraOptionsVisible] = useState(false);
     // const currentRoute = state.routes[state.index].name;
@@ -24,14 +25,18 @@ const BottomNavbar = ({ state, descriptors, navigation }) => {
         try {
             const storedUserId = await AsyncStorage.getItem('userId');
             const storedUsername = await AsyncStorage.getItem('username');
+            const storedEmail = await AsyncStorage.getItem('email');
             
             if (storedUserId !== null) { setUserId(storedUserId); }
             if (storedUsername !== null) { setUsername(storedUsername) }
+            if (storedEmail !== null) { setEmail(storedEmail) }
+
             console.log("Stored userId: ", storedUserId);
             console.log("Stored username: ", storedUsername);
+            console.log("Stored email: ", storedEmail);
         } catch (error)
         {
-            console.log("Error retrieving userId: ", error);
+            console.log("Error retrieving information: ", error);
         }
     }
 
@@ -59,7 +64,7 @@ const BottomNavbar = ({ state, descriptors, navigation }) => {
                         });
 
                         if (!isFocused && !event.defaultPrevented) {
-                            navigation.navigate(route.name, { userId, username });
+                            navigation.navigate(route.name, { userId, username, email });
                         }
                     };
 

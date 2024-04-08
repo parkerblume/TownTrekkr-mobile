@@ -4,9 +4,9 @@ import { colors } from '../../styles/commonStyles';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 
-const ProfileComponent = ({userId}) => {
+const ProfileComponent = ({userId, email}) => {
 
-
+    
 
     const handlePasswordChange = () => {
         console.log("change password");
@@ -24,7 +24,7 @@ const ProfileComponent = ({userId}) => {
 
 
                 <View style={styles.passInputContainer}>
-                    <Text>****** </Text>
+                    <Text>{email}</Text>
                     <Ionicons
                         name={'create-outline'}
                         size={20}
