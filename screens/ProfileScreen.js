@@ -26,7 +26,7 @@ const ProfileScreen = ( {navigation, route} ) => {
         <Image style={styles.earth} source={require('../assets/earth.png')} />
 
 
-        <ProfileComponent userId={userId} email={email}/>
+        <ProfileComponent userId={userId} FetchedEmail={email}/>
 
     </View>
   );

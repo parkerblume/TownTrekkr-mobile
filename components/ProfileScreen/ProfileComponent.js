@@ -1,12 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput } from 'react-native';
 import { colors } from '../../styles/commonStyles';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 
-const ProfileComponent = ({userId, email}) => {
+const ProfileComponent = ({userId, FetchedEmail}) => {
 
-    
+    const [email, setEmail] = React.useState(FetchedEmail);
+
+    const [editable, setEditable] = React.useState(false); 
+
+    const toggleEditable = () => {
+        console.log("toggle editable");
+        setEditable(!editable); 
+    };
 
     const handlePasswordChange = () => {
         console.log("change password");
@@ -24,11 +31,18 @@ const ProfileComponent = ({userId, email}) => {
 
 
                 <View style={styles.passInputContainer}>
-                    <Text>{email}</Text>
+                    <TextInput
+                        style={styles.emailText}
+                        onChangeText={setEmail}
+                        value={email}
+                        editable={editable}
+                        placeholder='Email'
+                    />
                     <Ionicons
                         name={'create-outline'}
                         size={20}
                         color="grey"
+                        onPress={() => toggleEditable()}
                     />
                 </View>    
                 
@@ -78,6 +92,11 @@ const styles = StyleSheet.create({
         marginLeft: '10%',
         fontSize: 20,
         fontFamily: 'Londrina-Solid',
+    },
+    emailText: {
+        fontSize: 14,
+        fontFamily: 'Londrina-Solid-Light',
+        color: 'black',
     },
     passwordTitle: {
         marginTop: '8%',
