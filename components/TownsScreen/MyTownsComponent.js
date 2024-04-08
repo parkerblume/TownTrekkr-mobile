@@ -22,8 +22,8 @@ const MyTownsComponent = ({ route }) => {
         setError(null);
 
         try {
-            console.log("getting towns..");
             const towns = await getTowns(userId);
+            //console.log(towns);
             setUserTowns(towns);
         } catch (error) {
             setError(error.message);
@@ -40,9 +40,9 @@ const MyTownsComponent = ({ route }) => {
         //setRefreshing(false);
     }
 
-    const handleOnPlayPress = (townId, townName) =>
+    const handleOnPlayPress = (townObject) =>
     {
-        RootNavigation.navigate('GameScreen', { userId, currentTown: { id: townId, name: townName } })
+        RootNavigation.navigate('GameScreen', { userId, currentTown: { townObject } })
     }
 
     if (loading) 
@@ -68,22 +68,35 @@ const MyTownsComponent = ({ route }) => {
         );
     }
 
-    const renderTownItem = ({ item }) => (
-        <View style={viewTownStyles.townItem}>
-            <View style={viewTownStyles.townInfoContainer}>
-                <Text style={viewTownStyles.townName}>{item.name}</Text>
-                <Text style={viewTownStyles.createdBy}>Created by: {item.creatingUsername}</Text>
+    const renderTownItem = ({ item }) => {
+        const topLeftCoord = {latitude: item.topLeftLat, longitude: item.topLeftLong};
+        const botRightCoord = {latitude: item.botRightLat, longitude: item.botRightLong};
+        const townObject = {
+            id: item._id,
+            name: item.name,
+            coordinates: {
+                topLeft: topLeftCoord,
+                botRight: botRightCoord,
+            }
+        };
+
+        return (
+            <View style={viewTownStyles.townItem}>
+                <View style={viewTownStyles.townInfoContainer}>
+                    <Text style={viewTownStyles.townName}>{item.name}</Text>
+                    <Text style={viewTownStyles.createdBy}>Created by: {item.creatingUsername}</Text>
+                </View>
+                <View style={viewTownStyles.townButtonsContainer}>
+                    <TouchableOpacity style={viewTownStyles.viewButton} onPress={() => {/* Navigate to a Town View Model Compoent */}}>
+                        <Text style={viewTownStyles.buttonText}>View</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={viewTownStyles.playButton} onPress={() => handleOnPlayPress(townObject)}>
+                        <Text style={viewTownStyles.buttonText}>Trek!</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View style={viewTownStyles.townButtonsContainer}>
-                <TouchableOpacity style={viewTownStyles.viewButton} onPress={() => {/* Navigate to a Town View Model Compoent */}}>
-                    <Text style={viewTownStyles.buttonText}>View</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={viewTownStyles.playButton} onPress={() => handleOnPlayPress(item._id, item.name)}>
-                    <Text style={viewTownStyles.buttonText}>Trek!</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-    );
+        );
+    };
   
     return (
         <View style={viewTownStyles.contentContainer}>

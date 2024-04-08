@@ -17,8 +17,9 @@ const GameScreen = ({ navigation, route }) => {
         const storedTown = await AsyncStorage.getItem('currentTown');
         if (route.params?.currentTown) 
         {
-          const { id, name } = route.params.currentTown;
-          const townObject = { id, name };
+          // has id, name, topLeftCoord, botRightCoord properties
+          const { townObject } = route.params.currentTown;
+          console.log(townObject);
           setCurrentTown(townObject);
           await AsyncStorage.setItem('currentTown', JSON.stringify(townObject));
         }

@@ -6,7 +6,8 @@ const colors = {
     dark_green: '#727D71',
     tan: '#DCC9B6',
     olive: '#A39171',
-    fill_transparancy_green: 'rgba(114, 125, 113, 0.5)'
+    fill_transparancy_green: 'rgba(114, 125, 113, 0.5)',
+    fill_very_transparent_green: 'rgba(114, 125, 113, 0.15)'
 };
 
 const commonStyles = StyleSheet.create({

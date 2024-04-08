@@ -31,7 +31,56 @@ export const postUpload = async (image, location, townId, userId) =>
         });
 
         const data = await response.json();
-        return data;
+        if (data) { return data; }
+        else { return null; }
+    } catch (error)
+    {
+        console.error(error);
+    }
+}
+
+export const getPostsByTown = async (townId) =>
+{
+    try {
+        const response = await fetch(`${BASE_URL}/posts/getpostsbytown`, {
+            method: 'POST',
+            body: JSON.stringify({ townId }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    
+        const data = await response.json();
+        if (data) { return data; }
+        else { return null; }
+    } catch (error)
+    {
+        console.error(error);
+    }
+}
+
+export const getPhotoImage = async (fileId) =>
+{
+    try {
+        const response = await fetch(`${BASE_URL}/posts/getimage`, {
+            method: 'POST',
+            body: JSON.stringify({ fileId }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    
+        if (response.ok)
+        {
+            const blob = await response.blob();
+            const imageUrl = URL.createObjectURL(blob);
+            return imageUrl;
+        }
+        else
+        {
+            console.error('Error fetching image: ', response.status);
+            return null;
+        }
     } catch (error)
     {
         console.error(error);
