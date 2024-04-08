@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
 import { colors } from '../styles/commonStyles';
 import PicWithUsernameComponent from '../components/ProfileScreen/PicWithUsernameComponent';
 import ProfileComponent from '../components/ProfileScreen/ProfileComponent';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ProfileScreen = ( {navigation, route} ) => {
 
@@ -15,20 +16,21 @@ const ProfileScreen = ( {navigation, route} ) => {
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
 
       <StatusBar backgroundColor={colors.background} />
 
-      
-        <PicWithUsernameComponent username={username} />
+        <ProfileComponent userId={userId} FetchedEmail={email}/>
+
 
 
         <Image style={styles.earth} source={require('../assets/earth.png')} />
 
 
-        <ProfileComponent userId={userId} FetchedEmail={email}/>
+        <PicWithUsernameComponent username={username} />
 
-    </View>
+
+    </SafeAreaView>
   );
 };
 
@@ -49,5 +51,4 @@ const styles = StyleSheet.create({
       height: 200,
       marginTop: '0%',
     },
-
   });

@@ -1,11 +1,12 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
-         KeyboardAvoidingView, Keyboard, FlatList } from 'react-native';
+         KeyboardAvoidingView, Keyboard, FlatList, SafeAreaView } from 'react-native';
 import { colors } from '../styles/commonStyles';
 import GuessBox from '../components/StatisticsScreen/GuessBox';
 import TownStatisticsComponent from '../components/StatisticsScreen/TownStatisticsComponent';
 import LifetimeStatisticsComponent from '../components/StatisticsScreen/LifetimeStatisticsComponent';
+// import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const StatisticsPage = ( {navigation, route} ) => {
@@ -29,7 +30,7 @@ const StatisticsPage = ( {navigation, route} ) => {
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
 
       <StatusBar backgroundColor={colors.background} />
 
@@ -63,7 +64,7 @@ const StatisticsPage = ( {navigation, route} ) => {
 
 
 
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -77,22 +78,6 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start',
       alignItems: 'center',
       backgroundColor: colors.background,
-    },
-    backButtonContainer: {
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      alignContent: 'flex-start'
-    },
-    backButton: {
-      marginTop: 50,
-      alignSelf: 'flex-start',
-      marginLeft: 32,
-    },
-    backButtonText: {
-      color: colors.buttonPrimary,
-      fontSize: 40,
-      fontWeight: 'bold',
     },
     recentGuessesContainer: {
       marginTop: '5%',

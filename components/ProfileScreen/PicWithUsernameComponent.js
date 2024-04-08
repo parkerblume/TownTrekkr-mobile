@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         borderWidth: 1,
         alignItems: 'center',
-        marginTop: '15%'
+        marginTop: '0%'
       },
     profilePic: {
         width: '50%',
