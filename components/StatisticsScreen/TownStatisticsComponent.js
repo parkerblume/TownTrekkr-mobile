@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, SafeAreaView } from 'react-native';
 import { colors } from '../../styles/commonStyles';
 import { getTowns } from '../../api/authAPI.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -62,7 +62,7 @@ const TownStatisticsComponent = ({userId}) => {
                 </View>
             ))} */}
             {/* Town Statistics Area */}
-            <View style={styles.townStatContainer}>
+            <SafeAreaView style={styles.townStatContainer}>
 
                     {/* TODO: ADD DROP DOWN SELECTOR */}
                     <View style={styles.townStatTitleContainer}>
@@ -88,18 +88,17 @@ const TownStatisticsComponent = ({userId}) => {
                         </View>
                     </View>
 
-                </View>
+            </SafeAreaView>
         </>
     )
 }
 
 const styles = StyleSheet.create({
     townStatContainer: {
-      width: 375,
-      height: 200,
+      width: '100%',
+      height: '25%',
       backgroundColor: colors.tan,
       borderRadius: 50,
-      marginTop: '15%',
       marginLeft: '30%',
       borderWidth: 1,
     },
