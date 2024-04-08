@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-start',
       alignItems: 'center',
       backgroundColor: colors.background,
+      
     },
     recentGuessesContainer: {
       marginTop: '5%',

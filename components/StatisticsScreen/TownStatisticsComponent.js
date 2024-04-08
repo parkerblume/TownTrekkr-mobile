@@ -96,11 +96,12 @@ const TownStatisticsComponent = ({userId}) => {
 const styles = StyleSheet.create({
     townStatContainer: {
       width: '100%',
-      height: '25%',
+      height: 'auto',
       backgroundColor: colors.tan,
       borderRadius: 50,
       marginLeft: '30%',
       borderWidth: 1,
+      paddingBottom: '5%',
     },
     townStatTitleContainer: {
       flexDirection: 'row',

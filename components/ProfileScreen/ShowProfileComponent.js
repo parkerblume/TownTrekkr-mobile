@@ -75,11 +75,11 @@ export default ShowProfileComponent;
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: '100%',
         backgroundColor: colors.tan,
         borderRadius: 50,
         borderWidth: 1,
         alignItems: 'left',
+        paddingBottom: '5%',
       },
     profile: {
         marginTop: '5%',

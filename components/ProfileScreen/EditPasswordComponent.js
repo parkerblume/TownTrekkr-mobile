@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         borderWidth: 1,
         alignItems: 'left',
+        paddingBottom: '5%',
       },
     profile: {
         marginTop: '5%',
