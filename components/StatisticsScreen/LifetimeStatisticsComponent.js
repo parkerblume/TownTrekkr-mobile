@@ -13,7 +13,7 @@ const LifetimeStatisticsComponent = ({userId}) => {
                 const response = await getGuesses(userId);
                 setGuesses(response); 
             } catch (error) {
-                console.error('Error fetching towns:', error);
+                console.error('Error fetching guesses:', error);
             }
         };
 
@@ -27,6 +27,35 @@ const LifetimeStatisticsComponent = ({userId}) => {
         return 0;
     }
 
+    const getPerfectGuesses = () => {
+        if (!guesses) return 0;
+
+        let perfectGuesses = 0;
+        for (let i = 0; i < guesses.length; i++)
+        {
+            if (guesses[i].score > 1000)
+            {
+                perfectGuesses++;
+            }
+        }
+        return perfectGuesses;
+    }
+
+    const getPercentPerfect = () => {
+        if (!guesses) return 0;
+        return (getPerfectGuesses() / getTotalGuesses()) * 100;
+    }
+
+    const getAverageScore = () => {
+        if (!guesses) return 0;
+
+        let totalScore = 0;
+        for (let i = 0; i < guesses.length; i++)
+        {
+            totalScore += guesses[i].score;
+        }
+        return totalScore / getTotalGuesses();
+    }
 
     return (
         <>
@@ -37,12 +66,12 @@ const LifetimeStatisticsComponent = ({userId}) => {
                 <View style={styles.lifetimeRow1Container}>
                 {/* Col 1 */}
                 <View style={{marginRight: 40}}>
-                    <Text style={styles.lifetimeStatValue}>-</Text>
+                    <Text style={styles.lifetimeStatValue}>{getPercentPerfect()}%</Text>
                     <Text style={styles.lifetimeStatTitle}>Percent Perfect</Text>
                 </View>
                 {/* Col 2 */}
                 <View>
-                <Text style={styles.lifetimeStatValue}>-</Text>
+                <Text style={styles.lifetimeStatValue}>{getPerfectGuesses()}</Text>
                     <Text style={styles.lifetimeStatTitle}>Perfect Guesses</Text>
                 </View>
                 </View>
@@ -52,7 +81,7 @@ const LifetimeStatisticsComponent = ({userId}) => {
                 <View style={styles.lifetimeRow2Container}>
                 {/* Col 1 */}
                 <View style={{marginRight: 40}}>
-                    <Text style={styles.lifetimeStatValue}>-</Text>
+                    <Text style={styles.lifetimeStatValue}>{getAverageScore()}</Text>
                     <Text style={styles.lifetimeStatTitle}>Average Score</Text>
                 </View>
                 {/* Col 2 */}

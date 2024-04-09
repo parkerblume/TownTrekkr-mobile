@@ -38,10 +38,10 @@ export const postUpload = async (image, location, townId, userId) =>
     }
 };
 
-export const getGuesses = async (userId) =>
+export const getGuesses = async (userid) =>
 {
     try {
-      let url = `${BASE_URL}/user/getguesses?userId=${userId}`;
+      let url = `${BASE_URL}/user/getguesses`;
       
   
       const response = await fetch(url, {
@@ -49,12 +49,13 @@ export const getGuesses = async (userId) =>
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({userid}),
       });
   
       const data = await response.json();
   
       if (response.ok) {
-        return data;
+        return data.guesses;
       } else {
         return null;
       }
@@ -63,6 +64,32 @@ export const getGuesses = async (userId) =>
       throw error;
     }
   };
+
+export const getPostById = async (post_id) =>
+{
+    try {
+        let url = `${BASE_URL}/posts/getpost`;
+
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({post_id}),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            return data;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching post by id:', error);
+        throw error;
+    }
+};
 
 export const getUserPosts = async (userId) => 
 {

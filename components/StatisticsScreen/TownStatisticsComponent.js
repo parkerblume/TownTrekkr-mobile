@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, Saf
 import { colors } from '../../styles/commonStyles';
 import { getTowns } from '../../api/authAPI.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getGuesses } from '../../api/postAPI.js';
+import { getPostById } from '../../api/postAPI.js';
 
 
 
@@ -16,10 +18,40 @@ const TownStatisticsComponent = ({userId}) => {
 
     const [towns, setTowns] = React.useState([]);
     const [currentTown, setCurrentTown] = React.useState('');
+    const [guesses, setGuesses] = React.useState([]);
+    const [townGuesses, setTownGuesses] = React.useState([]);
 
 
+    React.useEffect(() => {
 
+        const fetchTownGuesses = async () => {
 
+            try {
+                const response = await getGuesses(userId);
+                setGuesses(response);
+                //console.log("number of guesses: " + guesses.length);
+                //console.log(guesses);
+
+                for (let i = 0; i < guesses.length; i++)
+                {
+                    //console.log("post id: " + guesses[i].post);
+                    const post = await getPostById(guesses[i].post);
+                    //const post = await getPostById("65fdeee45b02344bf39c7715");
+
+                    //console.log("post town name: " + post.town);
+                    //console.log("town: " + post.town);
+                    if (post.town === currentTown)
+                    {
+                        setTownGuesses([...townGuesses, guesses[i]]);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching town guesses:', error);
+            }
+        };
+
+        fetchTownGuesses();
+    }, [currentTown]);
 
 
     React.useEffect(() => {
@@ -44,12 +76,7 @@ const TownStatisticsComponent = ({userId}) => {
         }
     }
 
-    const getTotalGuesses = () => {
-        if (currentTown !== '') {
-            
-        }
-        return 0;
-    }
+
 
     return (
         <>
@@ -63,7 +90,7 @@ const TownStatisticsComponent = ({userId}) => {
             ))} */}
             {/* Town Statistics Area */}
             <SafeAreaView style={styles.townStatContainer}>
-
+                    
                     {/* TODO: ADD DROP DOWN SELECTOR */}
                     <View style={styles.townStatTitleContainer}>
                         <Text style={styles.townStatDropdownTitle}>{currentTown}</Text>
@@ -83,7 +110,7 @@ const TownStatisticsComponent = ({userId}) => {
                         <View>
                             <Text style={styles.townStatStatValue}>-</Text>
                             <Text style={styles.townStatStatValue}>-</Text>
-                            <Text style={styles.townStatStatValue}>{getTotalGuesses()}</Text>
+                            <Text style={styles.townStatStatValue}>-</Text>
                             <Text style={styles.townStatStatValue}>-</Text>
                         </View>
                     </View>
