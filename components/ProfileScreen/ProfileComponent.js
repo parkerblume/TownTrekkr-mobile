@@ -19,11 +19,10 @@ const ProfileComponent = ({userId, email, username, navigation, posts}) => {
             await AsyncStorage.removeItem('userId');
             await AsyncStorage.removeItem('email');
             await AsyncStorage.removeItem('username');
-            console.log("Logged out successfully.");
-            console.log("userId: ", userId);
-            console.log("email: ", email);
-            console.log("username: ", username);
-            navigation.navigate('StatsScreen');
+            console.log("Logging out");
+
+            // THIS DON"T WORK
+            //navigation.navigate('LoginScreen');
 
         } catch (error)
         {

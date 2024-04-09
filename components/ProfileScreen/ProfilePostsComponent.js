@@ -12,7 +12,7 @@ import SinglePost from './SinglePost';
 const ProfilePostsComponent = ({userId, posts}) => {
 
     const entrySeparator = () => {
-        return <View style={{ height: 1, backgroundColor: "grey" }} />;
+        return <View style={{ height: 0, backgroundColor: "grey" }} />;
     };
       
     const emptyArray = () => {
@@ -33,7 +33,8 @@ const ProfilePostsComponent = ({userId, posts}) => {
                 <FlatList
                     data={posts}
                     renderItem={({item, index}) => (
-                        <SinglePost title={"Title"} likes={item.likes} dislikes={item.dislikes} />
+                        <SinglePost title={item.title ? item.title : "No post title..."} likes={item.likes} 
+                                            dislikes={item.dislikes} image={null}/>
                         )}
                     keyExtractor={(item, index) => index.toString()}
                     ItemSeparatorComponent={entrySeparator}
@@ -74,6 +75,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         alignContent: 'center',
-        marginLeft: '5%',
     },
 });
