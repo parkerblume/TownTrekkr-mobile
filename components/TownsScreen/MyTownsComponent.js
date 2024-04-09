@@ -5,6 +5,7 @@ import { colors } from '../../styles/commonStyles';
 import viewTownStyles from '../../styles/viewTownStyles';
 import * as RootNavigation from '../Navigation/RootNavigation';
 import ViewTownModal from './ViewTownModal';
+import { removeUserFromTown } from '../../api/authAPI';
 
 const MyTownsComponent = ({ route }) => {
     const userId = route.params.userId;
@@ -28,7 +29,6 @@ const MyTownsComponent = ({ route }) => {
 
         try {
             const towns = await getTowns(userId);
-            //console.log(towns);
             setUserTowns(towns);
         } catch (error) {
             setError(error.message);
@@ -76,8 +76,6 @@ const MyTownsComponent = ({ route }) => {
     const handleViewTown = (townObject) =>
     {
         setSelectedTown(townObject);
-        console.log("handle view");
-        console.log(townObject);
         setIsModalVisible(true);
     }
 
@@ -89,7 +87,6 @@ const MyTownsComponent = ({ route }) => {
 
     const handleDeleteTown = async (townId, townName) =>
     {
-        console.log("In delete: ", townId);
         Alert.alert(
             'Confirm Delete',
             `Are you sure you want to delete ${townName}?`,
@@ -103,15 +100,46 @@ const MyTownsComponent = ({ route }) => {
                     style: 'destructive',
                     onPress: async () => {
                         const deleted = await deleteTown(townId);
-                        if (deleted) { setDeletedTownIds([...deletedTownIds, townId]); }
+                        if (deleted) 
+                        { 
+                            setDeletedTownIds([...deletedTownIds, townId]); 
+                            closeModal(false);
+                        }
                     },
                 },
             ],
             { cancelable: false }
         );
-    }
+    };
 
-    const renderTownItem = ({ item }) => {
+    const handleLeaveTown = async (townId, townName) =>
+    {
+        Alert.alert(
+            'Leave town?',
+            `Are you sure you want to leave ${townName}?`,
+            [
+                {
+                    text: 'No',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Yes',
+                    style: 'destructive',
+                    onPress: async () => {
+                        const leaveTown = await removeUserFromTown(townId, userId);
+                        if (leaveTown)
+                        {
+                            closeModal();
+                            refreshTowns();
+                        }
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    };
+
+    const renderTownItem = ({ item, index }) => {
         const topLeftCoord = {latitude: item.topLeftLat, longitude: item.topLeftLong};
         const botRightCoord = {latitude: item.botRightLat, longitude: item.botRightLong};
         const townObject = {
@@ -126,8 +154,6 @@ const MyTownsComponent = ({ route }) => {
             leader: item.creatingUsername
         };
 
-        console.log(item);
-
         if (deletedTownIds.includes(townObject.id))
         {
             return (
@@ -140,13 +166,13 @@ const MyTownsComponent = ({ route }) => {
         }
 
         return (
-            <View style={viewTownStyles.townItem}>
+            <View style={viewTownStyles.townItem} key={`town-${index}`}>
                 <View style={viewTownStyles.townInfoContainer}>
                     <Text style={viewTownStyles.townName}>{item.name}</Text>
                     <Text style={viewTownStyles.createdBy}>Created by: {item.creatingUsername}</Text>
                 </View>
                 <View style={viewTownStyles.townButtonsContainer}>
-                    {(item.creatingUsername === username) && (
+                    {townObject.leader === username && (
                         <TouchableOpacity style={viewTownStyles.deleteButton} onPress={() => handleDeleteTown(townObject.id, townObject.name)}>
                             <Text style={viewTownStyles.buttonText}>Delete</Text>
                         </TouchableOpacity>
@@ -164,7 +190,10 @@ const MyTownsComponent = ({ route }) => {
                         onClose={closeModal}
                         townObject={selectedTown}
                         onPlayPress={handleOnPlayPress}
+                        onLeavePress={handleLeaveTown}
                         onDeletePress={handleDeleteTown}
+                        userId={userId}
+                        username={username}
                     />
                 )}
             </View>
@@ -176,7 +205,7 @@ const MyTownsComponent = ({ route }) => {
             <FlatList
                 data={userTowns}
                 renderItem={renderTownItem}
-                keyExtractor={(item) => item._id}
+                keyExtractor={(item) => item._id.toString()}
                 contentContainerStyle={viewTownStyles.listContainer}
                 refreshControl={
                     <RefreshControl

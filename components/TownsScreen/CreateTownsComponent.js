@@ -81,6 +81,7 @@ const CreateTownsComponent = ({ userId, username, onClose }) => {
                                 style={styles.input}
                                 onChangeText={handleTownNameChange}
                                 value={townName}
+                                maxLength={32}
                             />
                         </View>
 

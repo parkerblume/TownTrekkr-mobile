@@ -15,8 +15,6 @@ const TownsScreen = ({ navigation, route }) => {
     const [userCreatedTown, setUserCreatedTown] = useState(false);
     const userId = route.params.userId;
     const username = route.params.username;
-    console.log(userId);
-    console.log(username);
 
     const toggleCreateModal = () => {
         setIsCreateModalVisible(!isCreateModalVisible);

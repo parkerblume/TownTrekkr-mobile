@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.8,
       shadowRadius: 10,
       shadowOffset: { width: 0, height: 0 }, 
+      elevation: 10,
       backgroundColor: colors.olive,
     },
     textField: {

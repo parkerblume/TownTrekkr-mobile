@@ -3,12 +3,16 @@ import { View, Text, TouchableOpacity, FlatList, RefreshControl } from 'react-na
 import { getTowns } from '../../api/authAPI';
 import { colors } from '../../styles/commonStyles';
 import viewTownStyles from '../../styles/viewTownStyles';
+import { addUserToTown } from '../../api/authAPI';
+import ViewTownModal from './ViewTownModal';
 import * as RootNavigation from '../Navigation/RootNavigation';
 
 const AllTownsComponent = ({ route  }) => {
     const userId = route.params.userId;
     const [towns, setTowns] = useState([]);
     const [page, setPage] = useState(1); // for API pagination
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedTown, setSelectedTown] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(true);
@@ -31,7 +35,10 @@ const AllTownsComponent = ({ route  }) => {
 
         try {
             const newTowns = await getTowns(null, page);
-            setTowns((prevTowns) => [...prevTowns, ...newTowns]);
+            const filteredTowns = newTowns.filter((town) => {
+                return !town.townMembers.some((member) => member.userId === userId);
+            })
+            setTowns((prevTowns) => [...prevTowns, ...filteredTowns]);
             setHasMore(newTowns.length > 0)
         } catch (error) {
             setError(error.message);
@@ -45,8 +52,8 @@ const AllTownsComponent = ({ route  }) => {
         setRefreshing(true);
         setPage(1);
         setTowns([]);
-        await fetchTowns().then(() => setRefreshing(false));
-        //setRefreshing(false);
+        await fetchTowns();
+        setRefreshing(false);
     }
 
     const loadMore = () =>
@@ -57,10 +64,23 @@ const AllTownsComponent = ({ route  }) => {
         }
     };
 
-    // const handleOnPlayPress = (townId, townName) =>
-    // {
-    //     RootNavigation.navigate('GameScreen', { userId, currentTown: { id: townId, name: townName } })
-    // }
+    const handleJoinTown = async (townId) =>
+    {
+        const joined = await addUserToTown(townId, userId);
+        if (joined) { refreshTowns(); }
+    };
+
+    const handleViewTown = (townObject) =>
+    {
+        setSelectedTown(townObject);
+        setIsModalVisible(true);
+    }
+
+    const closeModal = () =>
+    {
+        setIsModalVisible(false);
+        setSelectedTown(null);
+    }
 
     const renderFooter = () =>
     {
@@ -86,22 +106,39 @@ const AllTownsComponent = ({ route  }) => {
         );
     }
 
-    const renderTownItem = ({ item }) => (
-        <View style={viewTownStyles.townItem}>
-            <View style={viewTownStyles.townInfoContainer}>
-                <Text style={viewTownStyles.townName}>{item.name}</Text>
-                <Text style={viewTownStyles.createdBy}>Created by: {item.creatingUsername}</Text>
+    const renderTownItem = ({ item, index }) => 
+    {
+        const topLeftCoord = {latitude: item.topLeftLat, longitude: item.topLeftLong};
+        const botRightCoord = {latitude: item.botRightLat, longitude: item.botRightLong};
+        const townObject = {
+            id: item._id,
+            name: item.name,
+            description: item.description,
+            coordinates: {
+                topLeft: topLeftCoord,
+                botRight: botRightCoord,
+            },
+            townMembers: item.townMembers,
+            leader: item.creatingUsername
+        };
+
+        return (
+            <View style={viewTownStyles.townItem} key={`town-${index}`}>
+                <View style={viewTownStyles.townInfoContainer}>
+                    <Text style={viewTownStyles.townName}>{item.name}</Text>
+                    <Text style={viewTownStyles.createdBy}>Created by: {item.creatingUsername}</Text>
+                </View>
+                <View style={viewTownStyles.townButtonsContainer}>
+                    <TouchableOpacity style={viewTownStyles.viewButton} onPress={() => handleViewTown(townObject)}>
+                        <Text style={viewTownStyles.buttonText}>View</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={viewTownStyles.playButton} onPress={() => handleJoinTown(townObject.id)}>
+                        <Text style={viewTownStyles.buttonText}>Join!</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <View style={viewTownStyles.townButtonsContainer}>
-                <TouchableOpacity style={viewTownStyles.viewButton} onPress={() => {/* Navigate to a Town View Model Compoent */}}>
-                    <Text style={viewTownStyles.buttonText}>View</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={viewTownStyles.playButton} onPress={() => {/* implement joining a town */}}>
-                    <Text style={viewTownStyles.buttonText}>Join!</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-    );
+        );
+    };
   
     return (
         <View style={viewTownStyles.contentContainer}>
@@ -129,6 +166,15 @@ const AllTownsComponent = ({ route  }) => {
                     </View>
                 }
             />
+            {isModalVisible && (
+                <ViewTownModal
+                    isVisible={isModalVisible}
+                    onClose={closeModal}
+                    townObject={selectedTown}
+                    onJoinPress={handleJoinTown}
+                    userId={userId}
+                />
+            )}
         </View>
     );
 }   

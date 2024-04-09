@@ -6,10 +6,14 @@ import viewTownStyles from '../../styles/viewTownStyles';
 import { getUserById } from '../../api/authAPI';
 import getMidpointCoordinate from '../utils/getMidpointCoordinate';
 import getRectangularCoordinates from '../utils/getRectangularCoordinates';
+import calculateMapDeltas from '../utils/calculateMapDeltas';
 
-const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPress, onDeletePress }) => {
+const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPress, onDeletePress, onLeavePress, userId, username }) => {
     const [townMembers, setTownMembers] = useState([]);
     const [showDeleteButton, setShowDeleteButton] = useState(false);
+    const [showLeaveButton, setShowLeaveButton] = useState(false);
+
+    console.log(townObject.id);
 
     useEffect(() => {
         if (townObject && townObject.townMembers)
@@ -24,25 +28,29 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
             townObject.townMembers.map(async (member) =>
             {
                 const user = await getUserById(member.userId);
-                console.log(user);
                 return { id: member.userId, username: user.username };
             })
         );
 
         setTownMembers(members);
-        setShowDeleteButton(members.some(member => member.username === townObject.leader));
+
+        const isLeader = (townObject.leader === username);
+        const isMember = members.some(member => member.id === userId);
+
+        setShowDeleteButton(isLeader);
+        setShowLeaveButton(!isLeader && isMember);
     };
 
     const handleMidPointCoordinate = () =>
     {
-        console.log("handle Mid Point");
         if (townObject && townObject.coordinates)
         {
-            console.log("Should not be in here right now");
-            console.log("coords: ", townObject.coordinates);
             const { topLeft, botRight } = townObject.coordinates;
 
-            return getMidpointCoordinate(topLeft, botRight);
+            const midPoint = getMidpointCoordinate(topLeft, botRight);
+            const mapDeltas = calculateMapDeltas(topLeft, botRight);
+
+            return {...midPoint, ...mapDeltas};
         }
 
         return null;
@@ -51,11 +59,8 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
 
     const handleRectangularCoordinates = () =>
     {
-        console.log("handle rectangular");
         if (townObject && townObject.coordinates)
         {
-            console.log("should not be in here right now");
-            console.log("coords: ", townObject.coordinates);
             const { topLeft, botRight } = townObject.coordinates;
             const coords = getRectangularCoordinates(topLeft, botRight);
             return coords;
@@ -86,7 +91,7 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
                 <View style={styles.headerContainer}>
                     <Text style={styles.townName}>{townObject?.name}</Text>
                     <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-                        <Text style={styles.closeButtonText}>X</Text>
+                        <Text style={styles.closeButtonText}>Close</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.mapContainer}>
@@ -95,8 +100,8 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
                         initialRegion={{
                             longitude: midPointCoord.longitude,
                             latitude: midPointCoord.latitude,
-                            latitudeDelta: 0.005,
-                            longitudeDelta: 0.005,
+                            latitudeDelta: midPointCoord.latitudeDelta,
+                            longitudeDelta: midPointCoord.longitudeDelta,
                         }}
                     >
                     {polygonCoords && (
@@ -109,25 +114,35 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
                     </MapView>
                 </View>
                 <View style={styles.infoContainer}>
+                    <View style={styles.townDescriptionContainer}>
+                        <Text style={styles.townDescription}>
+                            {townObject.description}
+                        </Text>
+                    </View>
                     <View style={styles.infoButtonContainer}>
                         {onPlayPress && (
-                                <TouchableOpacity style={styles.actionButton} onPress={() => onPlayPress(townObject)}>
-                                    <Text style={styles.actionButtonText}>Play</Text>
-                                </TouchableOpacity>
-                            )}
-                        {onJoinPress && (
                             <TouchableOpacity style={styles.actionButton} onPress={() => onPlayPress(townObject)}>
+                                <Text style={styles.actionButtonText}>Play</Text>
+                            </TouchableOpacity>
+                        )}
+                        {onJoinPress && (
+                            <TouchableOpacity style={styles.actionButton} onPress={() => onJoinPress(townObject.id)}>
                                 <Text style={styles.actionButtonText}>Join</Text>
                             </TouchableOpacity>
                         )}
-                        {showDeleteButton && (
+                        {showLeaveButton && (
+                            <TouchableOpacity style={[styles.actionButton, styles.deleteButton]} onPress={() => onLeavePress(townObject.id, townObject.name)}>
+                                <Text style={styles.actionButtonText}>Leave</Text>
+                            </TouchableOpacity>
+                        )}
+                        {showDeleteButton && onDeletePress && (
                             <TouchableOpacity style={[styles.actionButton, styles.deleteButton]} onPress={() => onDeletePress(townObject.id, townObject.name)}>
                                 <Text style={styles.actionButtonText}>Delete</Text>
                             </TouchableOpacity>
                         )}
                     </View>
                     <View style={styles.listInfo}>
-                        <Text style={styles.membersText}>Hall of Members</Text>
+                        <Text style={styles.membersText}>Town Hall</Text>
                         <FlatList
                             data={townMembers}
                             renderItem={renderMemberItem}
@@ -144,10 +159,10 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
 const styles = StyleSheet.create({
     modalContainer: {
         backgroundColor: colors.tan,
-        borderRadius: 10,
         padding: 20,
         flex: 1,
         alignItems: 'center',
+        width: '100%',
     },
     headerContainer: {
         alignItems: 'center',
@@ -161,7 +176,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         textAlign: 'center',
         flex: 1,
-        marginLeft: '5%'
+        marginLeft: '10%'
     },
     closeButton: {
         alignItems: 'center',
@@ -178,8 +193,7 @@ const styles = StyleSheet.create({
     },
     mapContainer: {
         width: '100%',
-        height: "50%",
-        marginBottom:'2%',
+        height: "40%",
         marginTop: '2%',
         borderColor: colors.olive,
         borderTopWidth: 3,
@@ -191,7 +205,27 @@ const styles = StyleSheet.create({
         backgroundColor: colors.olive,
     },
     mapView: {
-        flex: 1
+        flex: 1,
+    },
+    townDescriptionContainer: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: '3%',
+        paddingVertical: '3%',
+        borderBottomColor: colors.dark_brown,
+        borderBottomWidth: 3,
+        backgroundColor: colors.faded_tan,
+        shadowColor: colors.dark_brown,
+        shadowOpacity: 0.8,
+        shadowRadius: 10,
+        shadowOffset: { width: 0, height: 0 }, 
+        elevation: 10,
+    },
+    townDescription: {
+        fontFamily: 'Londrina-Solid-Light',
+        fontSize: 20,
+        color: colors.dark_brown
     },
     infoContainer: {
         flex: 1,
@@ -211,8 +245,10 @@ const styles = StyleSheet.create({
         backgroundColor: colors.olive, 
         paddingVertical: "3%",
         paddingHorizontal: "2%",
+        marginHorizontal: '2%',
         borderRadius: 5,
         width: '45%',
+        flex: 1,
     },
     deleteButton: {
         backgroundColor: colors.dark_brown
@@ -229,7 +265,7 @@ const styles = StyleSheet.create({
     listContainer: {
         paddingTop: '3%',
         width: '100%',
-        borderTopWidth: 2,
+        borderTopWidth: 3,
         borderTopColor: colors.dark_brown,
         borderBottomColor: colors.dark_brown,
         borderBottomWidth: 3,

@@ -70,7 +70,7 @@ export const createTown = async (name, description, topLeftCoord, botRightCoord,
   }
 };
 
-export const addUserToTown = async (townId, userId) =>
+export const addUserToTown = async (town_id, user_id) =>
 {
   try {
     const response = await fetch(`${BASE_URL}/town/adduser`, {
@@ -78,11 +78,11 @@ export const addUserToTown = async (townId, userId) =>
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ townId, userId }),
+      body: JSON.stringify({ town_id, user_id }),
     });
 
     const data = await response.json();
-    if (data.ok) { return true; }
+    if (data.message) { return true; }
     else { return false; }
 
   } catch (error) {
@@ -90,6 +90,29 @@ export const addUserToTown = async (townId, userId) =>
     throw error;
   }
 };
+
+export const removeUserFromTown = async (town_id, user_id) =>
+{
+  try {
+    console.log(town_id, user_id);
+    const response = await fetch(`${BASE_URL}/town/removeUser`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ town_id, user_id }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+    if (data.message) { return true; }
+    else { return false; }
+
+  } catch (error) {
+    console.error('Error removing user to town: ', error);
+    throw error;
+  }
+  }
 
 export const getTowns = async (userId, page = 1, limit = 20) => {
   try {
@@ -152,8 +175,7 @@ export const deleteTown = async (town_id) =>
     });
   
     const data = await response.json();
-    console.log(data);
-    if (data.ok) { return true; }
+    if (data.message) { return true; }
     else { return false; }
   } catch (error) {
     console.error("Error deleting town: ", error);

@@ -10,16 +10,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const BottomNavbar = ({ state, descriptors, navigation }) => {
     const [userId, setUserId] = useState(null);
     const [username, setUsername] = useState(null);
-
     const [isCameraOptionsVisible, setIsCameraOptionsVisible] = useState(false);
-    // const currentRoute = state.routes[state.index].name;
-    // const isActiveScreen = (screen) => currentRoute.name === screen;
 
     useEffect(() => {
-        getUserId();
+        getUserDetails();
     }, []);
 
-    const getUserId = async () =>
+    const getUserDetails = async () =>
     {
         try {
             const storedUserId = await AsyncStorage.getItem('userId');

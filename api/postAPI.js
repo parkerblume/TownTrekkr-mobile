@@ -1,4 +1,5 @@
 import {BASE_URL} from './config';
+import * as FileSystem from 'expo-file-system';
 
 export const postUpload = async (image, location, title, townId, userId) =>
 {
@@ -74,8 +75,35 @@ export const getPhotoImage = async (fileId) =>
         if (response.ok)
         {
             const blob = await response.blob();
-            const imageUrl = URL.createObjectURL(blob);
-            return imageUrl;
+            const reader = new FileReader();
+            
+            // convert blob to base64 because Android sucks
+            return new Promise((resolve, reject) =>
+            {
+                reader.onloadend = async () => {
+                    const base64data = reader.result.split(',')[1];
+                    const fileUri = `${FileSystem.documentDirectory}${fileId}.jpeg`;
+
+                    try {
+                        await FileSystem.writeAsStringAsync(fileUri, base64data, {
+                            encoding: FileSystem.EncodingType.Base64,
+                        });
+                        
+                        resolve(fileUri);
+                    } catch (error) {
+                        reject(error);
+                    };
+
+                    reader.onerror = (error) => {
+                        reject(error);
+                    };
+                }
+
+                reader.readAsDataURL(blob);
+            });
+            // const imageUrl = URL.createObjectURL(blob);
+            // console.log(imageUrl);
+            // return imageUrl;
         }
         else
         {
