@@ -46,7 +46,7 @@ const ImageHandleScreen = ({ navigation, route }) => {
 
     const handleUpload = async () =>
     {
-        const data = await postUpload(imageResult, location, town.id, userId);
+        const data = await postUpload(imageResult, location, title, town.id, userId);
         console.log(data);
         if (data)
         {
