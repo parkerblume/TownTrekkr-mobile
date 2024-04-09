@@ -4,21 +4,30 @@ import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
          KeyboardAvoidingView, Keyboard, Platform } from 'react-native';
 import { colors } from '../styles/commonStyles';
 import { login } from '../api/authAPI.js';
-import { sendEmail } from '../api/authAPI.js';
+import { sendEmail, verifyAccount } from '../api/authAPI.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const EmailVerificationScreen = ( {navigation} ) => {
+
+const EmailVerificationScreen = ( {navigation, route} ) => {
 
   const [inputs, setInputs] = React.useState(Array(4).fill(''));
+  const [sentCode, setsentCode] = React.useState(false);
+
+  const email = route.params?.email;
+
 
   const sendCodeToEmail = () => {
-    //sendEmail("");
-    console.log("Code sent to email");
+    sendEmail(email);
+    console.log("Code sent to email: " + email);
   };
 
   React.useEffect(() => {
-    sendCodeToEmail();
+    if (!sentCode)
+    {
+      sendCodeToEmail();
+      setsentCode(true);
+    }
   });
 
   const handleInputChange = (text, index) => {
@@ -44,6 +53,21 @@ const EmailVerificationScreen = ( {navigation} ) => {
   const getCode = () => {
     return inputs.join('');
   };
+
+  const verifyEmailAndContinue = () => {
+    console.log("Verifying email: " + email);
+    console.log("Code inputed: " + getCode());
+
+    if (verifyAccount(email, getCode()))
+    {
+      console.log("Email verified!");
+      navigation.navigate("Login");
+    }
+    else
+    {
+      console.log("Email not verified.");
+    }
+  }
 
   // Array to hold refs for each TextInput
   const inputRefs = Array(4).fill().map((_, i) => React.useRef(null));
@@ -74,7 +98,6 @@ const EmailVerificationScreen = ( {navigation} ) => {
           ref={inputRefs[index]}
           style={styles.inputBox}
           maxLength={1}
-          keyboardType="numeric"
           value={value}
           onChangeText={(text) => handleInputChange(text, index)}
         />
@@ -85,7 +108,7 @@ const EmailVerificationScreen = ( {navigation} ) => {
 
       
       {/* confirm button */}
-      <TouchableOpacity style={styles.confirmButton}>
+      <TouchableOpacity style={styles.confirmButton} onPress={() => verifyEmailAndContinue()}>
         <Text style={styles.confirmText}>Confirm</Text>
       </TouchableOpacity>
 

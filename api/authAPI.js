@@ -30,8 +30,14 @@ export const signup = async (email, password, username) =>
       },
       body: JSON.stringify({ email, password, username }),
     });
+    
     const data = await response.json();
-    return data;
+
+    if (response.ok) 
+      return data;
+    else 
+      return null;
+
   } catch (error) {
     console.error('Error during signup:', error);
     throw error;
@@ -136,6 +142,7 @@ export const sendEmail = async (email) => {
     });
 
     const data = await response.json();
+    console.log(data);
 
     if (response.ok) {
       return data;
@@ -144,6 +151,34 @@ export const sendEmail = async (email) => {
     }
   } catch (error) {
     console.error('Error sending email:', error);
+    throw error;
+  }
+};
+
+export const verifyAccount = async (email, code) => {
+  try {
+    let url = `${BASE_URL}/user/verify`;
+    
+
+    // console.log("UserID in getTowns call:" + userId);
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({email, code}),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      return data.message === "User has been verified";
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error('Error verifying account:', error);
     throw error;
   }
 };

@@ -18,6 +18,8 @@ const RegisterPage = ( {navigation} ) => {
   const [showPassReqs, setShowPassReqs] = useState(false);
 
 
+
+
   const isValidPassword = (password) => {
     const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,30}$/;
     return passRegex.test(password);
@@ -28,7 +30,8 @@ const RegisterPage = ( {navigation} ) => {
     return true;
   }
 
-  const signupHandler = () => {
+  const signupHandler = async () => {
+ 
     console.log("sign up");
     if (username === '') {
       alert('Please enter your username');
@@ -56,9 +59,13 @@ const RegisterPage = ( {navigation} ) => {
       return;
     }
     
-    let data = signup(email, password, username);
-    console.log(data);
-    navigation.navigate("Login");
+    let data = await signup(email, password, username);
+    console.log(data.username);
+    console.log("Registed user: " + email + " and username: " + username);
+
+    navigation.navigate("EmailVerification", {email})
+
+    //navigation.navigate("Login");
   }
 
   return (
@@ -137,7 +144,7 @@ const RegisterPage = ( {navigation} ) => {
 
 
         {/* Text under next button */}
-        <TouchableOpacity onPress={() => navigation.navigate("EmailVerification")}>
+        <TouchableOpacity onPress={() => navigation.navigate("EmailVerification", {email})}>
           <Text style={styles.alreadyMemberText}>
             <Text>
               Already a member?&nbsp;

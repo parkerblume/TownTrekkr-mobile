@@ -29,6 +29,7 @@ const LoginPage = ( {navigation, onLogin} ) => {
     }
 
     let data = await login(email, password);
+    console.log("Logging in");
     //console.log(data);
     if (data)
     {

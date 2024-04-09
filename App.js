@@ -50,7 +50,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      { !isAuthenticated ? <AppNavigation /> : <AuthNavigation handleLogin={handleLogin} /> }
+      { isAuthenticated ? <AppNavigation /> : <AuthNavigation handleLogin={handleLogin} /> }
     </NavigationContainer>
   );
 }
