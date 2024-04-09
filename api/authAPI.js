@@ -99,7 +99,6 @@ export const getTowns = async (userId, page = 1, limit = 20) => {
     if (userId) {
       url += `&userId=${userId}`;
     }
-    console.log(url);
 
     const response = await fetch(url, {
       method: 'GET',
@@ -120,3 +119,43 @@ export const getTowns = async (userId, page = 1, limit = 20) => {
     throw error;
   }
 };
+
+export const getUserById = async (userId) =>
+{
+  try {
+    const response = await fetch(`${BASE_URL}/user/getuserbyid`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+    if (data) { return data; }
+    else { return null; }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const deleteTown = async (town_id) =>
+{
+  try {
+    const response = await fetch(`${BASE_URL}/town/deletetown`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ town_id }),
+    });
+  
+    const data = await response.json();
+    console.log(data);
+    if (data.ok) { return true; }
+    else { return false; }
+  } catch (error) {
+    console.error("Error deleting town: ", error);
+  }
+}

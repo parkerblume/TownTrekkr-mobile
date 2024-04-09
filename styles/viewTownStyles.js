@@ -83,7 +83,6 @@ export default viewTownStyles = StyleSheet.create({
     },
     townInfoContainer: {
         flex: 1,
-        marginRight: 10,
     },
     townName: {
         fontFamily: 'Londrina-Solid',
@@ -100,6 +99,21 @@ export default viewTownStyles = StyleSheet.create({
     },
     viewButton: {
         backgroundColor: colors.olive,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 5,
+        marginRight: 10,
+    },
+    deletedTownItem: {
+        backgroundColor: colors.faded_tan
+    },
+    deletedTownText: {
+        fontFamily: 'Londrina-Solid',
+        fontSize: 25,
+        color: colors.dark_brown
+    },
+    deleteButton: {
+        backgroundColor: colors.dark_brown,
         paddingHorizontal: 10,
         paddingVertical: 5,
         borderRadius: 5,

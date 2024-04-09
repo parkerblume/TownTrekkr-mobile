@@ -4,9 +4,11 @@ import MapView, { Marker, Polygon, Polyline } from 'react-native-maps';
 import { colors } from '../../styles/commonStyles';
 import { MaterialIcons } from '@expo/vector-icons';
 import calculateDistance from '../utils/calculateDistance';
+import getMidpointCoordinate from '../utils/getMidpointCoordinate';
+import getRectangularCoordinates from '../utils/getRectangularCoordinates';
 
 
-const GuessMapComponent = ({photo, townCoordinates}) => {
+const GuessMapComponent = ({photo, townCoordinates, handleGuess}) => {
     const [topLeftCoord, setTopLeftCoord] = useState(null);
     const [botRightCoord, setBotRightCoord] = useState(null);
     const [midPointCoord, setMidPointCoord] = useState(null);
@@ -28,10 +30,7 @@ const GuessMapComponent = ({photo, townCoordinates}) => {
                 setTopLeftCoord(townCoordinates.topLeft);
                 setBotRightCoord(townCoordinates.botRight);
 
-                const midPointRegion = { 
-                            latitude: ((townCoordinates.topLeft.latitude + townCoordinates.botRight.latitude) / 2),
-                            longitude: ((townCoordinates.topLeft.longitude + townCoordinates.botRight.longitude) / 2)
-                };
+                const midPointRegion = getMidpointCoordinate(townCoordinates.topLeft, townCoordinates.botRight);
 
                 setMidPointCoord(midPointRegion);
             }
@@ -116,20 +115,22 @@ const GuessMapComponent = ({photo, townCoordinates}) => {
       }
     };
 
-    // gets the rectangular coordinates for displaying town's region on map display
-    const getRectangularCoordinates = () => 
+    const handleGuessButton = async () =>
     {
-    if (topLeftCoord && botRightCoord) {
-        return [
-            topLeftCoord,
-            { latitude: topLeftCoord.latitude, longitude: botRightCoord.longitude }, // bottom left coord
-            botRightCoord,
-            { latitude: botRightCoord.latitude, longitude: topLeftCoord.longitude }, // top right coord
-        ];
-    }
-    return [];
+        setGuessWasMade(!guessWasMade);
+        console.log("Handle guess in guess map component");
+        handleGuess(0, guessDistance);
     };
-    const polygonCoords = getRectangularCoordinates(); // Polygon does not like a function being passed to it
+
+    // gets the rectangular coordinates for displaying town's region on map display
+    const handleRectangularCoordinates = () => 
+    {
+        if (topLeftCoord && botRightCoord) {
+            return getRectangularCoordinates(topLeftCoord, botRightCoord);
+        }
+        return [];
+    };
+    const polygonCoords = handleRectangularCoordinates(); // Polygon does not like a function being passed to it
 
     return (
         <View style={styles.contentContainer}>
@@ -182,7 +183,7 @@ const GuessMapComponent = ({photo, townCoordinates}) => {
                     </Animated.Text>
                     {showGuessButton && !guessWasMade && (
                         <Animated.View style={[styles.icons, { opacity: toolTipOpacity }]}>
-                            <TouchableOpacity style={styles.confirmButton} onPress={() => setGuessWasMade(true)}>
+                            <TouchableOpacity style={styles.confirmButton} onPress={handleGuessButton}>
                                 <Text style={styles.confirmText}>
                                     Guess!
                                 </Text>

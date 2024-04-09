@@ -56,7 +56,7 @@ const TownsScreen = ({ navigation, route }) => {
                         <Tab.Screen name="All Towns" component={AllTownsComponent} initialParams={{ userId: userId }} />
                         <Tab.Screen name="My Towns" 
                             component={MyTownsComponent}
-                            initialParams={{ userId: userId }}
+                            initialParams={{ userId: userId, username: username }}
                         />
                     </Tab.Navigator>
                 </View>

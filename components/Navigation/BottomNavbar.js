@@ -24,11 +24,13 @@ const BottomNavbar = ({ state, descriptors, navigation }) => {
         try {
             const storedUserId = await AsyncStorage.getItem('userId');
             const storedUsername = await AsyncStorage.getItem('username');
+            console.log(storedUsername);
             
             if (storedUserId !== null) { setUserId(storedUserId); }
             if (storedUsername !== null) { setUsername(storedUsername) }
 
             console.log("User's id: " + storedUserId);
+            console.log("User's name: ", storedUsername);
         } catch (error)
         {
             console.log("Error retrieving userId: ", error);

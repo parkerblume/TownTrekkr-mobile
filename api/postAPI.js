@@ -1,6 +1,6 @@
 import {BASE_URL} from './config';
 
-export const postUpload = async (image, location, townId, userId) =>
+export const postUpload = async (image, location, title, townId, userId) =>
 {
     try 
     {
@@ -19,6 +19,7 @@ export const postUpload = async (image, location, townId, userId) =>
 
         formData.append('user_id', userId);
         formData.append('town', townId);
+        formData.append('title', title);
         formData.append('coordinateX', location.latitude);
         formData.append('coordinateY', location.longitude);
 
@@ -87,18 +88,19 @@ export const getPhotoImage = async (fileId) =>
     }
 }
 
-export const postUserGuess = async (userId, fileId, score, distanceAway, hasLiked = false) =>
+export const postUserGuess = async (userid, postid, score, distanceAway, hasliked = false) =>
 {
     try {
         const response = await fetch(`${BASE_URL}/user/makeguess`, {
             method: 'POST',
-            body: JSON.stringify({ userId, fileId, score, distanceAway, hasLiked }),
+            body: JSON.stringify({ userid, postid, score, distanceAway, hasliked }),
             headers: {
                 'Content-Type': 'application/json',
             },
         });
 
-        if (response.ok) { return response.json(); }
+        const data = await response.json();
+        if (response.ok) { return data; }
         else { return null; }
 
     } catch (error)

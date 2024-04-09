@@ -7,8 +7,9 @@ import GameComponent from '../components/GameScreen/GameComponent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const GameScreen = ({ navigation, route }) => {
-  const userId = route.params?.userId;
+  const [userId, setUserId] = useState(null);
   const [currentTown, setCurrentTown] = useState(null);
+
   
   useEffect(() => {
     const fetchCurrentTown = async () => {
@@ -19,7 +20,6 @@ const GameScreen = ({ navigation, route }) => {
         {
           // has id, name, topLeftCoord, botRightCoord properties
           const { townObject } = route.params.currentTown;
-          console.log(townObject);
           setCurrentTown(townObject);
           await AsyncStorage.setItem('currentTown', JSON.stringify(townObject));
         }
@@ -35,12 +35,27 @@ const GameScreen = ({ navigation, route }) => {
     fetchCurrentTown();
   }, [route.params?.currentTown]);
 
+  useEffect(() => {
+    const getUserId = async () =>
+    {
+      if (route.params?.userId)
+      {
+        setUserId(route.params.userId);
+        return;
+      }
+  
+      const storedUserId = await AsyncStorage.getItem('userId');
+      setUserId(storedUserId);
+    }
+
+    getUserId();
+  }, []);
 
 
   return (
     <View style={commonStyles.screenContainer}>
       {currentTown ? 
-        (<GameComponent currentTown={currentTown} />)
+        (<GameComponent currentTown={currentTown} userId={userId} />)
         : 
         (
           <SafeAreaView style={styles.townHeader} edges={['top']}>

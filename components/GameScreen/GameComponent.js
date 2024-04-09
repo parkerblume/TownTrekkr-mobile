@@ -6,14 +6,16 @@ import GuessMapComponent from './GuessMapComponent';
 import {colors, commonStyles} from '../../styles/commonStyles';
 import { getPostsByTown } from '../../api/postAPI';
 import { FontAwesome } from '@expo/vector-icons';
+import { postUserGuess } from '../../api/postAPI';
 
-const GameComponent = ({ currentTown }) =>
+const GameComponent = ({ currentTown, userId }) =>
 {
   const [photos, setPhotos] = useState([]);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isGuessing, setIsGuessing] = useState(false);
+  const [userGuessed, setUserGuessed] = useState(false);
 
   const fetchPhotos = async () =>
   {
@@ -28,6 +30,7 @@ const GameComponent = ({ currentTown }) =>
 
       // create an object for the 3 fields we need
       const photosData = allPhotos.map(photo => ({
+        postId: photo._id,
         fileId: photo.fileId,
         coordinateX: photo.coordinateX,
         coordinateY: photo.coordinateY
@@ -59,10 +62,25 @@ const GameComponent = ({ currentTown }) =>
     setIsGuessing(false);
   };
 
+  const handleUserGuessed = async (score = 0, distanceAway) =>
+  {
+    const post = await postUserGuess(userId, currentPhoto.postId, score, distanceAway);
+    setUserGuessed(true);
+  }
+
+  const handleGetNextPhoto = () =>
+  {
+    setLoading(true);
+    setCurrentPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length);
+    setIsGuessing(false);
+    setUserGuessed(false);
+    setLoading(false);
+  }
+
   if (error)
   {
     return (
-      <SafeAreaView style={styles.gameScreenContainer}>
+      <SafeAreaView style={commonStyles.contentContainer}>
         <View style={styles.townHeader}>
               <Text style={styles.headerText}>
                   {currentTown ? currentTown.name : "Couldn't get town name..."}
@@ -97,6 +115,7 @@ const GameComponent = ({ currentTown }) =>
                   <GuessMapComponent
                     photo={currentPhoto}
                     townCoordinates={currentTown.coordinates}
+                    handleGuess={handleUserGuessed}
                   />
                 </View>
               ) : (
@@ -123,15 +142,21 @@ const GameComponent = ({ currentTown }) =>
                 />
             </View>
             <View style={styles.buttonContainer}>
-              {isGuessing ? (
-                <TouchableOpacity style={styles.guessButton} onPress={handleViewButton}>
-                    <Text style={styles.textField}>View Photo</Text>
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity style={styles.guessButton} onPress={handleGuessButton}>
-                    <Text style={styles.textField}>Guess</Text>
-                </TouchableOpacity>
-              )}
+              {userGuessed ? (
+                <TouchableOpacity style={styles.guessButton} onPress={handleGetNextPhoto}>
+                      <Text style={styles.textField}>Next Photo</Text>
+                  </TouchableOpacity>
+              ) : ( isGuessing ? (
+                    <TouchableOpacity style={styles.guessButton} onPress={handleViewButton}>
+                        <Text style={styles.textField}>View Photo</Text>
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity style={styles.guessButton} onPress={handleGuessButton}>
+                        <Text style={styles.textField}>Guess</Text>
+                    </TouchableOpacity>
+                  )
+                )   
+              }
             </View>
           </View>
           <View style={styles.footerContainer}>
