@@ -164,6 +164,7 @@ const MyTownsComponent = ({ route }) => {
                         onClose={closeModal}
                         townObject={selectedTown}
                         onPlayPress={handleOnPlayPress}
+                        onDeletePress={handleDeleteTown}
                     />
                 )}
             </View>
