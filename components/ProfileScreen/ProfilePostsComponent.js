@@ -6,13 +6,10 @@ import ShowProfileComponent from './ShowProfileComponent';
 import EditPasswordComponent from './EditPasswordComponent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SinglePost from './SinglePost';
-import { getUserPosts } from '../../api/postAPI.js';
 
 
 
-const ProfilePostsComponent = ({userId}) => {
-
-    const [posts, setPosts] = React.useState([]);
+const ProfilePostsComponent = ({userId, posts}) => {
 
     const entrySeparator = () => {
         return <View style={{ height: 1, backgroundColor: "grey" }} />;
@@ -26,17 +23,6 @@ const ProfilePostsComponent = ({userId}) => {
         );
     };
 
-    React.useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const response = await setPosts(userId);
-            } catch (error) {
-                console.error('Error fetching posts:', error);
-            }
-        };
-
-        fetchPosts();
-    }, []);
 
     return (        
         <SafeAreaView style={styles.container}>
@@ -47,7 +33,7 @@ const ProfilePostsComponent = ({userId}) => {
                 <FlatList
                     data={posts}
                     renderItem={({item, index}) => (
-                        <SinglePost title={"test"} />
+                        <SinglePost title={"Title"} likes={item.likes} dislikes={item.dislikes} />
                         )}
                     keyExtractor={(item, index) => index.toString()}
                     ItemSeparatorComponent={entrySeparator}

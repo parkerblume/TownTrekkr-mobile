@@ -7,7 +7,7 @@ import EditPasswordComponent from './EditPasswordComponent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const ProfileComponent = ({userId, email, username, navigation}) => {
+const ProfileComponent = ({userId, email, username, navigation, posts}) => {
 
     // const [email, setEmail] = React.useState(FetchedEmail);
     // const [showProfile, setShowProfile] = React.useState(true);
@@ -29,6 +29,24 @@ const ProfileComponent = ({userId, email, username, navigation}) => {
         {
             console.log("Error logging out: ", error);
         }
+    }
+
+    const getLikes = () => {
+        let likes = 0;
+        for (let i = 0; i < posts.length; i++)
+        {
+            likes += posts[i].likes;
+        }
+        return likes;
+    }
+
+    const getDislikes = () => {
+        let dislikes = 0;
+        for (let i = 0; i < posts.length; i++)
+        {
+            dislikes += posts[i].dislikes;
+        }
+        return dislikes;
     }
 
     return (        
@@ -53,17 +71,17 @@ const ProfileComponent = ({userId, email, username, navigation}) => {
 
             <Text style={styles.entryContainer}>
                 <Text style={styles.emailTitle}>Number of posts: </Text>
-                <Text style={styles.emailText}>-</Text>
+                <Text style={styles.emailText}>{posts.length}</Text>
             </Text>
 
             <Text style={styles.entryContainer}>
                 <Text style={styles.emailTitle}>Total likes: </Text>
-                <Text style={styles.emailText}>-</Text>
+                <Text style={styles.emailText}>{getLikes()}</Text>
             </Text>
 
             <Text style={styles.entryContainer}>
                 <Text style={styles.emailTitle}>Total dislikes: </Text>
-                <Text style={styles.emailText}>-</Text>
+                <Text style={styles.emailText}>{getDislikes()}</Text>
             </Text>
 
             {/* Log out button */}
@@ -91,7 +109,7 @@ const styles = StyleSheet.create({
     profile: {
         marginTop: '5%',
         marginLeft: '10%',
-        fontSize: 40,
+        fontSize: 36,
         fontFamily: 'Londrina-Solid',
         marginBottom: '10%',
     },

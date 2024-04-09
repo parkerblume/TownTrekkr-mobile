@@ -7,13 +7,28 @@ import PicWithUsernameComponent from '../components/ProfileScreen/PicWithUsernam
 import ProfileComponent from '../components/ProfileScreen/ProfileComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ProfilePostsComponent from '../components/ProfileScreen/ProfilePostsComponent';
+import { getUserPosts } from '../api/postAPI.js';
 
 const ProfileScreen = ( {navigation, route} ) => {
+  const [posts, setPosts] = React.useState([]);
 
   const userId = route.params?.userId;
   const username = route.params?.username;
   const email = route.params?.email;
 
+  React.useEffect(() => {
+    const fetchPosts = async () => {
+        try {
+            const response = await getUserPosts(userId);
+            setPosts(response);
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+        }
+    };
+
+    fetchPosts();
+    //console.log("Posts: ", posts);
+}, []);
 
 
   return (
@@ -21,9 +36,9 @@ const ProfileScreen = ( {navigation, route} ) => {
 
       <StatusBar backgroundColor={colors.background} />
 
-        <ProfileComponent userId={userId} email={email} username={username} navigation={navigation} />
+        <ProfileComponent userId={userId} email={email} username={username} navigation={navigation} posts={posts} />
 
-        <ProfilePostsComponent userId={userId} />
+        <ProfilePostsComponent userId={userId} posts={posts} />
 
         {/* <Image style={styles.earth} source={require('../assets/earth.png')} />
 

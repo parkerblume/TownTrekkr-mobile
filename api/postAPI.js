@@ -82,7 +82,7 @@ export const getUserPosts = async (userId) =>
         if (response.ok) {
             for (let i = 0; i < towns.length; i++)
             {
-              console.log(towns[i].name);
+              //console.log(towns[i].name);
               let url = `${BASE_URL}/posts/getpostsbytown`;
 
               const response = await fetch(url, {
@@ -107,7 +107,7 @@ export const getUserPosts = async (userId) =>
                 if (townPosts[j].user_id === userId)
                 {
                   userPosts.push(townPosts[j]);
-                  console.log(townPosts[j]);
+                  //console.log("Pushed:" + townPosts[j]);
                 }
               }
             }
