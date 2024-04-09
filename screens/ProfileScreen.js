@@ -6,6 +6,7 @@ import { colors } from '../styles/commonStyles';
 import PicWithUsernameComponent from '../components/ProfileScreen/PicWithUsernameComponent';
 import ProfileComponent from '../components/ProfileScreen/ProfileComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ProfilePostsComponent from '../components/ProfileScreen/ProfilePostsComponent';
 
 const ProfileScreen = ( {navigation, route} ) => {
 
@@ -20,14 +21,14 @@ const ProfileScreen = ( {navigation, route} ) => {
 
       <StatusBar backgroundColor={colors.background} />
 
-        <ProfileComponent userId={userId} FetchedEmail={email}/>
+        <ProfileComponent userId={userId} email={email} username={username} navigation={navigation} />
+
+        <ProfilePostsComponent userId={userId} />
+
+        {/* <Image style={styles.earth} source={require('../assets/earth.png')} />
 
 
-
-        <Image style={styles.earth} source={require('../assets/earth.png')} />
-
-
-        <PicWithUsernameComponent username={username} />
+        <PicWithUsernameComponent username={username} /> */}
 
 
     </SafeAreaView>

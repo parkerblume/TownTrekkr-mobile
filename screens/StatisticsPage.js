@@ -13,9 +13,6 @@ const StatisticsPage = ( {navigation, route} ) => {
 
   const userId = route.params?.userId;
 
-  const entrySeparator = () => {
-    return <View style={{ height: 1, backgroundColor: "grey" }} />;
-    };
   
   const emptyArray = () => {
     return (
@@ -53,7 +50,6 @@ const StatisticsPage = ( {navigation, route} ) => {
             )}
           horizontal={true}
           keyExtractor={(index) => index.toString()}
-          ItemSeparatorComponent={entrySeparator}
           ListEmptyComponent={emptyArray}
         />
 

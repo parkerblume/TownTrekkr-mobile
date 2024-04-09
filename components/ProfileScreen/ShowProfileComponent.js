@@ -5,7 +5,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { KeyboardAvoidingView, SafeAreaView } from 'react-native';
 
 
-const ShowProfileComponent = ({FetchedEmail, toggleComponent}) => {
+const ShowProfileComponent = ({FetchedEmail, toggleComponent, username}) => {
 
     const [email, setEmail] = React.useState(FetchedEmail);
 
@@ -24,7 +24,7 @@ const ShowProfileComponent = ({FetchedEmail, toggleComponent}) => {
         <>
             <SafeAreaView style={styles.container}>
 
-                <Text style={styles.profile}>Profile</Text>
+                <Text style={styles.profile}>{username}'s Profile</Text>
 
 
                 {/* Email */}
@@ -74,7 +74,7 @@ export default ShowProfileComponent;
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
+        width: '90%',
         backgroundColor: colors.tan,
         borderRadius: 50,
         borderWidth: 1,
