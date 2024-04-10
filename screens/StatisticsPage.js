@@ -7,12 +7,14 @@ import GuessBox from '../components/StatisticsScreen/GuessBox';
 import TownStatisticsComponent from '../components/StatisticsScreen/TownStatisticsComponent';
 import LifetimeStatisticsComponent from '../components/StatisticsScreen/LifetimeStatisticsComponent';
 import { getGuesses } from '../api/postAPI.js';
+import { getPostById } from '../api/postAPI.js';
 
 
 const StatisticsPage = ( {navigation, route} ) => {
 
   const userId = route.params?.userId;
   const [guesses, setGuesses] = React.useState([]);
+  const [allPosts, setAllPosts] = React.useState([]);
   
   const emptyArray = () => {
     return (
@@ -23,17 +25,29 @@ const StatisticsPage = ( {navigation, route} ) => {
   };
 
   React.useEffect(() => {
-    const fetchGuesses = async () => {
+    const fetchGuessesAndPosts = async () => {
         try {
             const response = await getGuesses(userId);
             setGuesses(response); 
+
+            const postsPromises = response.map(async guess => {
+              const post = await getPostById(guess.post);
+              return post;
+            });
+    
+            const posts = await Promise.all(postsPromises);
+            setAllPosts(posts);
+
+            
         } catch (error) {
             console.error('Error fetching guesses:', error);
         }
     };
 
-    fetchGuesses();
+    fetchGuessesAndPosts();
 }, []);
+
+
 
 
 
@@ -43,23 +57,23 @@ const StatisticsPage = ( {navigation, route} ) => {
       <StatusBar backgroundColor={colors.background} />
 
       
-      <TownStatisticsComponent userId={userId} guesses={guesses} />
+      <TownStatisticsComponent userId={userId} guesses={guesses} allPosts={allPosts} />
 
     
       {/* Recent Guesses Area */}
 
-      <Text style={styles.recentGuessesTitle}>Recent Guesses</Text>
+      <Text style={styles.recentGuessesTitle}>All Recent Guesses</Text>
       <Text style={styles.recentGuessesSubTitle}>Slide to see more</Text>
 
 
       <View style={styles.recentGuessesContainer}>
         <FlatList
-          data={guesses}
+          data={allPosts}
           renderItem={({item, index}) => (              
-              <GuessBox guess={item} />
+              <GuessBox title={item.title} score={guesses[index].score} hasLiked={guesses[index].hasLiked}/>
             )}
           horizontal={true}
-          keyExtractor={item => item._id}
+          keyExtractor={(item, index) => index.toString()}
           ListEmptyComponent={emptyArray}
         />
 

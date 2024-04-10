@@ -10,7 +10,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 
-const TownStatisticsComponent = ({userId, guesses}) => {
+const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
 
 
     const [towns, setTowns] = React.useState([]);
@@ -48,22 +48,16 @@ const TownStatisticsComponent = ({userId, guesses}) => {
         console.log("ID for town: " + currentTown._id);
 
 
-        const fetchTownGuesses = async () => {
-
-            try {
-                for (let i = 0; i < guesses.length; i++)
+        const fetchTownGuesses = async () => {            
+            for (let i = 0; i < guesses.length; i++)
+            {
+                console.log("Checking town: " + allPosts[i].town);
+                if (allPosts[i].town === currentTown.name)
                 {
-                    const post = await getPostById(guesses[i].post);
-
-
-                    if (post.town === currentTown.name)
-                    {
-                        setTownGuesses([...townGuesses, guesses[i]]);
-                    }
+                    setTownGuesses([...townGuesses, guesses[i]]);
                 }
-            } catch (error) {
-                console.error('Error fetching town guesses:', error);
             }
+
         };
 
         fetchTownGuesses();

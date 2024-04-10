@@ -49,15 +49,20 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
         return Math.round(temp * 100) / 100;
     }
 
+    // Rounds to the nearest whole number
     const getAverageScore = () => {
         if (!guesses || guesses.length === 0) return 0;
 
         let totalScore = 0;
         for (let i = 0; i < guesses.length; i++)
         {
-            totalScore += guesses[i].score;
+            totalScore += (guesses[i].score ? guesses[i].score : 0);
         }
-        return totalScore / getTotalGuesses();
+        console.log("Total Score: " + totalScore + " Total Guesses: " + getTotalGuesses());
+
+        const temp = (totalScore / getTotalGuesses());
+
+        return Math.round(temp);
     }
 
     return (
@@ -106,7 +111,7 @@ const styles = StyleSheet.create({
         height: '50%',
         backgroundColor: colors.tan,
         borderRadius: 50,
-        marginTop: '15%',
+        marginTop: '12%',
         marginRight: '25%',
         borderWidth: 1,
       },

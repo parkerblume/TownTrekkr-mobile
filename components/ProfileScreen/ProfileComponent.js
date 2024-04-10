@@ -62,7 +62,6 @@ const ProfileComponent = ({userId, email, username, navigation, posts}) => {
             <Text style={styles.profile}>{username}'s Profile</Text>
 
 
-            {/* Email */}
             <Text style={styles.entryContainer}>
                 <Text style={styles.emailTitle}>Email: </Text>
                 <Text style={styles.emailText}>{email}</Text>
@@ -110,10 +109,11 @@ const styles = StyleSheet.create({
         marginLeft: '10%',
         fontSize: 36,
         fontFamily: 'Londrina-Solid',
-        marginBottom: '10%',
+        marginBottom: '5%',
     },
     entryContainer: {
-        marginLeft: '10%', 
+        marginLeft: '10%',
+        marginTop: '1%', 
     },
     emailTitle: {
         fontSize: 20,
