@@ -9,10 +9,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const GameScreen = ({ navigation, route }) => {
   const [userId, setUserId] = useState(null);
   const [currentTown, setCurrentTown] = useState(null);
+  const [refreshGameComponent, setRefreshGameComponent] = useState(false);
 
-  
   useEffect(() => {
-    const fetchCurrentTown = async () => {
+    const fetchData = async () => {
       try {
         // if routed here save that town, otherwise pull from local storage
         const storedTown = await AsyncStorage.getItem('currentTown');
@@ -27,35 +27,48 @@ const GameScreen = ({ navigation, route }) => {
         {
           setCurrentTown(JSON.parse(storedTown));
         }
+
+        // set userId if it wasn't populated at first.
+        if (route.params?.userId)
+        {
+          setUserId(route.params.userId);
+        }
+        else
+        {
+          const storedUserId = await AsyncStorage.getItem('userId');
+          setUserId(storedUserId);
+        } 
+
       } catch (error) {
-        console.log('Error retrieving current town from AsyncStorage: ', error);
+        console.log('Error retrieving town/user data from AsyncStorage: ', error);
       }
     }
 
-    fetchCurrentTown();
+    fetchData();
+
+    return () => {
+      setCurrentTown(null);
+    };
   }, [route.params?.currentTown]);
 
-  useEffect(() => {
-    const getUserId = async () =>
-    {
-      if (route.params?.userId)
-      {
-        setUserId(route.params.userId);
-        return;
-      }
-  
-      const storedUserId = await AsyncStorage.getItem('userId');
-      setUserId(storedUserId);
-    }
+  const toggleRefresh = () =>
+  {
+    setRefreshGameComponent((prevRefresh) => !prevRefresh);
+  }
 
-    getUserId();
-  }, []);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      toggleRefresh();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
 
   return (
     <View style={commonStyles.screenContainer}>
       {currentTown ? 
-        (<GameComponent currentTown={currentTown} userId={userId} />)
+        (<GameComponent currentTown={currentTown} userId={userId} onRefresh={refreshGameComponent} />)
         : 
         (
           <SafeAreaView style={styles.townHeader} edges={['top']}>

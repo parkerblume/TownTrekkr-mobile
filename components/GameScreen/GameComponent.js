@@ -8,7 +8,7 @@ import { getPostsByTown } from '../../api/postAPI';
 import { FontAwesome } from '@expo/vector-icons';
 import { postUserGuess } from '../../api/postAPI';
 
-const GameComponent = ({ currentTown, userId }) =>
+const GameComponent = ({ currentTown, userId, onRefresh }) =>
 {
   const [photos, setPhotos] = useState([]);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
@@ -37,6 +37,7 @@ const GameComponent = ({ currentTown, userId }) =>
       }));
   
       setPhotos(photosData);
+      setError(null);
       setLoading(false);
     } catch (error) {
       setError("Something went wrong trying to fetch photos of the town. Try again later.");
@@ -46,7 +47,7 @@ const GameComponent = ({ currentTown, userId }) =>
 
   useEffect(() => {
     fetchPhotos();
-  }, [currentTown]);
+  }, [currentTown, onRefresh]);
 
   const handleRating = (rating) => {
     console.log(rating);

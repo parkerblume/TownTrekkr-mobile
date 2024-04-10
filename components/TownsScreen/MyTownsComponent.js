@@ -47,6 +47,8 @@ const MyTownsComponent = ({ route }) => {
 
     const handleOnPlayPress = (townObject) =>
     {
+        console.log("we hit paly");
+        setIsModalVisible(false);
         RootNavigation.navigate('GameScreen', { userId, currentTown: { townObject } })
     }
 
