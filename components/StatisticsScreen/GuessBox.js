@@ -3,14 +3,14 @@ import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity } fr
 import { colors } from '../../styles/commonStyles';
 
 
-const GuessBox = () => {
+const GuessBox = ({guess}) => {
 
 
     return (
         <>
             <View style={{width: 75, height: 75, backgroundColor: 'white', opacity: 0.5, borderRadius: 10, marginRight: 10, borderWidth: 1}}>
-                <Text>Guess 1</Text>
-                <Text>Guess 2</Text>
+                <Text>{guess.post}</Text>
+                <Text></Text>
             </View>
         </>
     )

@@ -10,12 +10,12 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 
-const TownStatisticsComponent = ({userId}) => {
+const TownStatisticsComponent = ({userId, guesses}) => {
 
 
     const [towns, setTowns] = React.useState([]);
     const [currentTown, setCurrentTown] = React.useState('');
-    const [guesses, setGuesses] = React.useState([]);
+    // const [guesses, setGuesses] = React.useState([]);
     const [townGuesses, setTownGuesses] = React.useState([]);
 
     const [value, setValue] = React.useState(null);
@@ -26,19 +26,10 @@ const TownStatisticsComponent = ({userId}) => {
         const fetchTownGuesses = async () => {
 
             try {
-                const response = await getGuesses(userId);
-                setGuesses(response);
-                //console.log("number of guesses: " + guesses.length);
-                //console.log(guesses);
-
                 for (let i = 0; i < guesses.length; i++)
                 {
-                    //console.log("post id: " + guesses[i].post);
                     const post = await getPostById(guesses[i].post);
                     //const post = await getPostById("65fdeee45b02344bf39c7715");
-
-                    //console.log("post town name: " + post.town);
-                    //console.log("town: " + post.town);
                     if (post.town === currentTown)
                     {
                         setTownGuesses([...townGuesses, guesses[i]]);
@@ -59,22 +50,59 @@ const TownStatisticsComponent = ({userId}) => {
                 const response = await getTowns(userId);
 
                 setTowns(response); 
-
+                
                 if (towns.length > 0) {
+                    console.log("First town: " + towns[0].name);
                     setCurrentTown(towns[0].name);
                 }
                 else {
-                    setCurrentTown('-');
+                    setCurrentTown('Choose a town');
                 }
             } catch (error) {
                 console.error('Error fetching towns:', error);
             }
         };
 
-        fetchTowns();
-        
+        fetchTowns();        
 
     }, []);
+
+    const getTotalGuesses = () => {
+        if (townGuesses) {
+            return townGuesses.length;
+        }
+        return 0;
+    }
+
+    const getPerfectGuesses = () => {
+        if (!townGuesses) return 0;
+
+        let perfectGuesses = 0;
+        for (let i = 0; i < townGuesses.length; i++)
+        {
+            if (townGuesses[i].score > 1000)
+            {
+                perfectGuesses++;
+            }
+        }
+        return perfectGuesses;
+    }
+
+    const getPercentPerfect = () => {
+        if (!townGuesses) return 0;
+        return (getPerfectGuesses() / getTotalGuesses()) * 100;
+    }
+
+    const getAverageScore = () => {
+        if (!townGuesses) return 0;
+
+        let totalScore = 0;
+        for (let i = 0; i < townGuesses.length; i++)
+        {
+            totalScore += townGuesses[i].score;
+        }
+        return totalScore / getTotalGuesses();
+    }
 
 
     return (
@@ -90,7 +118,7 @@ const TownStatisticsComponent = ({userId}) => {
                     maxHeight={300}
                     labelField="name"
                     valueField="_id"
-                    placeholder={value ? value : currentTown}
+                    placeholder={currentTown}
                     value={value}
                     onChange={item => {
                         setValue(item.label);
@@ -110,11 +138,16 @@ const TownStatisticsComponent = ({userId}) => {
                         <Text style={styles.statName}>Average Score:</Text>
                     </View>
                     {/* Col 2 */}
-                    <View style={{marginLeft: '15%'}}>
+                    <View style={{marginLeft: '20%'}}>
+                        {/* <Text style={styles.statValue}>{getPercentPerfect()}</Text>
+                        <Text style={styles.statValue}>{getGuesses()}</Text>
+                        <Text style={styles.statValue}>{getTotalGuesses()}</Text>
+                        <Text style={styles.statValue}>{getAverageScore()}</Text> */}
                         <Text style={styles.statValue}>-</Text>
                         <Text style={styles.statValue}>-</Text>
                         <Text style={styles.statValue}>-</Text>
                         <Text style={styles.statValue}>-</Text>
+
                     </View>
                 </View>
 
@@ -135,9 +168,9 @@ const styles = StyleSheet.create({
         marginTop: '15%',
     },
     dropdownBox: {
-        width: '60%',
+        width: '70%',
         height: 50,
-        flex: 2,
+        flex: 1,
         borderRadius: 15,
         borderColor: 'black',
         borderWidth: 1,

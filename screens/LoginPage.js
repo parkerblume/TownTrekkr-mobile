@@ -29,6 +29,7 @@ const LoginPage = ( {navigation, onLogin} ) => {
     }
 
     let data = await login(email, password);
+
     console.log("Logging in");
     //console.log(data);
     if (data)
@@ -36,6 +37,9 @@ const LoginPage = ( {navigation, onLogin} ) => {
       const userId = data.id;
       const username = data.username;
       const email = data.email;
+      // console.log("User ID: ", userId);
+      // console.log("Username: ", username);
+      // console.log("Email: ", email);
       await AsyncStorage.setItem('userId', userId);
       await AsyncStorage.setItem('username', username);
       await AsyncStorage.setItem('email', email);

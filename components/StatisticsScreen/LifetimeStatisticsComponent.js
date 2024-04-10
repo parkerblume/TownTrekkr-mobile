@@ -3,22 +3,22 @@ import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '../../styles/commonStyles';
 import { getGuesses } from '../../api/postAPI.js';
 
-const LifetimeStatisticsComponent = ({userId}) => {
-    const [guesses, setGuesses] = React.useState([]);
+const LifetimeStatisticsComponent = ({userId, guesses}) => {
+    //const [guesses, setGuesses] = React.useState([]);
 
 
-    React.useEffect(() => {
-        const fetchGuesses = async () => {
-            try {
-                const response = await getGuesses(userId);
-                setGuesses(response); 
-            } catch (error) {
-                console.error('Error fetching guesses:', error);
-            }
-        };
+    // React.useEffect(() => {
+    //     const fetchGuesses = async () => {
+    //         try {
+    //             const response = await getGuesses(userId);
+    //             setGuesses(response); 
+    //         } catch (error) {
+    //             console.error('Error fetching guesses:', error);
+    //         }
+    //     };
 
-        fetchGuesses();
-    }, []);
+    //     fetchGuesses();
+    // }, []);
 
     const getTotalGuesses = () => {
         if (guesses) {
