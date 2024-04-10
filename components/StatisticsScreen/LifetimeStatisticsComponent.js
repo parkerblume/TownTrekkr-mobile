@@ -100,22 +100,22 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
                 <View style={styles.statRow}>
                     <View style={styles.statItem}>
                         <Text style={styles.lifetimeStatTitle}>Percent Perfect:</Text>
-                        <Text style={styles.lifetimeStatValue}>{getPercentPerfect()}%</Text>
+                        <Text style={styles.lifetimeStatValue}>{percentPerfect}%</Text>
                     </View>
                     <View style={styles.statItem}>
                         <Text style={styles.lifetimeStatTitle}>Perfect Guesses:</Text>
-                        <Text style={styles.lifetimeStatValue}>{getPerfectGuesses()}</Text>
+                        <Text style={styles.lifetimeStatValue}>{perfectGuesses}</Text>
                     </View>
                 </View>
 
                 <View style={styles.statRow}>
                     <View style={styles.statItem}>
                         <Text style={styles.lifetimeStatTitle}>Average Score:</Text>
-                        <Text style={styles.lifetimeStatValue}>{getAverageScore()}</Text>
+                        <Text style={styles.lifetimeStatValue}>{averageDistance}m</Text>
                     </View>
                     <View style={styles.statItem}>
                         <Text style={styles.lifetimeStatTitle}>Total Guesses:</Text>
-                        <Text style={styles.lifetimeStatValue}>{getTotalGuesses()}</Text>
+                        <Text style={styles.lifetimeStatValue}>{totalGuesses}</Text>
                     </View>
                 </View>
             </View>
