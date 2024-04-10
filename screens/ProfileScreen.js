@@ -34,8 +34,6 @@ const ProfileScreen = ( {navigation, route} ) => {
   return (
     <SafeAreaView style={styles.container}>
 
-      <StatusBar backgroundColor={colors.background} />
-
         <ProfileComponent userId={userId} email={email} username={username} navigation={navigation} posts={posts} />
 
         <ProfilePostsComponent userId={userId} posts={posts} />

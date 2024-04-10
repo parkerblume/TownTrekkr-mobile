@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import MapComponent from './MapComponent';
 import { createTown, addUserToTown } from '../../api/authAPI';
 
-const CreateTownsComponent = ({ userId, onClose }) => {
+const CreateTownsComponent = ({ userId, username, onClose }) => {
     const [townName, setTownName] = useState('');
     const [townDescription, setTownDescription] = useState('');
     const [mapCoordinates, setMapCoordinates] = useState(null);
@@ -42,7 +42,7 @@ const CreateTownsComponent = ({ userId, onClose }) => {
         setErrorMessage('');
         try{
             let townData = await createTown(townName, townDescription, 
-                mapCoordinates.topLeftCoord, mapCoordinates.bottomRightCoord, userId);
+                mapCoordinates.topLeftCoord, mapCoordinates.bottomRightCoord, userId, username);
         
             if (!townData)
             {
@@ -69,8 +69,8 @@ const CreateTownsComponent = ({ userId, onClose }) => {
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
-            <KeyboardAvoidingView style={styles.keyboardAvoidingContainer} behavior={Platform.OS === 'ios' ? 'padding': 'height'}>
-                <ScrollView style={styles.contentContainer} scrollEnabled={true}>
+            <KeyboardAvoidingView style={commonStyles.keyboardAvoidingContainer} behavior={Platform.OS === 'ios' ? 'padding': 'height'}>
+                <ScrollView style={commonStyles.scrollViewContainer} scrollEnabled={true}>
                     <View style={styles.mapContainer}>
                         <MapComponent onCoordinateChange={handleCoordinateChange}/>
                     </View>
@@ -81,6 +81,7 @@ const CreateTownsComponent = ({ userId, onClose }) => {
                                 style={styles.input}
                                 onChangeText={handleTownNameChange}
                                 value={townName}
+                                maxLength={32}
                             />
                         </View>
 
@@ -148,10 +149,6 @@ const styles = StyleSheet.create({
         width: '25%',
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
-    },
-    contentContainer: {
-        flex: 1,
-        width: '100%'
     },
     keyboardAvoidingContainer: {
         flex: 1,

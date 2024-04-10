@@ -4,6 +4,7 @@ import MapView, { Marker, Polygon } from 'react-native-maps';
 import { colors } from '../../styles/commonStyles';
 import * as Location from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
+import getRectangularCoordinates from '../utils/getRectangularCoordinates';
 
 const MapComponent = ({ onCoordinateChange }) => {
     const [userLocation, setUserLocation] = useState(null);
@@ -101,15 +102,12 @@ const MapComponent = ({ onCoordinateChange }) => {
 
       const handleCoordinatesChange = () => 
       {
-        console.log(topLeftCoord, bottomRightCoord);
         if (topLeftCoord && bottomRightCoord) 
         { 
-            console.log("not null coords");
             onCoordinateChange(topLeftCoord, bottomRightCoord); 
         }
         else
         {
-            console.log("null coord");
             onCoordinateChange(null, null);
         }
       }
@@ -122,19 +120,14 @@ const MapComponent = ({ onCoordinateChange }) => {
       }
 
       // gets the rectangular coordinates for displaying town's region on map display
-      const getRectangularCoordinates = () => 
+      const handleRectangularCoordinates = () => 
       {
         if (topLeftCoord && bottomRightCoord) {
-          return [
-            topLeftCoord,
-            { latitude: topLeftCoord.latitude, longitude: bottomRightCoord.longitude }, // bottom left coord
-            bottomRightCoord,
-            { latitude: bottomRightCoord.latitude, longitude: topLeftCoord.longitude }, // top right coord
-          ];
+          return getRectangularCoordinates(topLeftCoord, bottomRightCoord);
         }
         return [];
       };
-      const polygonCoords = getRectangularCoordinates(); // Polygon does not like a function being passed to it
+      const polygonCoords = handleRectangularCoordinates(); // Polygon does not like a function being passed to it
 
       return (
         <View style={styles.container}>

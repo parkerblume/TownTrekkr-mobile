@@ -13,14 +13,12 @@ const BottomNavbar = ({ state, descriptors, navigation }) => {
     const [email, setEmail] = useState(null);
 
     const [isCameraOptionsVisible, setIsCameraOptionsVisible] = useState(false);
-    // const currentRoute = state.routes[state.index].name;
-    // const isActiveScreen = (screen) => currentRoute.name === screen;
 
     useEffect(() => {
-        getUserId();
+        getUserDetails();
     }, []);
 
-    const getUserId = async () =>
+    const getUserDetails = async () =>
     {
         try {
             const storedUserId = await AsyncStorage.getItem('userId');

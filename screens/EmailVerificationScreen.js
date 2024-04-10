@@ -79,8 +79,6 @@ const EmailVerificationScreen = ( {navigation, route} ) => {
       keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
     >
 
-      <StatusBar backgroundColor={colors.tan}/>
-
 
       {/* title text */}
       <Text style={styles.title}>Email Verification</Text>

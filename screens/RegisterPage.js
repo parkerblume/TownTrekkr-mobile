@@ -31,7 +31,6 @@ const RegisterPage = ( {navigation} ) => {
   }
 
   const signupHandler = async () => {
- 
     console.log("sign up");
     if (username === '') {
       alert('Please enter your username');
@@ -74,7 +73,6 @@ const RegisterPage = ( {navigation} ) => {
       keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
     >
       <ScrollView contentContainerStyle={styles.scrollViewContainer} scrollEnabled={showPassReqs} >
-        <StatusBar backgroundColor={colors.tan} />
 
         
         {/* title text */}

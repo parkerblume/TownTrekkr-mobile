@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 import {colors, commonStyles} from '../styles/commonStyles';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -12,7 +13,9 @@ const Tab = createMaterialTopTabNavigator();
 
 const TownsScreen = ({ navigation, route }) => {
     const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
+    const [userCreatedTown, setUserCreatedTown] = useState(false);
     const userId = route.params.userId;
+    const username = route.params.username;
 
     const toggleCreateModal = () => {
         setIsCreateModalVisible(!isCreateModalVisible);
@@ -49,8 +52,11 @@ const TownsScreen = ({ navigation, route }) => {
                                     }} 
                                     tabBarPosition='top'
                     >
-                        <Tab.Screen name="All Towns" component={AllTownsComponent} />
-                        <Tab.Screen name="My Towns" component={MyTownsComponent} />
+                        <Tab.Screen name="All Towns" component={AllTownsComponent} initialParams={{ userId: userId }} />
+                        <Tab.Screen name="My Towns" 
+                            component={MyTownsComponent}
+                            initialParams={{ userId: userId, username: username }}
+                        />
                     </Tab.Navigator>
                 </View>
             </NavigationContainer>
@@ -61,7 +67,7 @@ const TownsScreen = ({ navigation, route }) => {
                 visible={isCreateModalVisible}
                 onRequestClose={toggleCreateModal}
             >
-                <CreateTownsComponent userId={userId} onClose={toggleCreateModal} />
+                <CreateTownsComponent userId={userId} username={username} onClose={toggleCreateModal} />
             </Modal>
 
         </View>

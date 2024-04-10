@@ -1,4 +1,4 @@
-import {BASE_URL} from './config';
+import {BASE_URL, LOCAL_URL} from './config';
 
 export const login = async (email, password) => 
 {
@@ -12,6 +12,7 @@ export const login = async (email, password) =>
       });
       
       const data = await response.json();
+      console.log(data);
       return data;
 
     } catch (error) {
@@ -75,7 +76,7 @@ export const createTown = async (name, description, topLeftCoord, botRightCoord,
   }
 };
 
-export const addUserToTown = async (townId, userId) =>
+export const addUserToTown = async (town_id, user_id) =>
 {
   try {
     const response = await fetch(`${BASE_URL}/town/adduser`, {
@@ -83,11 +84,11 @@ export const addUserToTown = async (townId, userId) =>
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ townId, userId }),
+      body: JSON.stringify({ town_id, user_id }),
     });
 
     const data = await response.json();
-    if (data.ok) { return true; }
+    if (data.message) { return true; }
     else { return false; }
 
   } catch (error) {
@@ -96,13 +97,36 @@ export const addUserToTown = async (townId, userId) =>
   }
 };
 
-export const getTowns = async (userId) => {
+export const removeUserFromTown = async (town_id, user_id) =>
+{
   try {
-    let url = `${BASE_URL}/town/gettowns`;
+    console.log(town_id, user_id);
+    const response = await fetch(`${BASE_URL}/town/removeUser`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ town_id, user_id }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+    if (data.message) { return true; }
+    else { return false; }
+
+  } catch (error) {
+    console.error('Error removing user to town: ', error);
+    throw error;
+  }
+  }
+
+export const getTowns = async (userId, page = 1, limit = 20) => {
+  try {
+    let url = `${BASE_URL}/town/gettowns?page=${page}&limit=${limit}`;
     
     // append userId as query parameter, if it it exists
     if (userId) {
-      url += `?userId=${userId}`;
+      url += `&userId=${userId}`;
     }
     // console.log("UserID in getTowns call:" + userId);
 
@@ -125,6 +149,45 @@ export const getTowns = async (userId) => {
     throw error;
   }
 };
+
+export const getUserById = async (userId) =>
+{
+  try {
+    const response = await fetch(`${BASE_URL}/user/getuserbyid`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+    if (data) { return data; }
+    else { return null; }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const deleteTown = async (town_id) =>
+{
+  try {
+    const response = await fetch(`${BASE_URL}/town/deletetown`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ town_id }),
+    });
+  
+    const data = await response.json();
+    if (data.message) { return true; }
+    else { return false; }
+  } catch (error) {
+    console.error("Error deleting town: ", error);
+  }
+}
 
 export const sendEmail = async (email) => {
   try {

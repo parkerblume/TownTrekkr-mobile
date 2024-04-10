@@ -72,7 +72,6 @@ const LandingScreen = () => {
 
   return (
     <View style={commonStyles.screenContainer}>
-      <StatusBar backgroundColor={colors.background}/>
 
       <SafeAreaView style={pageStyles.earthContainer} edges={['top']}>
         <View style={pageStyles.glView}>
