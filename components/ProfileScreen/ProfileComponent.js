@@ -7,20 +7,33 @@ import EditPasswordComponent from './EditPasswordComponent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const ProfileComponent = ({userId, email, username, navigation, posts}) => {
+const ProfileComponent = ({userId, email, username, navigation, posts, handleLogout}) => {
 
     // const [email, setEmail] = React.useState(FetchedEmail);
     // const [showProfile, setShowProfile] = React.useState(true);
 
 
-    const handleLogout = async () =>
+    const onLogoutPress = async () =>
     {
         try {
+            console.log("Logging out");
             await AsyncStorage.removeItem('userId');
             await AsyncStorage.removeItem('email');
             await AsyncStorage.removeItem('username');
+            await AsyncStorage.removeItem('currentTown');
+            AsyncStorage.getAllKeys().then((keyArray) => {
+                AsyncStorage.multiGet(keyArray).then((keyValArray) => {
+                  let myStorage = {};
+                  for (let keyVal of keyValArray) {
+                    myStorage[keyVal[0]] = keyVal[1]
+                  }
+            
+                  console.log('CURRENT STORAGE: ', myStorage);
+                })
+            });
             console.log("Logging out");
 
+            handleLogout();
             // THIS DON"T WORK
             //navigation.navigate('LoginScreen');
 
@@ -49,7 +62,7 @@ const ProfileComponent = ({userId, email, username, navigation, posts}) => {
     }
 
     return (        
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
 
         
             {/* This is here in case we ever want to allow for email / password switching */}
@@ -59,36 +72,39 @@ const ProfileComponent = ({userId, email, username, navigation, posts}) => {
             } */}
             
 
-            <Text style={styles.profile}>{username}'s Profile</Text>
+            <View style={styles.headerContainer}>
+                <Text style={styles.profile}>{username}'s Profile</Text>
+            </View>
 
+            <View style={styles.infoContainer}>
+                <Text style={styles.entryContainer}>
+                    <Text style={styles.emailTitle}>Email: </Text>
+                    <Text style={styles.emailText}>{email}</Text>
+                </Text>
 
-            <Text style={styles.entryContainer}>
-                <Text style={styles.emailTitle}>Email: </Text>
-                <Text style={styles.emailText}>{email}</Text>
-            </Text>
+                <Text style={styles.entryContainer}>
+                    <Text style={styles.emailTitle}>Number of posts: </Text>
+                    <Text style={styles.emailText}>{posts.length}</Text>
+                </Text>
 
-            <Text style={styles.entryContainer}>
-                <Text style={styles.emailTitle}>Number of posts: </Text>
-                <Text style={styles.emailText}>{posts.length}</Text>
-            </Text>
+                <Text style={styles.entryContainer}>
+                    <Text style={styles.emailTitle}>Total likes: </Text>
+                    <Text style={styles.emailText}>{getLikes()}</Text>
+                </Text>
 
-            <Text style={styles.entryContainer}>
-                <Text style={styles.emailTitle}>Total likes: </Text>
-                <Text style={styles.emailText}>{getLikes()}</Text>
-            </Text>
-
-            <Text style={styles.entryContainer}>
-                <Text style={styles.emailTitle}>Total dislikes: </Text>
-                <Text style={styles.emailText}>{getDislikes()}</Text>
-            </Text>
+                <Text style={styles.entryContainer}>
+                    <Text style={styles.emailTitle}>Total dislikes: </Text>
+                    <Text style={styles.emailText}>{getDislikes()}</Text>
+                </Text>
+            </View>
 
             {/* Log out button */}
-            {<TouchableOpacity style={styles.logOutButton} onPress={handleLogout}>
+            {<TouchableOpacity style={styles.logOutButton} onPress={onLogoutPress}>
                 <Text style={styles.logOutText}>Log Out</Text>
             </TouchableOpacity>}
             
 
-        </SafeAreaView>        
+        </View>        
     );
 };
 
@@ -101,8 +117,18 @@ const styles = StyleSheet.create({
         backgroundColor: colors.tan,
         borderRadius: 50,
         borderWidth: 1,
-        alignItems: 'left',
+        alignItems: 'center',
         paddingBottom: '5%',
+        justifyContent: 'center',
+      },
+      headerContainer: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+      },
+      infoContainer: {
+        width: '100%',
+        alignItems: 'flex-start',
       },
     profile: {
         marginTop: '5%',
@@ -133,6 +159,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         marginTop: '10%',
+        marginBottom: '2%',
     },
     logOutText: {
         fontSize: 24,

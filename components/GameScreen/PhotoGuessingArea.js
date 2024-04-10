@@ -28,11 +28,6 @@ const PhotoGuessingArea = ({ photo }) =>
         fetchImage();
     }, [photo]);
 
-    const handleGuess = () => {
-    // do stuff with guess.
-    // switch to a map view, for leaflet, etc.
-    };
-
     return (
     <View style={styles.container}>
         <View style={styles.photoContainer}>

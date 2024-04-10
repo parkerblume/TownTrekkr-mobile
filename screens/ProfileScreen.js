@@ -16,6 +16,7 @@ const ProfileScreen = ( {navigation, route} ) => {
   const userId = route.params?.userId;
   const username = route.params?.username;
   const email = route.params?.email;
+  const handleLogout = route.params?.handleLogout;
 
   React.useEffect(() => {
     const fetchPosts = async () => {
@@ -32,9 +33,9 @@ const ProfileScreen = ( {navigation, route} ) => {
 
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
 
-        <ProfileComponent userId={userId} email={email} username={username} navigation={navigation} posts={posts} />
+        <ProfileComponent userId={userId} email={email} username={username} navigation={navigation} posts={posts} handleLogout={handleLogout} />
 
         <ProfilePostsComponent userId={userId} posts={posts} />
 

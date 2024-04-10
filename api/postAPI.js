@@ -137,6 +137,29 @@ export const postUserGuess = async (userid, postid, score, distanceAway, haslike
     }
 };
 
+export const userRatePost = async (post_id, user_id, rating) =>
+{
+    console.log(rating);
+    try {
+        const response = await fetch(`${BASE_URL}/posts/rate`, {
+            method: 'POST',
+            body: JSON.stringify({ post_id, user_id, rating }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const data = await response.json();
+        console.log(data);
+        if (data) { return true; }
+        else { return false; }
+
+    } catch (error)
+    {
+        console.error(error);
+    }
+};
+
 export const getGuesses = async (userid) =>
 {
     try {

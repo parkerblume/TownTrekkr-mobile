@@ -48,7 +48,8 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
         console.log("ID for town: " + currentTown._id);
 
 
-        const fetchTownGuesses = async () => {            
+        const fetchTownGuesses = async () => {          
+            console.log('allPosts', allPosts);  
             for (let i = 0; i < guesses.length; i++)
             {
                 console.log("Checking town: " + allPosts[i].town);

@@ -20,6 +20,11 @@ export default function App() {
     setIsAuthenticated(true);
   };
 
+  const handleLogout = () =>
+  {
+    setIsAuthenticated(false);
+  }
+
   useEffect(() => {
     console.log("Testing, just in case");
     // if (savedLogin) { handleLogin() }
@@ -51,7 +56,7 @@ export default function App() {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      { !isAuthenticated ? <AppNavigation /> : <AuthNavigation handleLogin={handleLogin} /> }
+      { isAuthenticated ? <AppNavigation handleLogout={handleLogout} /> : <AuthNavigation handleLogin={handleLogin} /> }
     </NavigationContainer>
   );
 }

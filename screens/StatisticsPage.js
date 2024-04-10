@@ -64,8 +64,7 @@ const StatisticsPage = ( {navigation, route} ) => {
 
 
   return (
-    <SafeAreaView style={styles.container}>
-
+    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
 
       
       <TownStatisticsComponent userId={userId} guesses={guesses} allPosts={allPosts} />

@@ -9,9 +9,9 @@ import ProfileScreen from '../../screens/ProfileScreen.js';
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigation = () => (
+const AppNavigation = ({ handleLogout }) => (
   <Tab.Navigator
-    tabBar={(props) => <BottomNavbar {...props} />}     
+    tabBar={(props) => <BottomNavbar {...props} handleLogout={handleLogout}  />}     
     screenOptions={{
       headerShown: false,
     }}

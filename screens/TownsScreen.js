@@ -60,7 +60,7 @@ const TownsScreen = ({ navigation, route }) => {
                     </Tab.Navigator>
                 </View>
             </NavigationContainer>
-            
+                                    
             <Modal
                 animationType="slide"
                 transparent={false}

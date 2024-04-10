@@ -7,7 +7,7 @@ import { FontAwesome5, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@
 import CameraOptions from '../ImageHandle/CameraOptions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const BottomNavbar = ({ state, descriptors, navigation }) => {
+const BottomNavbar = ({ state, descriptors, navigation, handleLogout }) => {
     const [userId, setUserId] = useState(null);
     const [username, setUsername] = useState(null);
     const [email, setEmail] = useState(null);
@@ -62,7 +62,14 @@ const BottomNavbar = ({ state, descriptors, navigation }) => {
                         });
 
                         if (!isFocused && !event.defaultPrevented) {
-                            navigation.navigate(route.name, { userId, username, email });
+                            if (route.name === 'ProfileScreen')
+                            {
+                                navigation.navigate(route.name, { userId, username, email, handleLogout });
+                            }
+                            else
+                            {
+                                navigation.navigate(route.name, { userId, username, email });
+                            }
                         }
                     };
 

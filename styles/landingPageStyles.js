@@ -4,9 +4,10 @@ import { StyleSheet, Platform } from 'react-native';
 let pageStyles = StyleSheet.create({
     earthContainer: {
         width:'100%',
+        flex: 1,
+        paddingTop: Platform.OS === 'ios' ? 0 : '20%',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        flex: 2
     }, 
     glView: {
         width: '100%', 
@@ -20,7 +21,7 @@ let pageStyles = StyleSheet.create({
     }, 
     boxContainer: {
         width:'100%',
-        flex: 3,
+        flex: 1,
         justifyContent: 'flex-end',
     },
     cardContainer: {
