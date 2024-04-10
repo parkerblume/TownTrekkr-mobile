@@ -24,7 +24,7 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
     }
 
     const getPerfectGuesses = () => {
-        if (!guesses) return 0;
+        if (!guesses || guesses.length === 0) return 0;
 
         let perfectGuesses = 0;
         for (let i = 0; i < guesses.length; i++)
@@ -38,7 +38,7 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
     }
 
     const getPercentPerfect = () => {
-        if (!guesses) return 0;
+        if (!guesses || guesses.length === 0) return 0;
 
         const temp = (getPerfectGuesses() / getTotalGuesses()) * 100;
 

@@ -42,6 +42,9 @@ const StatisticsPage = ( {navigation, route} ) => {
 
         const posts = await Promise.all(postsPromises);
         setAllPosts(posts);
+        console.log("Guesses" + response);
+        console.log("Posts" + allPosts);
+        console.log("userid: " + userId);
         
     } catch (error) {
         console.error('Error fetching guesses and posts:', error);
