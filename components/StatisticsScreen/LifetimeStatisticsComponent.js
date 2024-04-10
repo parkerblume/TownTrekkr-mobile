@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { colors } from '../../styles/commonStyles';
 import { getGuesses } from '../../api/postAPI.js';
 
@@ -66,54 +66,93 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
     }
 
     return (
-        <>
-            {/* Lifetime Statistics Area */}
-            <View style={styles.lifetimeStatContainer}>
+        // <View style={styles.lifetimeStatContainer}>
 
-                {/* Row 1 */}
-                <View style={styles.lifetimeRow1Container}>
-                    {/* Col 1 */}
-                    <View>
+        //     {/* Row 1 */}
+        //     <View style={styles.lifetimeRow1Container}>
+        //         {/* Col 1 */}
+        //         <View>
+        //             <Text style={styles.lifetimeStatValue}>{getPercentPerfect()}%</Text>
+        //             <Text style={styles.lifetimeStatTitle}>Percent Perfect</Text>
+        //         </View>
+        //         {/* Col 2 */}
+        //         <View style={{marginLeft: '8%'}}>
+        //             <Text style={styles.lifetimeStatValue}>{getPerfectGuesses()}</Text>
+        //             <Text style={styles.lifetimeStatTitle}>Perfect Guesses</Text>
+        //         </View>
+        //     </View>
+
+
+        //     {/* Row 2 */}
+        //     <View style={styles.lifetimeRow2Container}>
+        //         {/* Col 1 */}
+        //         <View>
+        //             <Text style={styles.lifetimeStatValue}>{getAverageScore()}</Text>
+        //             <Text style={styles.lifetimeStatTitle}>Average Score</Text>
+        //         </View>
+        //         {/* Col 2 */}
+        //         <View style={{marginLeft: '8%'}}>
+        //             <Text style={styles.lifetimeStatValue}>{getTotalGuesses()}</Text>
+        //             <Text style={styles.lifetimeStatTitle}>Total Guesses</Text>
+        //         </View>
+        //     </View>
+
+        //     <Text style={styles.lifetimeTitle}>Lifetime Statistics</Text>
+        // </View>
+        <View style={styles.lifetimeStatContainer}>
+            <View style={styles.statsContainer}>
+                <View style={styles.statRow}>
+                    <View style={styles.statItem}>
+                        <Text style={styles.lifetimeStatTitle}>Percent Perfect:</Text>
                         <Text style={styles.lifetimeStatValue}>{getPercentPerfect()}%</Text>
-                        <Text style={styles.lifetimeStatTitle}>Percent Perfect</Text>
                     </View>
-                    {/* Col 2 */}
-                    <View style={{marginLeft: '8%'}}>
+                    <View style={styles.statItem}>
+                        <Text style={styles.lifetimeStatTitle}>Perfect Guesses:</Text>
                         <Text style={styles.lifetimeStatValue}>{getPerfectGuesses()}</Text>
-                        <Text style={styles.lifetimeStatTitle}>Perfect Guesses</Text>
                     </View>
                 </View>
 
-
-                {/* Row 2 */}
-                <View style={styles.lifetimeRow2Container}>
-                    {/* Col 1 */}
-                    <View>
+                <View style={styles.statRow}>
+                    <View style={styles.statItem}>
+                        <Text style={styles.lifetimeStatTitle}>Average Score:</Text>
                         <Text style={styles.lifetimeStatValue}>{getAverageScore()}</Text>
-                        <Text style={styles.lifetimeStatTitle}>Average Score</Text>
                     </View>
-                    {/* Col 2 */}
-                    <View style={{marginLeft: '8%'}}>
+                    <View style={styles.statItem}>
+                        <Text style={styles.lifetimeStatTitle}>Total Guesses:</Text>
                         <Text style={styles.lifetimeStatValue}>{getTotalGuesses()}</Text>
-                        <Text style={styles.lifetimeStatTitle}>Total Guesses</Text>
                     </View>
                 </View>
+            </View>
 
+            <View style={styles.textContainer}>
                 <Text style={styles.lifetimeTitle}>Lifetime Statistics</Text>
             </View>
-        </>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     lifetimeStatContainer: {
         width: '100%',
-        height: '50%',
         backgroundColor: colors.tan,
-        borderRadius: 50,
-        marginTop: '12%',
+        borderTopStartRadius: 50,
+        borderTopEndRadius: 50,
+        marginTop: '15%',
         marginRight: '25%',
+        paddingVertical: '5%',
+        paddingLeft: '20%',
         borderWidth: 1,
+        flex: 1,
+      },
+      statsContainer: {
+        flexDirection: 'column',
+        paddingRight: '20%',
+        paddingBottom: Platform.OS === 'ios'? 0 : '5%',
+      },
+      statRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: '2%',
       },
       lifetimeRow1Container: {
         flexDirection: 'row',
@@ -137,11 +176,13 @@ const styles = StyleSheet.create({
         fontSize: 44,
         fontFamily: 'Londrina-Solid-Light'
       },
+      textContainer: {
+        flexGrow: 1,
+        width: '100%',
+      },
       lifetimeTitle: {
         fontSize: 38,
         fontFamily: 'Londrina-Solid',
-        marginLeft: '20%',
-        marginTop: '8%',
       },
 });
 

@@ -25,7 +25,7 @@ const ProfilePostsComponent = ({userId, posts}) => {
 
 
     return (        
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container} edges={['bottom']}>
 
             <Text style={styles.title}>Your Posts</Text>
             <View style={styles.postsContainer}>
@@ -39,6 +39,7 @@ const ProfilePostsComponent = ({userId, posts}) => {
                     keyExtractor={(item, index) => index.toString()}
                     ItemSeparatorComponent={entrySeparator}
                     ListEmptyComponent={emptyArray}
+                    contentContainerStyle={styles.listContainer}
                 />
 
             </View>
@@ -75,5 +76,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         alignContent: 'center',
+        flex: 1,
+    },
+    listContainer: {
+        paddingBottom: '2%',
+        width: '100%',
     },
 });

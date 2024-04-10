@@ -6,7 +6,7 @@ import GuessMapComponent from './GuessMapComponent';
 import {colors, commonStyles} from '../../styles/commonStyles';
 import { getPostsByTown } from '../../api/postAPI';
 import { FontAwesome } from '@expo/vector-icons';
-import { postUserGuess } from '../../api/postAPI';
+import { postUserGuess, userRatePost } from '../../api/postAPI';
 
 const GameComponent = ({ currentTown, userId, onRefresh }) =>
 {
@@ -16,6 +16,7 @@ const GameComponent = ({ currentTown, userId, onRefresh }) =>
   const [error, setError] = useState(null);
   const [isGuessing, setIsGuessing] = useState(false);
   const [userGuessed, setUserGuessed] = useState(false);
+  const [userRating, setUserRating] = useState(null);
 
   const fetchPhotos = async () =>
   {
@@ -49,8 +50,9 @@ const GameComponent = ({ currentTown, userId, onRefresh }) =>
     fetchPhotos();
   }, [currentTown, onRefresh]);
 
-  const handleRating = (rating) => {
-    console.log(rating);
+  const handleRating = async (rating) => {
+    const rated = await userRatePost(currentPhoto.postId, userId, rating === 'like' ? 1 : 0);
+    if (rated) { setUserRating(rating); }
   }
 
   const handleGuessButton = () =>
@@ -76,6 +78,7 @@ const GameComponent = ({ currentTown, userId, onRefresh }) =>
     setIsGuessing(false);
     setUserGuessed(false);
     setLoading(false);
+    setUserRating(null);
   }
 
   if (error)
@@ -130,16 +133,16 @@ const GameComponent = ({ currentTown, userId, onRefresh }) =>
           <View style={styles.interactiveContainer}>
             <View style={styles.ratingsContainer}>
                 <FontAwesome
-                    name="thumbs-o-up"
+                    name={userRating === 'like' ? 'thumbs-up' : 'thumbs-o-up'}
                     size={25}
                     color="green"
-                    onPress={() => handleRating("good")}
+                    onPress={() => handleRating('like')}
                 />
                 <FontAwesome style={{marginHorizontal: 10}}
-                    name="thumbs-o-down"
+                    name={userRating === 'dislike' ? 'thumbs-down' : 'thumbs-o-down'}
                     size={25}
                     color="red"
-                    onPress={() => handleRating("bad")}
+                    onPress={() => handleRating("dislike")}
                 />
             </View>
             <View style={styles.buttonContainer}>

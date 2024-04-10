@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, FlatList, StyleSheet, Modal, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, StyleSheet, Modal, SafeAreaView, Platform } from 'react-native';
 import MapView, { Polygon } from 'react-native-maps';
 import { colors } from '../../styles/commonStyles';
 import viewTownStyles from '../../styles/viewTownStyles';
@@ -84,8 +84,8 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
     };
 
     return (
-        <Modal isVisible={isVisible} onBackdropPress={onClose} transparent={false} contentContainerStyle={styles.container}>
-            <SafeAreaView style={styles.modalContainer} edges={['top']}>
+        <Modal isVisible={isVisible} onBackdropPress={onClose} transparent={false} >
+            <SafeAreaView style={styles.modalContainer} edges={['top', 'bottom']}>
                 <View style={styles.headerContainer}>
                     <Text style={styles.townName}>{townObject?.name}</Text>
                     <TouchableOpacity style={styles.closeButton} onPress={onClose}>
@@ -141,12 +141,14 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
                     </View>
                     <View style={styles.listInfo}>
                         <Text style={styles.membersText}>Town Hall</Text>
+                        <View style={styles.listHolder}>
                         <FlatList
                             data={townMembers}
                             renderItem={renderMemberItem}
                             keyExtractor={(item) => item.id}
                             contentContainerStyle={styles.listContainer}
                         />
+                        </View>
                     </View>
                 </View>
             </SafeAreaView>
@@ -155,9 +157,6 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
 }
 
 const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-    },
     modalContainer: {
         backgroundColor: colors.tan,
         paddingTop: '5%',
@@ -229,8 +228,9 @@ const styles = StyleSheet.create({
         color: colors.dark_brown
     },
     infoContainer: {
-        flex: 1,
+        flexGrow: 1,
         width: "100%",
+        paddingBottom: '10%',
     },
     infoButtonContainer: {
         flexDirection: 'row',
@@ -263,15 +263,17 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
     },
-    listContainer: {
-        paddingTop: '3%',
-        width: '100%',
+    listHolder: {
         borderTopWidth: 3,
         borderTopColor: colors.dark_brown,
         borderBottomColor: colors.dark_brown,
         borderBottomWidth: 3,
-        backgroundColor: colors.faded_tan,
-        flex: 1,
+        backgroundColor: colors.faded_tan
+    },
+    listContainer: {
+        paddingTop: '3%',
+        width: '100%',
+        height: Platform.OS === 'ios' ? '100%' : 'auto',
     },
     membersText: {
         fontFamily: 'Londrina-Solid',
@@ -295,7 +297,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 5,
         shadowOffset: { width: 0, height: 0 }, 
-        elevation: 1,
+        elevation: 5,
         borderColor: colors.dark_brown
     },
     memberInfoContainer: {
