@@ -54,8 +54,6 @@ const StatisticsPage = ( {navigation, route} ) => {
   return (
     <SafeAreaView style={styles.container}>
 
-      <StatusBar backgroundColor={colors.background} />
-
       
       <TownStatisticsComponent userId={userId} guesses={guesses} allPosts={allPosts} />
 

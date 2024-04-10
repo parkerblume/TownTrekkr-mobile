@@ -13,8 +13,6 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
     const [showDeleteButton, setShowDeleteButton] = useState(false);
     const [showLeaveButton, setShowLeaveButton] = useState(false);
 
-    console.log(townObject.id);
-
     useEffect(() => {
         if (townObject && townObject.townMembers)
         {
@@ -86,7 +84,7 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
     };
 
     return (
-        <Modal isVisible={isVisible} onBackdropPress={onClose} transparent={false}>
+        <Modal isVisible={isVisible} onBackdropPress={onClose} transparent={false} contentContainerStyle={styles.container}>
             <SafeAreaView style={styles.modalContainer} edges={['top']}>
                 <View style={styles.headerContainer}>
                     <Text style={styles.townName}>{townObject?.name}</Text>
@@ -157,9 +155,12 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
 }
 
 const styles = StyleSheet.create({
+    container: {
+        width: '100%',
+    },
     modalContainer: {
         backgroundColor: colors.tan,
-        padding: 20,
+        paddingTop: '5%',
         flex: 1,
         alignItems: 'center',
         width: '100%',
