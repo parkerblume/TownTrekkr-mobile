@@ -43,11 +43,14 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
 
     const getPercentPerfect = () => {
         if (!guesses) return 0;
-        return (getPerfectGuesses() / getTotalGuesses()) * 100;
+
+        const temp = (getPerfectGuesses() / getTotalGuesses()) * 100;
+
+        return Math.round(temp * 100) / 100;
     }
 
     const getAverageScore = () => {
-        if (!guesses) return 0;
+        if (!guesses || guesses.length === 0) return 0;
 
         let totalScore = 0;
         for (let i = 0; i < guesses.length; i++)

@@ -18,30 +18,6 @@ const TownStatisticsComponent = ({userId, guesses}) => {
     // const [guesses, setGuesses] = React.useState([]);
     const [townGuesses, setTownGuesses] = React.useState([]);
 
-    const [value, setValue] = React.useState(null);
-
-
-    React.useEffect(() => {
-
-        const fetchTownGuesses = async () => {
-
-            try {
-                for (let i = 0; i < guesses.length; i++)
-                {
-                    const post = await getPostById(guesses[i].post);
-                    //const post = await getPostById("65fdeee45b02344bf39c7715");
-                    if (post.town === currentTown)
-                    {
-                        setTownGuesses([...townGuesses, guesses[i]]);
-                    }
-                }
-            } catch (error) {
-                console.error('Error fetching town guesses:', error);
-            }
-        };
-
-        fetchTownGuesses();
-    }, [currentTown]);
 
 
     React.useEffect(() => {
@@ -50,10 +26,10 @@ const TownStatisticsComponent = ({userId, guesses}) => {
                 const response = await getTowns(userId);
 
                 setTowns(response); 
-                
-                if (towns.length > 0) {
-                    console.log("First town: " + towns[0].name);
-                    setCurrentTown(towns[0].name);
+
+                if (response.length > 0) {
+                    console.log("First town: " + response[0].name);
+                    setCurrentTown(response[0].name);
                 }
                 else {
                     setCurrentTown('Choose a town');
@@ -67,6 +43,34 @@ const TownStatisticsComponent = ({userId, guesses}) => {
 
     }, []);
 
+    React.useEffect(() => {
+        console.log("Updating town guesses for town: " + currentTown.name);
+        console.log("ID for town: " + currentTown._id);
+
+
+        const fetchTownGuesses = async () => {
+
+            try {
+                for (let i = 0; i < guesses.length; i++)
+                {
+                    const post = await getPostById(guesses[i].post);
+
+
+                    if (post.town === currentTown.name)
+                    {
+                        setTownGuesses([...townGuesses, guesses[i]]);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching town guesses:', error);
+            }
+        };
+
+        fetchTownGuesses();
+    }, [currentTown]);
+
+
+
     const getTotalGuesses = () => {
         if (townGuesses) {
             return townGuesses.length;
@@ -75,7 +79,7 @@ const TownStatisticsComponent = ({userId, guesses}) => {
     }
 
     const getPerfectGuesses = () => {
-        if (!townGuesses) return 0;
+        if (!townGuesses || townGuesses.length === 0) return 0;
 
         let perfectGuesses = 0;
         for (let i = 0; i < townGuesses.length; i++)
@@ -89,12 +93,16 @@ const TownStatisticsComponent = ({userId, guesses}) => {
     }
 
     const getPercentPerfect = () => {
-        if (!townGuesses) return 0;
-        return (getPerfectGuesses() / getTotalGuesses()) * 100;
+        if (!townGuesses || townGuesses.length === 0) return 0;
+
+        const temp = (getPerfectGuesses() / getTotalGuesses()) * 100;
+
+        return Math.round(temp * 100) / 100;
     }
 
     const getAverageScore = () => {
-        if (!townGuesses) return 0;
+        if (!townGuesses || townGuesses.length === 0) return 0;
+        console.log("Town guesses " + townGuesses.length);
 
         let totalScore = 0;
         for (let i = 0; i < townGuesses.length; i++)
@@ -114,17 +122,20 @@ const TownStatisticsComponent = ({userId, guesses}) => {
                     style={styles.dropdownBox}
                     placeholderStyle={styles.boxTitle}
                     selectedTextStyle={styles.boxTitle}
+                    containerStyle={{backgroundColor: colors.tan, borderColor: 'black', borderWidth: 1, borderRadius: 15}}
+                    itemTextStyle={{fontFamily: 'Londrina-Solid', color: 'black', fontSize: 28}}
+                    activeColor={colors.tan}
                     data={towns}
                     maxHeight={300}
                     labelField="name"
                     valueField="_id"
                     placeholder={currentTown}
-                    value={value}
+                    value={currentTown}
                     onChange={item => {
-                        setValue(item.label);
+                        setCurrentTown(item);
                     }}
                 />
-                <Text style={styles.statTitle}> Statistics</Text>
+                <Text style={styles.statTitle}>Statistics</Text>
 
 
 
@@ -139,15 +150,10 @@ const TownStatisticsComponent = ({userId, guesses}) => {
                     </View>
                     {/* Col 2 */}
                     <View style={{marginLeft: '20%'}}>
-                        {/* <Text style={styles.statValue}>{getPercentPerfect()}</Text>
-                        <Text style={styles.statValue}>{getGuesses()}</Text>
+                        <Text style={styles.statValue}>{getPercentPerfect()}</Text>
+                        <Text style={styles.statValue}>{getPerfectGuesses()}</Text>
                         <Text style={styles.statValue}>{getTotalGuesses()}</Text>
-                        <Text style={styles.statValue}>{getAverageScore()}</Text> */}
-                        <Text style={styles.statValue}>-</Text>
-                        <Text style={styles.statValue}>-</Text>
-                        <Text style={styles.statValue}>-</Text>
-                        <Text style={styles.statValue}>-</Text>
-
+                        <Text style={styles.statValue}>{getAverageScore()}</Text>
                     </View>
                 </View>
 
@@ -183,13 +189,13 @@ const styles = StyleSheet.create({
     boxTitle: {
         fontSize: 36,
         fontFamily: 'Londrina-Solid',
-        marginLeft: '2%',
+        marginLeft: '3%',
         color: 'black',
     },
     statTitle: {
         fontSize: 36,
         fontFamily: 'Londrina-Solid',
-        marginLeft: '10%',
+        marginLeft: '12%',
     },
     statRowContainer: {
         flexDirection: 'row',

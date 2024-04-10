@@ -35,8 +35,6 @@ const StatisticsPage = ( {navigation, route} ) => {
     fetchGuesses();
 }, []);
 
-  // Dummy array for testing purposes
-  const arr = ["Guess 1", "Guess 2", "Guess 3", "Guess 4", "Guess 5", "Guess 6", "Guess 7", "Guess 8", "Guess 9", "Guess 10"];
 
 
   return (
