@@ -1,24 +1,20 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '../../styles/commonStyles';
-import { getGuesses } from '../../api/postAPI.js';
 
 const LifetimeStatisticsComponent = ({userId, guesses}) => {
     //const [guesses, setGuesses] = React.useState([]);
+    const [totalGuesses, setTotalGuesses] = React.useState(0);
+    const [perfectGuesses, setPerfectGuesses] = React.useState(0);
+    const [percentPerfect, setPercentPerfect] = React.useState(0);
+    const [averageDistance, setAverageDistance] = React.useState(0);
 
-
-    // React.useEffect(() => {
-    //     const fetchGuesses = async () => {
-    //         try {
-    //             const response = await getGuesses(userId);
-    //             setGuesses(response); 
-    //         } catch (error) {
-    //             console.error('Error fetching guesses:', error);
-    //         }
-    //     };
-
-    //     fetchGuesses();
-    // }, []);
+    React.useEffect(() => {
+        setTotalGuesses(getTotalGuesses());
+        setPerfectGuesses(getPerfectGuesses());
+        setPercentPerfect(getPercentPerfect());
+        setAverageDistance(getAverageDistance());
+    }, [guesses]);
 
     const getTotalGuesses = () => {
         if (guesses) {
@@ -33,7 +29,7 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
         let perfectGuesses = 0;
         for (let i = 0; i < guesses.length; i++)
         {
-            if (guesses[i].score > 1000)
+            if (guesses[i].distance < 100)
             {
                 perfectGuesses++;
             }
@@ -50,17 +46,17 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
     }
 
     // Rounds to the nearest whole number
-    const getAverageScore = () => {
+    const getAverageDistance = () => {
         if (!guesses || guesses.length === 0) return 0;
 
-        let totalScore = 0;
+        let totalDistance = 0;
         for (let i = 0; i < guesses.length; i++)
         {
-            totalScore += (guesses[i].score ? guesses[i].score : 0);
+            totalDistance += (guesses[i].distance ? guesses[i].distance : 0);
         }
-        console.log("Total Score: " + totalScore + " Total Guesses: " + getTotalGuesses());
+        //console.log("Total Score: " + totalScore + " Total Guesses: " + getTotalGuesses());
 
-        const temp = (totalScore / getTotalGuesses());
+        const temp = (totalDistance / getTotalGuesses());
 
         return Math.round(temp);
     }
@@ -74,12 +70,12 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
                 <View style={styles.lifetimeRow1Container}>
                     {/* Col 1 */}
                     <View>
-                        <Text style={styles.lifetimeStatValue}>{getPercentPerfect()}%</Text>
+                        <Text style={styles.lifetimeStatValue}>{percentPerfect}%</Text>
                         <Text style={styles.lifetimeStatTitle}>Percent Perfect</Text>
                     </View>
                     {/* Col 2 */}
-                    <View style={{marginLeft: '8%'}}>
-                        <Text style={styles.lifetimeStatValue}>{getPerfectGuesses()}</Text>
+                    <View style={{marginLeft: '16%'}}>
+                        <Text style={styles.lifetimeStatValue}>{perfectGuesses}</Text>
                         <Text style={styles.lifetimeStatTitle}>Perfect Guesses</Text>
                     </View>
                 </View>
@@ -89,12 +85,12 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
                 <View style={styles.lifetimeRow2Container}>
                     {/* Col 1 */}
                     <View>
-                        <Text style={styles.lifetimeStatValue}>{getAverageScore()}</Text>
-                        <Text style={styles.lifetimeStatTitle}>Average Score</Text>
+                        <Text style={styles.lifetimeStatValue}>{averageDistance}m</Text>
+                        <Text style={styles.lifetimeStatTitle}>Average Distance Off</Text>
                     </View>
                     {/* Col 2 */}
                     <View style={{marginLeft: '8%'}}>
-                        <Text style={styles.lifetimeStatValue}>{getTotalGuesses()}</Text>
+                        <Text style={styles.lifetimeStatValue}>{totalGuesses}</Text>
                         <Text style={styles.lifetimeStatTitle}>Total Guesses</Text>
                     </View>
                 </View>
@@ -121,6 +117,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         marginTop: '8%',
+        marginLeft: '4%',
       },
       lifetimeRow2Container: {
         flexDirection: 'row',

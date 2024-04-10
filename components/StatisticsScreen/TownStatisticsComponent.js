@@ -96,7 +96,6 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
 
     const getAverageScore = () => {
         if (!townGuesses || townGuesses.length === 0) return 0;
-        console.log("Town guesses " + townGuesses.length);
 
         let totalScore = 0;
         for (let i = 0; i < townGuesses.length; i++)
