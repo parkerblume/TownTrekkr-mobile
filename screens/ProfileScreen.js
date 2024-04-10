@@ -8,6 +8,7 @@ import ProfileComponent from '../components/ProfileScreen/ProfileComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ProfilePostsComponent from '../components/ProfileScreen/ProfilePostsComponent';
 import { getUserPosts } from '../api/postAPI.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileScreen = ( {navigation, route} ) => {
   const [posts, setPosts] = React.useState([]);
@@ -20,14 +21,13 @@ const ProfileScreen = ( {navigation, route} ) => {
     const fetchPosts = async () => {
         try {
             const response = await getUserPosts(userId);
-            setPosts(response);
+            setPosts(response);        
         } catch (error) {
             console.error('Error fetching posts:', error);
         }
     };
 
     fetchPosts();
-    //console.log("Posts: ", posts);
 }, []);
 
 

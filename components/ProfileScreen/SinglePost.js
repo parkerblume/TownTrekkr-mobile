@@ -1,9 +1,28 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity } from 'react-native';
 import { colors } from '../../styles/commonStyles';
+import { getPhotoImage } from '../../api/postAPI.js';
 
 
 const GuessBox = ({title, likes, dislikes, image}) => {
+
+    const [photoUri, setPhotoUri] = React.useState(null);
+
+    const fetchImage = async () =>
+    {
+        try {
+            const photoData = await getPhotoImage(image);
+
+            setPhotoUri(photoData);
+        } catch (error) {
+            console.log("Something went wrong in getting this photo, sorry.");
+        }
+    }
+
+    React.useEffect(() => {
+        fetchImage();
+    }, []);
+
 
 
     return (
@@ -14,7 +33,7 @@ const GuessBox = ({title, likes, dislikes, image}) => {
                 <Text>Likes: {likes}</Text>
                 <Text>Dislikes: {dislikes}</Text>
             </View>
-            {image ? <Image style={{width: 50, height: 50}} source={image} /> : 
+            {image ? <Image style={styles.image} source={{ uri: photoUri }} /> : 
             <Text style={styles.noImage}>No image found</Text>}
             
         </View>
@@ -45,6 +64,13 @@ const styles = StyleSheet.create({
         marginTop: '5%',
     },
     noImage: {
+        marginRight: '5%',
+    },
+    image: {
+        width: 50,
+        height: 50,
+        borderRadius: 20,
+        marginTop: '5%',
         marginRight: '5%',
     }
 });

@@ -34,7 +34,7 @@ const ProfilePostsComponent = ({userId, posts}) => {
                     data={posts}
                     renderItem={({item, index}) => (
                         <SinglePost title={item.title ? item.title : "No post title..."} likes={item.likes} 
-                                            dislikes={item.dislikes} image={null}/>
+                                            dislikes={item.dislikes} image={item.fileId}/>
                         )}
                     keyExtractor={(item, index) => index.toString()}
                     ItemSeparatorComponent={entrySeparator}
