@@ -70,7 +70,8 @@ const StatisticsPage = ( {navigation, route} ) => {
         <FlatList
           data={allPosts}
           renderItem={({item, index}) => (              
-              <GuessBox title={item.title} score={guesses[index].score} hasLiked={guesses[index].hasLiked}/>
+              <GuessBox title={item.title} score={guesses[index].score} hasLiked={guesses[index].hasLiked} 
+                        hasDisliked={guesses[index].hasDisLiked} date={item.createdAt} />
             )}
           horizontal={true}
           keyExtractor={(item, index) => index.toString()}

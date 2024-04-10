@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
         marginLeft: '30%',
         borderWidth: 1,
         paddingBottom: '5%',
-        marginTop: '15%',
+        marginTop: '11%',
     },
     dropdownBox: {
         width: '70%',
