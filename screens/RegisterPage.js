@@ -52,11 +52,11 @@ const RegisterPage = ( {navigation} ) => {
       // turn password box red.
       return;
     }
-    if (!checkmark) {
-      alert('Please agree to the terms and conditions');
-      console.log("no checkmark");
-      return;
-    }
+    // if (!checkmark) {
+    //   alert('Please agree to the terms and conditions');
+    //   console.log("no checkmark");
+    //   return;
+    // }
     
     let data = await signup(email, password, username);
     console.log(data.username);
@@ -119,7 +119,7 @@ const RegisterPage = ( {navigation} ) => {
 
         {/* TODO: Add terms and conditions page? */}
         {/* a checkmark box that is required for the signup button to be pressable */}
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        {/* <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <TouchableOpacity style={styles.checkmarkBox} onPress={ () => setCheckmark(!checkmark)}>
             {checkmark && <Ionicons name="checkmark" size={24} color='green' style={styles.checkIcon} />}
           </TouchableOpacity>
@@ -131,7 +131,7 @@ const RegisterPage = ( {navigation} ) => {
               Terms and Conditions
             </Text>
           </Text>
-        </View>
+        </View> */}
 
 
 

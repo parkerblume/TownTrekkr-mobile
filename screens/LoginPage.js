@@ -14,28 +14,49 @@ const LoginPage = ( {navigation, onLogin} ) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [onFocus, setOnFocus] = useState(false);
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isPasswordError, setIsPasswordError] = useState(false);
+  const [isEmailError, setIsEmailError] = useState(false);
 
 
 
   const loginHandler = async () => {
+    if (email === '' && password === '')
+    {
+      setIsPasswordError(true);
+      setIsEmailError(true);
+      setErrorMessage('Must enter an email and password');
+      return;
+    }
+
     if (email === '')
     {
-      alert('Please enter your email');
+      setErrorMessage('Must enter an email');
+      setIsEmailError(true);
       return;
     }
     if (password === '')
     {
-      alert('Please enter your password');
+      setErrorMessage('Must enter a password');
+      setIsPasswordError(true);
       return;
     }
 
     let data = await login(email, password);
+    if (data.error) 
+    { 
+      setErrorMessage(data.error); 
+      setIsEmailError(true);
+      setIsPasswordError(true);
+      return; 
+    }
 
-    console.log("Logging in");
-    //console.log(data);
     if (data)
     {
+      setErrorMessage(''); 
+      setIsEmailError(false);
+      setIsPasswordError(false);
       const userId = data.id;
       const username = data.username;
       const email = data.email;
@@ -74,7 +95,7 @@ const LoginPage = ( {navigation, onLogin} ) => {
 
       {/* input fields */}
           <TextInput
-            style={styles.input}
+            style={[styles.input, isEmailError && styles.fieldError]}
             onChangeText={setEmail}
             value={email}
             placeholder="Email"
@@ -84,7 +105,7 @@ const LoginPage = ( {navigation, onLogin} ) => {
 
       <View style={styles.passInputContainer}>
           <TextInput
-            style={styles.input}
+            style={[styles.input, isPasswordError && styles.fieldError]}
             onChangeText={setPassword}
             value={password}
             placeholder="Password"
@@ -101,11 +122,17 @@ const LoginPage = ( {navigation, onLogin} ) => {
           />
       </View>
 
-      {/* <Text style={styles.forgotPassword}>Forgot password?</Text> */}
+      {errorMessage !== '' && (
+        <View style={styles.errorMessageContainer}>
+          <Text style={styles.errorMessage}>{errorMessage}</Text>
+        </View>
+      )}
 
+      <View style={styles.forgotPasswordContainer}>
+        <Text style={styles.forgotPassword}>Forgot password?&nbsp;</Text>
+        <Text style={styles.linkToReset}> Click here to reset it!</Text>
+      </View>
 
-
-      {/* TODO: Maybe add keyboard avoiding behavior */}
       
       {/* login button */}
       <TouchableOpacity style={styles.loginButton} onPress={loginHandler}>
@@ -175,12 +202,15 @@ const styles = StyleSheet.create({
       padding: 10,
       backgroundColor: 'white',
     },
+    forgotPasswordContainer: {
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row'
+    },
     forgotPassword: {
       fontSize: 12,
       color: 'grey',
-      marginTop: -5,
-      alignSelf: 'flex-start',
-      marginLeft: 32,
       fontStyle: 'italic',
     },
     loginButton: {
@@ -211,4 +241,18 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
     },
+    errorMessageContainer: {
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    errorMessage: {
+      fontFamily: 'Londrina-Solid-Light',
+      fontSize: 20,
+      color: 'red',
+    },
+    fieldError: {
+      borderColor: 'red',
+      borderWidth: 3,
+    }
   });

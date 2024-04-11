@@ -43,6 +43,7 @@ const BottomNavbar = ({ state, descriptors, navigation, handleLogout }) => {
     };
     
     const handleImageConfirm = (imageResult, location) => {
+        console.log('handleImage', imageResult, location, userId);
         navigation.navigate('ImageHandle', { imageResult, location, userId });
         setIsCameraOptionsVisible(false);
     };

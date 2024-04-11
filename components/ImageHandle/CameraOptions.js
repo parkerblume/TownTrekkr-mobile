@@ -82,7 +82,6 @@ const CameraOptions = ({ isVisible, onClose, onImageConfirm }) =>
     const handleUploadFromGallery = async () =>
     {
         const { status: mediaLibraryStatus } = await requestMediaLibraryPermissionsAsync();
-        // const { status: locationStatus } = await Location.requestForegroundPermissionsAsync();
 
         if (mediaLibraryStatus === 'granted')
         {
