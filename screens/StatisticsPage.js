@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity,
          KeyboardAvoidingView, Keyboard, FlatList, SafeAreaView } from 'react-native';
@@ -13,13 +13,11 @@ import { useIsFocused } from "@react-navigation/native";
 
 
 const StatisticsPage = ( {navigation, route} ) => {
-
   const isFocused = useIsFocused();
-
-
   const userId = route.params?.userId;
-  const [guesses, setGuesses] = React.useState([]);
-  const [allPosts, setAllPosts] = React.useState([]);
+  const [guesses, setGuesses] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
+  const [listContainerHeight, setListContainerHeight] = useState(0);
 
   
   const emptyArray = () => {
@@ -66,7 +64,7 @@ const StatisticsPage = ( {navigation, route} ) => {
 
   const renderGuessItem = ({item, index}) => {
 
-    if (item.town.length < 5) return null;
+    if (index >= guesses.length || item.town.length < 5) { return null; }
 
     let guessObject = {
       postTitle: item.title,
@@ -75,16 +73,14 @@ const StatisticsPage = ( {navigation, route} ) => {
       hasLiked: guesses[index].hasLiked,
       hasDisLiked: guesses[index].hasDisLiked,
       date: item.createdAt,
-    }
+    };
 
     return (
-      <GuessBox guessObject={guessObject} key={`Guess-${index}`}/>
+      <View key={`guess-${index}`}>
+        <GuessBox guessObject={guessObject} />
+      </View>
     );
   }
-
-  // title={item.title} townId={item.town} distance={guesses[index].distanceAway} hasLiked={guesses[index].hasLiked} 
-  // hasDisliked={guesses[index].hasDisLiked} date={item.createdAt} 
-
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
@@ -103,6 +99,7 @@ const StatisticsPage = ( {navigation, route} ) => {
         <FlatList
           data={allPosts.reverse()}
           renderItem={renderGuessItem}
+          contentContainerStyle={styles.listContainer}
           horizontal={true}
           keyExtractor={(item, index) => (item._id + index).toString()}
           ListEmptyComponent={emptyArray}
@@ -130,11 +127,15 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: colors.background,      
     },
+    listContainer: {
+      paddingLeft: '2%',
+    },
     recentGuessesContainer: {
       marginTop: '5%',
       marginLeft: '5%',
       marginRight: '5%', 
-      height: 100,
+      width: '100%',
+      height: '15%',
     },
     recentGuessesTitle: {
       fontSize: 22,
