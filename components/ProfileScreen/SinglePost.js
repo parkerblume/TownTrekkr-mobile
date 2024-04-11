@@ -3,11 +3,13 @@ import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity } fr
 import { colors } from '../../styles/commonStyles';
 import { getPhotoImage } from '../../api/postAPI.js';
 import { FontAwesome } from '@expo/vector-icons';
+import { getTownById } from '../../api/authAPI.js';
 
 
-const SinglePost = ({title, likes, dislikes, image, date}) => {
+const SinglePost = ({title, likes, post, dislikes, image, date}) => {
 
     const [photoUri, setPhotoUri] = React.useState(null);
+    const [townName, setTownName] = React.useState('');
 
     const fetchImage = async () =>
     {
@@ -19,8 +21,18 @@ const SinglePost = ({title, likes, dislikes, image, date}) => {
             console.log("Something went wrong in getting this photo, sorry.");
         }
     }
+    const fetchTownName = async (postId) => {
+        try {
+            const response = await getTownById(postId);
+            //console.log(response.name);
+            setTownName(response.name);
+        } catch (error) {
+            console.error('Error fetching post:', error);
+        }
+    };
 
     React.useEffect(() => {
+        fetchTownName(post.town)
         fetchImage();
     }, []);
 
@@ -42,14 +54,19 @@ const SinglePost = ({title, likes, dislikes, image, date}) => {
         return str.length > 25 ? str.substring(0, 25) + "..." : str;
     }
 
+    const truncateTown = (str) => {
+        return str.length > 16 ? str.substring(0, 16) + "..." : str;
+    }
+
 
     return (
         <>
         <View style={styles.background}>
         <View style={styles.item}>
             <View style={{flex: 1}}>
-                <Text style={styles.title}>{truncateTitle(title)}    </Text>
-                <Text>Posted: {formatDate(date)}</Text>
+                <Text style={styles.title}>{title ? truncateTitle(title) : 'No post title'}</Text>
+                <Text style={styles.title}>in town: <Text style={styles.unbold}>{townName ? truncateTown(townName) : 'No town name'}</Text></Text>
+                <Text style={styles.title}>posted: <Text style={styles.unbold}>{date ? formatDate(date) : 'No date found'}</Text></Text>
             </View>
             <View styles={{justifyContent: 'flex-end', flexDirection: 'row'}}>
                 <Text style={styles.likesdislikes}>
@@ -105,7 +122,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         opacity: 0.5,
-
     },
     noImage: {
         marginRight: '5%',
@@ -120,6 +136,10 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontFamily: 'Londrina-Solid',
+    },
+    unbold: {
+        fontSize: 18,
+        fontFamily: 'Londrina-Solid-Light',
     },
     likesdislikes: {
         fontSize: 16,

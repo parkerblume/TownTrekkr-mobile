@@ -150,6 +150,34 @@ export const getTowns = async (userId, page = 1, limit = 20) => {
   }
 };
 
+export const getTownById = async (townId) =>
+{
+  try {
+    let url = `${BASE_URL}/town/gettown`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({townId}),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      return data;
+    }
+    else {
+      return null;
+    }
+  }
+  catch (error) {
+    console.error('Error fetching town by ID:', error);
+    throw error;
+  }
+}
+
 export const getUserById = async (userId) =>
 {
   try {

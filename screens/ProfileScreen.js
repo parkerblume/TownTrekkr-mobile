@@ -31,7 +31,7 @@ const ProfileScreen = ( {navigation, route} ) => {
         }
     };
     //console.log("user: " + username);
-    console.log("posts: " + posts);
+    //console.log("posts: " + posts);
     fetchPosts();
 }, [isFocused]);
 

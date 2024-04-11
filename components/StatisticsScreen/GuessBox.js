@@ -32,7 +32,7 @@ const GuessBox = ({title, townName, distance, hasLiked, hasDisliked, date}) => {
             <View style={{width: 150, height: 100, backgroundColor: 'white', opacity: 0.5, borderRadius: 10, marginRight: 10, borderWidth: 1}}>
                 <Text style={styles.title}>{title ? truncateTitle(title) : 'No post title'}</Text>
                 <Text style={styles.item}><Text style={styles.title}>in town: </Text>{townName ? truncateTown(townName) : 'No town name'}</Text>
-                <Text style={styles.item}><Text style={styles.title}>posted on: </Text>{formatDate(date)}</Text>
+                <Text style={styles.item}><Text style={styles.title}>posted: </Text>{date ? formatDate(date) : '-'}</Text>
                 <Text style={hasLiked ? styles.title : styles.item}>{hasLiked ? "Liked!" : (hasDisliked ? "Disliked..." : 'No rating')}</Text>
                 <Text style={styles.item}><Text style={styles.title}>Distance off: </Text>{distance ? Math.round(distance) : 0}m</Text>
             </View>

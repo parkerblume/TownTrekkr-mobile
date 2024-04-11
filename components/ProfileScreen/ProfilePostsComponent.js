@@ -6,10 +6,12 @@ import ShowProfileComponent from './ShowProfileComponent';
 import EditPasswordComponent from './EditPasswordComponent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SinglePost from './SinglePost';
+import { getTownById } from '../../api/authAPI';
 
 
 
 const ProfilePostsComponent = ({userId, posts}) => {
+
 
     const entrySeparator = () => {
         return <View style={{ height: 0, backgroundColor: "grey" }} />;
@@ -24,6 +26,8 @@ const ProfilePostsComponent = ({userId, posts}) => {
     };
 
 
+
+
     return (        
         <SafeAreaView style={styles.container} edges={['bottom']}>
 
@@ -34,7 +38,7 @@ const ProfilePostsComponent = ({userId, posts}) => {
                     data={posts}
                     renderItem={({item, index}) => (
                         <SinglePost title={item.title ? item.title : "No post title..."} likes={item.likes} 
-                                            dislikes={item.dislikes} image={item.fileId} date={item.createdAt} />
+                                            post={item} dislikes={item.dislikes} image={item.fileId} date={item.createdAt} />
                         )}
                     keyExtractor={(item, index) => index.toString()}
                     ItemSeparatorComponent={entrySeparator}
