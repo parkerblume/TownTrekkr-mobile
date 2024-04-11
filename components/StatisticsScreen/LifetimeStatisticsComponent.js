@@ -1,20 +1,26 @@
 import React from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import { colors } from '../../styles/commonStyles';
+import { useIsFocused } from "@react-navigation/native";
 
 const LifetimeStatisticsComponent = ({userId, guesses}) => {
+
+    
 
     const [totalGuesses, setTotalGuesses] = React.useState(0);
     const [perfectGuesses, setPerfectGuesses] = React.useState(0);
     const [percentPerfect, setPercentPerfect] = React.useState(0);
     const [averageDistance, setAverageDistance] = React.useState(0);
 
+    const isFocused = useIsFocused();
+
     React.useEffect(() => {
+        console.log("Is focused in lifetime");
         setTotalGuesses(getTotalGuesses());
         setPerfectGuesses(getPerfectGuesses());
         setPercentPerfect(getPercentPerfect());
         setAverageDistance(getAverageDistance());
-    }, [guesses]);
+    }, [guesses, isFocused]);
 
     const getTotalGuesses = () => {
         if (guesses) {

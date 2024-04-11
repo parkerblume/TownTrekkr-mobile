@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginTop: '5%',
         marginRight: '5%',
+        alignSelf: 'center'
     },
     title: {
         fontSize: 18,

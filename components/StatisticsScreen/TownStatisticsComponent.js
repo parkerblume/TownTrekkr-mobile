@@ -93,7 +93,7 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
         setPerfectGuesses(getPerfectGuesses());
         setPercentPerfect(getPercentPerfect());
         setAverageDistance(getAverageDistance());
-    }, [guesses]);
+    }, [currentTown, isFocused]);
 
 
 

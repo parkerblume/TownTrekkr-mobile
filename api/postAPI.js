@@ -6,16 +6,24 @@ export const postUpload = async (image, location, title, townName, userId) =>
     try 
     {
         const fileUri = image.uri;
+        //console.log("fileuri: " + fileUri);
 
         const fileName = fileUri.split('/').pop();
-        const fileType = image.type;
+        //console.log("filename: " + fileName);
+
+        const uriArray = image.uri.split(".");
+        const fileExtension = uriArray[uriArray.length - 1];  // e.g.: "jpg"
+        const fileTypeExtended = `${image.type}/${fileExtension}`; // e.g.: "image/jpg"
+        //console.log("filetype: " + fileTypeExtended);
+        //console.log("fileExtension: " + fileExtension);
+
 
         const formData = new FormData();
 
         formData.append('image', {
             uri: fileUri,
             name: fileName,
-            type: fileType,
+            type: fileTypeExtended,
         });
 
         formData.append('user_id', userId);
