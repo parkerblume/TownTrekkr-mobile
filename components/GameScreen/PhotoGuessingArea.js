@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, Image, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { getPhotoImage } from '../../api/postAPI';
 import {colors} from '../../styles/commonStyles';
-import Swiper from 'react-native-swiper';
 
 const PhotoGuessingArea = ({ photo }) => 
 {
