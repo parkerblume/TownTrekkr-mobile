@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity } from 'react-native';
 import { colors } from '../../styles/commonStyles';
 import { getTownById } from '../../api/authAPI.js';
@@ -17,17 +17,26 @@ const GuessBox = ({guessObject, key}) => {
     const [townName, setTownName] = React.useState('');
 
     const formatDate = (dateString) => {
-        // console.log("Date: " + dateString);
-        const dateObj = new Date(dateString);
-        const day = dateObj.getDate();
-        const month = dateObj.getMonth() + 1;
-        const year = dateObj.getFullYear();
+        // a bunch of null checks because things keep breaking!!!
+        if (dateString)
+        {
+            const dateObj = new Date(dateString);
+            if (!isNaN(dateObj.getTime()))
+            {
+                const day = dateObj.getDate();
+                const month = dateObj.getMonth() + 1;
+                const year = dateObj.getFullYear();
+                const today = new Date();
+                if (day === today.getDate())
+                {
+                    return "today";
+                }
 
-        const today = new Date();
-        if (day === today.getDate()) {
-            return "today";
+                return month + "/" + day + "/" + year;
+            }
         }
-        return month + "/" + day + "/" + year;
+
+        return 'date N/A';
     }
 
     const truncateTitle = (str) => {
@@ -43,53 +52,98 @@ const GuessBox = ({guessObject, key}) => {
 
         try {
             const response = await getTownById(id);
-            // console.log("townname: " + response.name);
             return response.name;
         } catch (error) {
             console.error('Error fetching post:', error);
         }
     };
 
-    React.useEffect(() => {
-        const {town, postTitle, date, hasLiked, hasDisliked, distanceAway} = guessObject;
-        setTownId(town);
-        setHasLiked(hasLiked);
-        setHasDisliked(hasDisliked);
+    // postTitle: item.title,
+    //   town: item.town,
+    //   distanceAway: guesses[index].distanceAway,
+    //   hasLiked: guesses[index].hasLiked,
+    //   hasDisLiked: guesses[index].hasDisLiked,
+    //   date: item.createdAt,
 
-        setDistance(Math.round(distanceAway));
-        setTitle(truncateTitle(postTitle));
-        setDate(formatDate(date));
-
-        let name = fetchTownName(town);
-        name = truncateTown(name);
-        setTownName(name);
-        console.log("name: " + name);
+    useEffect(() => {
+        if (guessObject)
+        {
+            const {postTitle, town, distanceAway, hasLiked, hasDisliked, date} = guessObject;
+            setTownId(town || '');
+            setHasLiked(hasLiked || false);
+            setHasDisliked(hasDisliked || false);
+            setDistance(Math.round(distanceAway) || 0);
+            setTitle(postTitle ? truncateTitle(postTitle) : '');
+            setDate(formatDate(date));
+        }
     }, [guessObject]);
 
+    useEffect(() => {
+        if (townId)
+        {
+            fetchTownName(townId || '').then((name) => {
+                setTownName(name ? truncateTown(name) : '');
+            });
+        }
+    }, [townId])
+
     return (        
-        <View style={{width: 150, height: 100, backgroundColor: 'white', opacity: 0.5, borderRadius: 10, marginRight: 10, borderWidth: 1}} key={key}>
-            <Text style={styles.title}>{title ? title : 'No post title'}</Text>
-            <Text style={styles.item}><Text style={styles.title}>in town: </Text>{townName ? townName : 'No town name'}</Text>
-            <Text style={styles.item}><Text style={styles.title}>posted: </Text>{date ? date : '-'}</Text>
-            <Text style={hasLiked ? styles.title : styles.item}>{hasLiked ? "Liked!" : (hasDisliked ? "Disliked..." : 'No rating')}</Text>
-            <Text style={styles.item}><Text style={styles.title}>Distance off: </Text>{distance ? distance : 0}m</Text>
+        <View style={styles.itemContainer}>
+            <Text style={styles.title}>{title || 'No post title'}</Text>
+            <View style={styles.titleContainer}>
+                <Text style={styles.boldText}>in town: </Text>
+                <Text style={styles.itemText}>{townName || 'No town name'}</Text>
+            </View>
+            <View style={styles.titleContainer}>
+                <Text style={styles.boldText}>posted: </Text>
+                <Text style={styles.itemText}>
+                    {date}
+                </Text>
+            </View>
+            <Text style={hasLiked ? styles.boldText : styles.itemText}>
+                {hasLiked ? "Liked!" : hasDisliked ? "Disliked..." : "No rating"}
+            </Text>
+            <View style={styles.titleContainer}>
+                <Text style={styles.boldText}>Distance off: </Text>
+                <Text style={styles.itemText}>{distance || 0}m</Text>
+            </View>
         </View>        
     )
 }
 
 const styles = StyleSheet.create({
+    itemContainer: {
+        width: 150,
+        flex: 1,
+        backgroundColor: 'white',
+        opacity: 0.5,
+        borderRadius: 10,
+        marginRight: 10,
+        borderWidth: 1,
+        paddingVertical: '2%',
+        paddingHorizontal: '2%'
+    },
+    title: {
+        fontSize: 18,
+        fontFamily: 'Londrina-Solid',
+    },
+    titleContainer: {
+        flexDirection: 'row',
+    },
+    boldText: {
+        fontFamily: 'Londrina-Solid',
+        fontSize: 18,
+    },
+    itemText: {
+        fontFamily: 'Londrina-Solid-Light',
+        fontSize: 18,
+    },
     item: {
         fontSize: 18,
         fontFamily: 'Londrina-Solid-Light',
         marginTop: '0%',
         marginLeft: '5%',
     },    
-    title: {
-        fontSize: 18,
-        fontFamily: 'Londrina-Solid',
-        marginTop: '0%',
-        marginLeft: '5%',
-    }
 });
 
 export default GuessBox;

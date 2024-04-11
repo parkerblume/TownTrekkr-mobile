@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.tan,
         borderTopStartRadius: 50,
         borderTopEndRadius: 50,
-        marginTop: '15%',
+        marginTop: '10%',
         marginRight: '25%',
         paddingVertical: '5%',
         paddingLeft: '20%',

@@ -16,8 +16,23 @@ export default function App() {
   });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const handleLogin = () => {
-    setIsAuthenticated(true);
+  const handleLogin = async () => {
+    try {
+      const storedUserId = await AsyncStorage.getItem('userId');
+      console.log('saved login: ', storedUserId);
+      if (storedUserId !== null)
+      {
+        setIsAuthenticated(true);
+      }
+      else
+      {
+        setIsAuthenticated(false);
+      }
+    } catch (error)
+    {
+      console.log("Error retrieving userId: ", error);
+      setIsAuthenticated(false);
+    }
   };
 
   const handleLogout = () =>
@@ -27,14 +42,15 @@ export default function App() {
 
   useEffect(() => {
     console.log("Testing, just in case");
-    if (savedLogin) { handleLogin() }
+    handleLogin();
   }, []);
 
-  // filler for now so I don't have to keep logging in.
   const savedLogin = async () =>
   {
+    console.log('SAVED LOGIN');
     try {
       const storedUserId = await AsyncStorage.getItem('userId');
+      console.log('saved login: ', storedUserId);
       if (storedUserId !== null)
       {
         return true;
@@ -44,6 +60,7 @@ export default function App() {
     } catch (error)
     {
       console.log("Error retrieving userId: ", error);
+      return false;
     }
   }
 
