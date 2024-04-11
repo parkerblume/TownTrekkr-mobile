@@ -22,11 +22,13 @@ const ProfileScreen = ( {navigation, route} ) => {
     const fetchPosts = async () => {
         try {
             const response = await getUserPosts(userId);
+            console.log(userId);
             setPosts(response);        
         } catch (error) {
             console.error('Error fetching posts:', error);
         }
     };
+    console.log("user: " + username);
 
     fetchPosts();
 }, []);

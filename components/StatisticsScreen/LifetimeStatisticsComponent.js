@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Platform } from 'react-native';
 import { colors } from '../../styles/commonStyles';
 
 const LifetimeStatisticsComponent = ({userId, guesses}) => {
-    //const [guesses, setGuesses] = React.useState([]);
+
     const [totalGuesses, setTotalGuesses] = React.useState(0);
     const [perfectGuesses, setPerfectGuesses] = React.useState(0);
     const [percentPerfect, setPercentPerfect] = React.useState(0);
@@ -29,7 +29,7 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
         let perfectGuesses = 0;
         for (let i = 0; i < guesses.length; i++)
         {
-            if (guesses[i].distance < 100)
+            if (guesses[i].distanceAway < 100)
             {
                 perfectGuesses++;
             }
@@ -52,9 +52,8 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
         let totalDistance = 0;
         for (let i = 0; i < guesses.length; i++)
         {
-            totalDistance += (guesses[i].distance ? guesses[i].distance : 0);
+            totalDistance += (guesses[i].distanceAway ? guesses[i].distanceAway : 0);
         }
-        //console.log("Total Score: " + totalScore + " Total Guesses: " + getTotalGuesses());
 
         const temp = (totalDistance / getTotalGuesses());
 
@@ -110,7 +109,7 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
 
                 <View style={styles.statRow}>
                     <View style={styles.statItem}>
-                        <Text style={styles.lifetimeStatTitle}>Average Score:</Text>
+                        <Text style={styles.lifetimeStatTitle}>Average Distance Off:</Text>
                         <Text style={styles.lifetimeStatValue}>{averageDistance}m</Text>
                     </View>
                     <View style={styles.statItem}>

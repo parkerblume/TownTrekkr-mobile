@@ -24,6 +24,7 @@ const ImageHandleScreen = ({ navigation, route }) => {
         if (storedTown)
         {
             setTown(JSON.parse(storedTown));
+            console.log(town);
         }
     }
 
@@ -57,7 +58,7 @@ const ImageHandleScreen = ({ navigation, route }) => {
     const handleUpload = async () =>
     {
         setIsUploadDisabled(true);
-        const data = await postUpload(imageResult, location, title, town.id, userId);
+        const data = await postUpload(imageResult, location, title, town.name, userId);
         if (data)
         {
             setSuccessMessage('Photo has been posted!');

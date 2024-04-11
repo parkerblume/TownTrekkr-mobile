@@ -34,7 +34,7 @@ const ProfilePostsComponent = ({userId, posts}) => {
                     data={posts}
                     renderItem={({item, index}) => (
                         <SinglePost title={item.title ? item.title : "No post title..."} likes={item.likes} 
-                                            dislikes={item.dislikes} image={item.fileId}/>
+                                            dislikes={item.dislikes} image={item.fileId} date={item.createdAt} />
                         )}
                     keyExtractor={(item, index) => index.toString()}
                     ItemSeparatorComponent={entrySeparator}
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     },
     title: {
         marginTop: '2%',
-        fontSize: 20,
+        fontSize: 24,
         alignSelf: 'center',
         fontFamily: 'Londrina-Solid',
     },

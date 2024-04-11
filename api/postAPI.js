@@ -1,7 +1,7 @@
 import {BASE_URL} from './config';
 import * as FileSystem from 'expo-file-system';
 
-export const postUpload = async (image, location, title, townId, userId) =>
+export const postUpload = async (image, location, title, townName, userId) =>
 {
     try 
     {
@@ -19,7 +19,7 @@ export const postUpload = async (image, location, title, townId, userId) =>
         });
 
         formData.append('user_id', userId);
-        formData.append('town', townId);
+        formData.append('town', townName);
         formData.append('title', title);
         formData.append('coordinateX', location.latitude);
         formData.append('coordinateY', location.longitude);

@@ -5,8 +5,7 @@ import { getTowns } from '../../api/authAPI.js';
 import { getGuesses } from '../../api/postAPI.js';
 import { getPostById } from '../../api/postAPI.js';
 import { Dropdown } from 'react-native-element-dropdown';
-import Ionicons from '@expo/vector-icons/Ionicons';
-
+import { useIsFocused } from "@react-navigation/native";
 
 
 
@@ -17,6 +16,13 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
     const [currentTown, setCurrentTown] = React.useState('');
     // const [guesses, setGuesses] = React.useState([]);
     const [townGuesses, setTownGuesses] = React.useState([]);
+
+    const [totalGuesses, setTotalGuesses] = React.useState(0);
+    const [perfectGuesses, setPerfectGuesses] = React.useState(0);
+    const [percentPerfect, setPercentPerfect] = React.useState(0);
+    const [averageDistance, setAverageDistance] = React.useState(0);
+
+    const isFocused = useIsFocused();
 
 
 
@@ -41,7 +47,7 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
 
         fetchTowns();        
 
-    }, []);
+    }, [isFocused]);
 
     React.useEffect(() => {
         console.log("Updating town guesses for town: " + currentTown.name);
@@ -64,6 +70,13 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
         fetchTownGuesses();
     }, [currentTown]);
 
+    React.useEffect(() => {
+        setTotalGuesses(getTotalGuesses());
+        setPerfectGuesses(getPerfectGuesses());
+        setPercentPerfect(getPercentPerfect());
+        setAverageDistance(getAverageDistance());
+    }, [guesses]);
+
 
 
     const getTotalGuesses = () => {
@@ -79,7 +92,7 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
         let perfectGuesses = 0;
         for (let i = 0; i < townGuesses.length; i++)
         {
-            if (townGuesses[i].score > 1000)
+            if (townGuesses[i].distanceAway < 100)
             {
                 perfectGuesses++;
             }
@@ -95,16 +108,18 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
         return Math.round(temp * 100) / 100;
     }
 
-    const getAverageScore = () => {
+    const getAverageDistance = () => {
         if (!townGuesses || townGuesses.length === 0) return 0;
 
-        let totalScore = 0;
+        let totalDistance = 0;
         for (let i = 0; i < townGuesses.length; i++)
         {
-            totalScore += townGuesses[i].score;
+            totalDistance += (townGuesses[i].distanceAway ? townGuesses[i].distanceAway : 0);
         }
-        return totalScore / getTotalGuesses();
-    }
+
+        const temp = (totalDistance / getTotalGuesses());
+
+        return Math.round(temp);    }
 
 
     return (
@@ -140,14 +155,14 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
                         <Text style={styles.statName}>Percent Perfect:</Text>
                         <Text style={styles.statName}>Perfect Guesses:</Text>
                         <Text style={styles.statName}>Total Guesses:</Text>
-                        <Text style={styles.statName}>Average Score:</Text>
+                        <Text style={styles.statName}>Average Distance Off:</Text>
                     </View>
                     {/* Col 2 */}
-                    <View style={{marginLeft: '20%'}}>
-                        <Text style={styles.statValue}>{getPercentPerfect()}</Text>
-                        <Text style={styles.statValue}>{getPerfectGuesses()}</Text>
-                        <Text style={styles.statValue}>{getTotalGuesses()}</Text>
-                        <Text style={styles.statValue}>{getAverageScore()}</Text>
+                    <View style={{marginLeft: '5%'}}>
+                        <Text style={styles.statValue}>{percentPerfect}%</Text>
+                        <Text style={styles.statValue}>{perfectGuesses}</Text>
+                        <Text style={styles.statValue}>{totalGuesses}</Text>
+                        <Text style={styles.statValue}>{averageDistance}m</Text>
                     </View>
                 </View>
 

@@ -42,9 +42,8 @@ const StatisticsPage = ( {navigation, route} ) => {
 
         const posts = await Promise.all(postsPromises);
         setAllPosts(posts);
-        console.log("Guesses" + response);
-        console.log("Posts" + allPosts);
-        console.log("userid: " + userId);
+        // console.log("Guesses" + response);
+        // console.log("Posts" + allPosts);
         
     } catch (error) {
         console.error('Error fetching guesses and posts:', error);
@@ -80,7 +79,7 @@ const StatisticsPage = ( {navigation, route} ) => {
         <FlatList
           data={allPosts.reverse()}
           renderItem={({item, index}) => (              
-              <GuessBox title={item.title} distance={guesses[index].distance} hasLiked={guesses[index].hasLiked} 
+              <GuessBox title={item.title} townName={item.town} distance={guesses[index].distanceAway} hasLiked={guesses[index].hasLiked} 
                         hasDisliked={guesses[index].hasDisLiked} date={item.createdAt} />
             )}
           horizontal={true}
