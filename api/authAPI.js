@@ -272,3 +272,31 @@ export const verifyAccount = async (email, code) => {
     throw error;
   }
 };
+
+export const sendResetPasswordEmail = async (email) => {
+  try {
+    let url = `${BASE_URL}/user/forgetpassword`;
+    
+
+    // console.log("UserID in getTowns call:" + userId);
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({email}),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      return data;
+    } else {
+      return null;
+    }
+  } catch (error) {
+      console.error('Error sending reset password email:', error);
+      throw error;
+  }
+}

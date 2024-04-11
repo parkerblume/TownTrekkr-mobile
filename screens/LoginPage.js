@@ -7,7 +7,7 @@ import { login } from '../api/authAPI.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons/Ionicons';
-
+import { sendResetPasswordEmail } from '../api/authAPI.js';
 
 
 const LoginPage = ( {navigation, onLogin} ) => {
@@ -74,6 +74,19 @@ const LoginPage = ( {navigation, onLogin} ) => {
     setOnFocus(!onFocus);
   }
 
+  const handleResetPassword = () => {
+    if (email === '')
+    {
+      setErrorMessage('Enter an email to reset password');
+      setIsEmailError(true);
+      return;
+    }
+    //console.log("email being sent to: ", email);
+    setErrorMessage("Password reset email sent!"); 
+    setIsEmailError(false);
+    sendResetPasswordEmail(email);
+  }
+
   return (
     <KeyboardAvoidingView style={styles.container}  
         behavior={Platform.OS === 'ios' ? 'padding' : 'height' }
@@ -130,7 +143,9 @@ const LoginPage = ( {navigation, onLogin} ) => {
 
       <View style={styles.forgotPasswordContainer}>
         <Text style={styles.forgotPassword}>Forgot password?&nbsp;</Text>
-        <Text style={styles.linkToReset}> Click here to reset it!</Text>
+        <TouchableOpacity onPress={() => handleResetPassword()}>
+          <Text style={styles.linkToReset}> Send a reset email to the input email address</Text>
+        </TouchableOpacity>
       </View>
 
       
@@ -254,5 +269,9 @@ const styles = StyleSheet.create({
     fieldError: {
       borderColor: 'red',
       borderWidth: 3,
+    },
+    linkToReset: {
+      fontFamily: 'Londrina-Solid',
+      textDecorationLine: 'underline',
     }
   });
