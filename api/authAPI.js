@@ -1,4 +1,4 @@
-import {BASE_URL, LOCAL_URL} from './config';
+let BASE_URL='https://town-trekkr-9fb24187970d.herokuapp.com/api';
 
 export const login = async (email, password) => 
 {

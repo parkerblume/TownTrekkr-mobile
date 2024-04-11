@@ -1,4 +1,4 @@
-import {BASE_URL} from './config';
+let BASE_URL='https://town-trekkr-9fb24187970d.herokuapp.com/api';
 import * as FileSystem from 'expo-file-system';
 
 export const postUpload = async (image, location, title, townName, userId) =>

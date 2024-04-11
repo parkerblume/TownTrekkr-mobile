@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.devroses.TownTrekkr"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -36,9 +37,15 @@
           "fonts": [
             "node_modules/@expo-google-fonts/londrina-solid/LondrinaSolid_400Regular.ttf",
             "node_modules/@expo-google-fonts/londrina-solid/LondrinaSolid_300Light.ttf",
-            "node_modules/@expo-google-fonts/londrina-solid/LondrinaSolid_900Black.ttf"]
+            "node_modules/@expo-google-fonts/londrina-solid/LondrinaSolid_900Black.ttf"
+          ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "d869a85f-dd2f-48d7-94ee-fabc0814d094"
+      }
+    }
   }
 }
