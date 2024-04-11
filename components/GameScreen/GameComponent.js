@@ -7,6 +7,7 @@ import {colors, commonStyles} from '../../styles/commonStyles';
 import { getPostsByTown } from '../../api/postAPI';
 import { FontAwesome } from '@expo/vector-icons';
 import { postUserGuess, userRatePost } from '../../api/postAPI';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const GameComponent = ({ currentTown, userId, onRefresh }) =>
 {
@@ -77,8 +78,11 @@ const GameComponent = ({ currentTown, userId, onRefresh }) =>
     setUserGuessed(false);
     setUserRating(null);
 
-    if (currentPhotoIndex + 1 > photos.length)
+    console.log(currentPhotoIndex, photos.length);
+
+    if (currentPhotoIndex + 1 >= photos.length)
     {
+      console.log('no more photos');
       setError('There\'s no more photos to guess in this town!');
     }
     else
@@ -87,22 +91,34 @@ const GameComponent = ({ currentTown, userId, onRefresh }) =>
       setCurrentPhotoIndex((prevIndex) => (prevIndex + 1));
       setLoading(false);
     }
+
+    console.log(currentPhotoIndex, photos.length);
   }
 
   if (error)
   {
     return (
-      <SafeAreaView style={commonStyles.contentContainer}>
-        <View style={styles.townHeader}>
-              <Text style={styles.headerText}>
-                  {currentTown ? currentTown.name : "Couldn't get town name..."}
+      <SafeAreaView style={styles.contentContainer} edges={['top']}>
+          <View style={styles.townHeader}>
+                <Text style={styles.headerText}>
+                    {currentTown ? currentTown.name : "Couldn't get town name..."}
+                </Text>
+            </View>
+            <View style={styles.infoContainer}>
+              <Text style={styles.headerTextBrown}>
+                  Hold on!
               </Text>
-          </View>
-        <Text style={[styles.loadingText, styles.errorText]}>{error}</Text>
-        <Text style={[styles.loadingText, styles.errorText]}>
-          Hit the camera icon to start posting
-        </Text>
-      </SafeAreaView>
+            <MaterialIcons name="nordic-walking" size={100} color={colors.dark_brown} />
+            <View style={styles.textContainer}>
+                <Text style={styles.textFieldError}>
+                  There's no more photos to guess!
+                </Text>
+                <TouchableOpacity style={styles.townButton}>
+                <Text style={styles.buttonText}>Hit the camera icon to start posting</Text>
+                </TouchableOpacity>
+            </View>
+            </View>
+        </SafeAreaView>
     );
   };
 
@@ -201,6 +217,41 @@ const styles = StyleSheet.create({
   headerText: {
     fontFamily: 'Londrina-Solid',
     fontSize: 30,
+  },
+  headerTextBrown: {
+    fontFamily: 'Londrina-Solid-Bold',
+    fontSize: 30,
+    color: colors.dark_brown
+  },
+  infoContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '20%',
+    padding: '10%',
+    borderColor: colors.olive,
+    borderTopWidth: 3,
+    borderBottomWidth: 3,
+    shadowColor: colors.dark_brown,
+    shadowOpacity: 0.8,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 0 }, 
+    elevation: 10,
+    backgroundColor: colors.olive,
+  },
+  textFieldError: {
+    fontFamily: 'Londrina-Solid',
+    fontSize: 18,
+  },
+  townButton: {
+    backgroundColor: colors.olive,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 30,
+    borderRadius: 10,
+  },
+  buttonText: {
+    fontFamily: 'Londrina-Solid-Light',
+    fontSize: 15
   },
   gameContainer: {
     flex: 1,

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import { colors } from '../../styles/commonStyles';
 import { useIsFocused } from "@react-navigation/native";
+import { Tooltip } from 'react-native-elements';
 
 const LifetimeStatisticsComponent = ({userId, guesses}) => {
 
@@ -76,7 +77,21 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
                         <Text style={styles.lifetimeStatValue}>{percentPerfect}%</Text>
                     </View>
                     <View style={styles.statItem}>
-                        <Text style={styles.lifetimeStatTitle}>Perfect Guesses:</Text>
+                        <View style={styles.tooltipContainer}>
+                            <Text style={styles.lifetimeStatTitle}>Perfect Guesses:</Text>
+                            <Tooltip
+                                popover={<Text style={styles.infoText}>All guesses made within 100m</Text>}
+                                width={250}
+                                style={{borderWidth: 3}}
+                                backgroundColor={colors.faded_tan}
+                                overlayColor='transparent'
+                                containerStyle={styles.tooltipContainerStyle}
+                            >
+                                <View style={styles.infoIcon}>
+                                    <Text style={styles.infoIconText}>i</Text>
+                                </View>
+                            </Tooltip>
+                        </View>
                         <Text style={styles.lifetimeStatValue}>{perfectGuesses}</Text>
                     </View>
                 </View>
@@ -106,7 +121,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.tan,
         borderTopStartRadius: 50,
         borderTopEndRadius: 50,
-        marginTop: '15%',
+        marginTop: '12%',
         marginRight: '25%',
         paddingVertical: '5%',
         paddingLeft: '20%',
@@ -122,6 +137,31 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: '2%',
+      },
+      tooltipContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+      tooltipContainerStyle: {
+        borderWidth: 1
+      },
+      infoIcon: {
+        width: 16,
+        height: 16,
+        borderRadius: 8,
+        backgroundColor: colors.faded_tan,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 4,
+      },
+      infoText: {
+        fontFamily: 'Londrina-Solid-Light',
+        fontSize: 17,
+      },
+      infoIconText: {
+        color: 'black',
+        fontSize: 12,
+        fontWeight: 'bold',
       },
       lifetimeStatTitle: {
         fontSize: 16,

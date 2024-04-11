@@ -63,14 +63,9 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
     }, [isFocused]);
 
     React.useEffect(() => {
-        //setCurrentTown(currentTown ? currentTown : towns[0]);
-        console.log("Updating town guesses for town: " + currentTown.name);
-        //console.log("ID for town: " + currentTown._id);
-        console.log("Current town: " + currentTown);
-        setTownGuesses([]);
-
         const fetchTownGuesses = async () => {          
             //console.log('allPosts' + allPosts);  
+            let newTownGuesses = [];
             for (let i = 0; i < guesses.length; i++)
             {
                 // fetch town name
@@ -80,9 +75,11 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
                 if (iteratedTownName === currentTown)
                 {
                     console.log("Added a guess to this town");
-                    setTownGuesses([...townGuesses, guesses[i]]);
+                    newTownGuesses = [...newTownGuesses, guesses[i]];
                 }
             }
+
+            setTownGuesses(newTownGuesses);
 
         };
 
@@ -143,8 +140,6 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
 
 
     return (
-        <>
-
             <SafeAreaView style={styles.container}>
 
                 <Dropdown
@@ -188,7 +183,6 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
                 </View>
 
             </SafeAreaView>
-        </>
     )
 }
 
