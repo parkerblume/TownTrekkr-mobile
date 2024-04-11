@@ -51,11 +51,8 @@ const StatisticsPage = ( {navigation, route} ) => {
 };
 
   React.useEffect(() => {
-    if (isFocused)
-    {
-      console.log("Page is focused and fetching guesses and posts...");
-      fetchGuessesAndPosts();
-    }
+    //console.log("Page is focused and fetching guesses and posts...");
+    fetchGuessesAndPosts();    
   }, [isFocused]);
 
 
@@ -65,6 +62,8 @@ const StatisticsPage = ( {navigation, route} ) => {
   const renderGuessItem = ({item, index}) => {
 
     if (index >= guesses.length || item.town.length < 5) { return null; }
+
+    //let reversedGuesses = guesses.reverse();
 
     let guessObject = {
       postTitle: item.title,
@@ -97,7 +96,7 @@ const StatisticsPage = ( {navigation, route} ) => {
 
       <View style={styles.recentGuessesContainer}>
         <FlatList
-          data={allPosts.reverse()}
+          data={allPosts}
           renderItem={renderGuessItem}
           contentContainerStyle={styles.listContainer}
           horizontal={true}

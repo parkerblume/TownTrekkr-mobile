@@ -67,7 +67,7 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
         //console.log("Updating town guesses for town: " + currentTown.name);
         //console.log("ID for town: " + currentTown._id);
         console.log("Current town: " + currentTown);
-
+        setTownGuesses([]);
 
         const fetchTownGuesses = async () => {          
             //console.log('allPosts' + allPosts);  
@@ -88,12 +88,13 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
         fetchTownGuesses();
     }, [currentTown, isFocused]);
 
+
     React.useEffect(() => {
         setTotalGuesses(getTotalGuesses());
         setPerfectGuesses(getPerfectGuesses());
         setPercentPerfect(getPercentPerfect());
         setAverageDistance(getAverageDistance());
-    }, [currentTown, isFocused]);
+    }, [townGuesses, isFocused]);
 
 
 

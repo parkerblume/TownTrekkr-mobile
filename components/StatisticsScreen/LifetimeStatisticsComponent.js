@@ -16,6 +16,7 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
 
     React.useEffect(() => {
         console.log("Is focused in lifetime");
+        console.log("guesses: " + guesses);
         setTotalGuesses(getTotalGuesses());
         setPerfectGuesses(getPerfectGuesses());
         setPercentPerfect(getPercentPerfect());
