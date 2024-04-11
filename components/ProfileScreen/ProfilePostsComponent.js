@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         alignContent: 'center',
-        flex: 1,
     },
     listContainer: {
         paddingBottom: '2%',

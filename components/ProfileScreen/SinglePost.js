@@ -49,7 +49,7 @@ const SinglePost = ({title, likes, dislikes, image, date}) => {
         <View style={styles.item}>
             <View style={{flex: 1}}>
                 <Text style={styles.title}>{truncateTitle(title)}    </Text>
-                <Text>Posted on: {formatDate(date)}</Text>
+                <Text>Posted: {formatDate(date)}</Text>
             </View>
             <View styles={{justifyContent: 'flex-end', flexDirection: 'row'}}>
                 <Text style={styles.likesdislikes}>

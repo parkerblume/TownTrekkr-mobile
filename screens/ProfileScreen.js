@@ -8,7 +8,7 @@ import ProfileComponent from '../components/ProfileScreen/ProfileComponent';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ProfilePostsComponent from '../components/ProfileScreen/ProfilePostsComponent';
 import { getUserPosts } from '../api/postAPI.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from "@react-navigation/native";
 
 const ProfileScreen = ( {navigation, route} ) => {
   const [posts, setPosts] = React.useState([]);
@@ -18,20 +18,22 @@ const ProfileScreen = ( {navigation, route} ) => {
   const email = route.params?.email;
   const handleLogout = route.params?.handleLogout;
 
+
+  const isFocused = useIsFocused();
+  
   React.useEffect(() => {
     const fetchPosts = async () => {
         try {
             const response = await getUserPosts(userId);
-            console.log(userId);
             setPosts(response);        
         } catch (error) {
             console.error('Error fetching posts:', error);
         }
     };
-    console.log("user: " + username);
-
+    //console.log("user: " + username);
+    console.log("posts: " + posts);
     fetchPosts();
-}, []);
+}, [isFocused]);
 
 
   return (

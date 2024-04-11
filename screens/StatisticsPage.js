@@ -35,6 +35,7 @@ const StatisticsPage = ( {navigation, route} ) => {
         const response = await getGuesses(userId);
         setGuesses(response); 
 
+
         const postsPromises = response.map(async guess => {
           const post = await getPostById(guess.post);
           return post;
@@ -42,8 +43,9 @@ const StatisticsPage = ( {navigation, route} ) => {
 
         const posts = await Promise.all(postsPromises);
         setAllPosts(posts);
-        // console.log("Guesses" + response);
-        // console.log("Posts" + allPosts);
+        //console.log("userid: " + userId);
+        //console.log("Guesses" + response);
+        //console.log("Posts: " + posts);
         
     } catch (error) {
         console.error('Error fetching guesses and posts:', error);

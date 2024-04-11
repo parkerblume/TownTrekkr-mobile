@@ -256,7 +256,6 @@ export const getUserPosts = async (userId) =>
                 if (townPosts[j].user_id === userId)
                 {
                   userPosts.push(townPosts[j]);
-                  //console.log("Pushed:" + townPosts[j]);
                 }
               }
             }
