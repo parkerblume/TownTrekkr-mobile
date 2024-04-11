@@ -30,6 +30,8 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
             })
         );
 
+        console.log(townObject);
+
         setTownMembers(members);
 
         const isLeader = (townObject.leader === username);
@@ -71,6 +73,8 @@ const ViewTownModal = ({ isVisible, onClose, townObject, onPlayPress, onJoinPres
 
     const renderMemberItem = ({ item }) =>
     {
+        if (item.username === undefined) { return null; }
+
         return (
             <View style={styles.memberItem}>
                 <View style={styles.memberInfoContainer}>
@@ -273,7 +277,6 @@ const styles = StyleSheet.create({
     listContainer: {
         paddingTop: '3%',
         width: '100%',
-        height: Platform.OS === 'ios' ? '100%' : 'auto',
     },
     membersText: {
         fontFamily: 'Londrina-Solid',
