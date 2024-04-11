@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules/
+yarn.lock
 
 # Expo
 .expo/
@@ -24,6 +25,8 @@ npm-debug.*
 yarn-debug.*
 yarn-error.*
 
+api/config.js
+
 # macOS
 .DS_Store
 *.pem
@@ -33,3 +36,6 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+
+/%ProgramData%/
