@@ -17,8 +17,11 @@ const ImageLocationSelector = ({ coordinates, onConfirmPress, onCancelPress }) =
     const toolTipOpacity = useRef(new Animated.Value(0)).current;
     const currentTooltipText = useRef('');
 
+    console.log('ImageLocationSelector', coordinates);
+
     const handleMapPress = (event) =>
     {
+        console.log('ImageLocationSelector', coordinates);
         const { coordinate } = event.nativeEvent;
         setSelectedLocation(coordinate);
     }

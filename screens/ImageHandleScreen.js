@@ -15,12 +15,13 @@ const ImageHandleScreen = ({ navigation, route }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [location, setLocation] = useState(null);
     const [isUploadDisabled, setIsUploadDisabled] = useState(true);
-    console.log(location);
+    console.log("image handle screen: ", location);
 
     // pull the currently saved town in storage (game they're currently playing)
     const fetchSavedTown = async () =>
     {
         const storedTown = await AsyncStorage.getItem('currentTown');
+        console.log('storedTown', storedTown);
         if (storedTown)
         {
             setTown(JSON.parse(storedTown));
@@ -89,7 +90,7 @@ const ImageHandleScreen = ({ navigation, route }) => {
 
     if (!imageResult) { return null; }
 
-    if (!town) { return null; }
+    if (!town) { return <NoPlayingTownHandle navigation={navigation} userId={userId} /> }
 
     return (
         <SafeAreaView style={commonStyles.screenContainer}>
@@ -104,7 +105,7 @@ const ImageHandleScreen = ({ navigation, route }) => {
                                 <Text style={styles.bigTextField}>{town.name}</Text>
                             </View>
             {/* Only render ImageLocationSelector if location or its properties are null/undefined. */}
-            {location === null || location.latitude === undefined ? (
+            {!location ? (
                 <ImageLocationSelector
                     coordinates={town.coordinates}
                     onConfirmPress={handleLocationSelected}
