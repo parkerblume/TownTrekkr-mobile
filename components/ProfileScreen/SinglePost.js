@@ -45,7 +45,7 @@ const SinglePost = ({title, likes, post, dislikes, image, date}) => {
 
         const today = new Date();
         if (day === today.getDate()) {
-            return "Today";
+            return "today";
         }
         return month + "/" + day + "/" + year;
     }

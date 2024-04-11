@@ -6,6 +6,7 @@ import { getGuesses } from '../../api/postAPI.js';
 import { getPostById } from '../../api/postAPI.js';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useIsFocused } from "@react-navigation/native";
+import { getTownById } from '../../api/authAPI.js';
 
 
 
@@ -14,7 +15,6 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
 
     const [towns, setTowns] = React.useState([]);
     const [currentTown, setCurrentTown] = React.useState('');
-    // const [guesses, setGuesses] = React.useState([]);
     const [townGuesses, setTownGuesses] = React.useState([]);
 
     const [totalGuesses, setTotalGuesses] = React.useState(0);
@@ -23,6 +23,19 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
     const [averageDistance, setAverageDistance] = React.useState(0);
 
     const isFocused = useIsFocused();
+
+    //const [townName, setTownName] = React.useState('');
+
+
+    const fetchTownName = async (townId) => {
+        try {
+            const response = await getTownById(townId);
+            return response.name;
+            //console.log(response.name);
+        } catch (error) {
+            console.error('Error fetching post:', error);
+        }
+    };
 
 
 
@@ -35,7 +48,7 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
 
                 if (response.length > 0) {
                     console.log("First town: " + response[0].name);
-                    setCurrentTown(response[0]._id);
+                    setCurrentTown(response[0].name);
                 }
                 else {
                     setCurrentTown('Choose a town');
@@ -53,14 +66,18 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
         //setCurrentTown(currentTown ? currentTown : towns[0]);
         //console.log("Updating town guesses for town: " + currentTown.name);
         //console.log("ID for town: " + currentTown._id);
+        console.log("Current town: " + currentTown);
 
 
         const fetchTownGuesses = async () => {          
             //console.log('allPosts' + allPosts);  
             for (let i = 0; i < guesses.length; i++)
             {
-                //console.log("Checking town: " + allPosts[i].town);
-                if (allPosts[i].town === currentTown)
+                // fetch town name
+                const iteratedTownName = await fetchTownName(allPosts[i].town);
+                console.log("Checking town: " + iteratedTownName + " against " + currentTown);
+                
+                if (iteratedTownName === currentTown)
                 {
                     setTownGuesses([...townGuesses, guesses[i]]);
                 }
@@ -69,7 +86,7 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
         };
 
         fetchTownGuesses();
-    }, [currentTown]);
+    }, [currentTown, isFocused]);
 
     React.useEffect(() => {
         setTotalGuesses(getTotalGuesses());
@@ -142,7 +159,7 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
                     placeholder={currentTown}
                     value={currentTown}
                     onChange={item => {
-                        setCurrentTown(item);
+                        setCurrentTown(item.name);
                     }}
                 />
                 <Text style={styles.statTitle}>Statistics</Text>

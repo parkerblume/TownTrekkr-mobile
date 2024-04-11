@@ -64,6 +64,28 @@ const StatisticsPage = ( {navigation, route} ) => {
 
 
 
+  const renderGuessItem = ({item, index}) => {
+
+    if (item.town.length < 5) return null;
+
+    let guessObject = {
+      postTitle: item.title,
+      town: item.town,
+      distanceAway: guesses[index].distanceAway,
+      hasLiked: guesses[index].hasLiked,
+      hasDisLiked: guesses[index].hasDisLiked,
+      date: item.createdAt,
+    }
+
+    return (
+      <GuessBox guessObject={guessObject} key={`Guess-${index}`}/>
+    );
+  }
+
+  // title={item.title} townId={item.town} distance={guesses[index].distanceAway} hasLiked={guesses[index].hasLiked} 
+  // hasDisliked={guesses[index].hasDisLiked} date={item.createdAt} 
+
+
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
 
@@ -80,10 +102,7 @@ const StatisticsPage = ( {navigation, route} ) => {
       <View style={styles.recentGuessesContainer}>
         <FlatList
           data={allPosts.reverse()}
-          renderItem={({item, index}) => (              
-              <GuessBox title={item.title} townName={item.town} distance={guesses[index].distanceAway} hasLiked={guesses[index].hasLiked} 
-                        hasDisliked={guesses[index].hasDisLiked} date={item.createdAt} />
-            )}
+          renderItem={renderGuessItem}
           horizontal={true}
           keyExtractor={(item, index) => (item._id + index).toString()}
           ListEmptyComponent={emptyArray}
