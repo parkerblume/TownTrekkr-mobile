@@ -2,14 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 import {colors, commonStyles} from '../styles/commonStyles';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AllTownsComponent from '../components/TownsScreen/AllTownsComponent';
 import MyTownsComponent from '../components/TownsScreen/MyTownsComponent';
 import CreateTownsComponent from '../components/TownsScreen/CreateTownsComponent';
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createBottomTabNavigator();
 
 const TownsScreen = ({ navigation, route }) => {
     const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
@@ -35,22 +35,24 @@ const TownsScreen = ({ navigation, route }) => {
             </SafeAreaView>
             <NavigationContainer independent={true}>
                 <View style={styles.tabContainer}>
-                    <Tab.Navigator screenOptions={{ 
+                    <Tab.Navigator independent={true} screenOptions={{ 
                                         headerShown: false,
                                         tabBarStyle: {
                                             "backgroundColor": colors.olive,
+                                            borderTopWidth: 0,
+                                            elevation: 0,
+                                            height: 70,
                                         },
                                         tabBarLabelStyle: {
                                             "fontFamily": 'Londrina-Solid-Light',
                                             "fontSize": 20
                                         },
-                                        tabBarActiveTintColor: colors.dark_brown,
-                                        tabBarInactiveTintColor: colors.tan,
+                                        tabBarActiveTintColor: colors.tan,
+                                        tabBarInactiveTintColor: colors.dark_brown,
                                         tabBarIndicatorStyle: {
                                             backgroundColor: colors.dark_brown,
                                         }
                                     }} 
-                                    tabBarPosition='top'
                     >
                         <Tab.Screen name="All Towns" component={AllTownsComponent} initialParams={{ userId: userId }} />
                         <Tab.Screen name="My Towns" 
