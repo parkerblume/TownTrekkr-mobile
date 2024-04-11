@@ -16,8 +16,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "infoPList": {
-        "NSPhotoLibraryUsageDescription": "Your app uses photos"
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Your app uses photos to play a community based game"
       }
     },
     "android": {
