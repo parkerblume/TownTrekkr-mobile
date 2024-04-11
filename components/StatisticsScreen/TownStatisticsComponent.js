@@ -64,7 +64,7 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
 
     React.useEffect(() => {
         //setCurrentTown(currentTown ? currentTown : towns[0]);
-        //console.log("Updating town guesses for town: " + currentTown.name);
+        console.log("Updating town guesses for town: " + currentTown.name);
         //console.log("ID for town: " + currentTown._id);
         console.log("Current town: " + currentTown);
         setTownGuesses([]);
@@ -79,6 +79,7 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
                 
                 if (iteratedTownName === currentTown)
                 {
+                    console.log("Added a guess to this town");
                     setTownGuesses([...townGuesses, guesses[i]]);
                 }
             }
@@ -86,7 +87,7 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
         };
 
         fetchTownGuesses();
-    }, [currentTown, isFocused]);
+    }, [currentTown]);
 
 
     React.useEffect(() => {
@@ -94,7 +95,7 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
         setPerfectGuesses(getPerfectGuesses());
         setPercentPerfect(getPercentPerfect());
         setAverageDistance(getAverageDistance());
-    }, [townGuesses, isFocused]);
+    }, [townGuesses]);
 
 
 
@@ -160,6 +161,7 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
                     placeholder={currentTown}
                     value={currentTown}
                     onChange={item => {
+                        setTownGuesses([]);
                         setCurrentTown(item.name);
                     }}
                 />

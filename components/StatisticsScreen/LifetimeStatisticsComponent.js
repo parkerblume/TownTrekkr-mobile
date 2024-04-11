@@ -15,8 +15,8 @@ const LifetimeStatisticsComponent = ({userId, guesses}) => {
     const isFocused = useIsFocused();
 
     React.useEffect(() => {
-        console.log("Is focused in lifetime");
-        console.log("guesses: " + guesses);
+        //console.log("Is focused in lifetime");
+        //console.log("guesses: " + guesses);
         setTotalGuesses(getTotalGuesses());
         setPerfectGuesses(getPerfectGuesses());
         setPercentPerfect(getPercentPerfect());
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.tan,
         borderTopStartRadius: 50,
         borderTopEndRadius: 50,
-        marginTop: '8%',
+        marginTop: '15%',
         marginRight: '25%',
         paddingVertical: '5%',
         paddingLeft: '20%',

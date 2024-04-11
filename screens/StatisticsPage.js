@@ -134,18 +134,18 @@ const styles = StyleSheet.create({
       marginLeft: '5%',
       marginRight: '5%', 
       width: '100%',
-      height: '20%',
     },
     recentGuessesTitle: {
       fontSize: 22,
       fontFamily: 'Londrina-Solid',
       textAlign: 'center',
-      marginTop: '5%',
+      marginTop: '8%',
     },
     recentGuessesSubTitle: {
       fontSize: 16,
       fontFamily: 'Londrina-Solid-Light',
       textAlign: 'center',
+      marginBottom: '2%',
     },    
     emptyText: {
       fontSize: 18,

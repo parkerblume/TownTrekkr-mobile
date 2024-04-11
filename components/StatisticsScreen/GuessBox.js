@@ -114,7 +114,7 @@ const GuessBox = ({guessObject, key}) => {
 const styles = StyleSheet.create({
     itemContainer: {
         width: 150,
-        flex: 1,
+        height: 105,
         backgroundColor: 'white',
         opacity: 0.5,
         borderRadius: 10,
