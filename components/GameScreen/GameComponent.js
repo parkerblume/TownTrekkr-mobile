@@ -73,12 +73,20 @@ const GameComponent = ({ currentTown, userId, onRefresh }) =>
 
   const handleGetNextPhoto = () =>
   {
-    setLoading(true);
-    setCurrentPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length);
     setIsGuessing(false);
     setUserGuessed(false);
-    setLoading(false);
     setUserRating(null);
+
+    if (currentPhotoIndex + 1 > photos.length)
+    {
+      setError('There\'s no more photos to guess in this town!');
+    }
+    else
+    {
+      setLoading(true);
+      setCurrentPhotoIndex((prevIndex) => (prevIndex + 1));
+      setLoading(false);
+    }
   }
 
   if (error)
@@ -136,9 +144,10 @@ const GameComponent = ({ currentTown, userId, onRefresh }) =>
                     name={userRating === 'like' ? 'thumbs-up' : 'thumbs-o-up'}
                     size={25}
                     color="green"
+                    style={{ opacity: 0.5 }}
                     onPress={() => handleRating('like')}
                 />
-                <FontAwesome style={{marginHorizontal: 10}}
+                <FontAwesome style={{marginHorizontal: 10, opacity: 0.5}}
                     name={userRating === 'dislike' ? 'thumbs-down' : 'thumbs-o-down'}
                     size={25}
                     color="red"

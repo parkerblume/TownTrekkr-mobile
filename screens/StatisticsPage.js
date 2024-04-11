@@ -131,11 +131,11 @@ const styles = StyleSheet.create({
       paddingLeft: '2%',
     },
     recentGuessesContainer: {
-      marginTop: '5%',
+      marginTop: '2%',
       marginLeft: '5%',
       marginRight: '5%', 
       width: '100%',
-      height: '15%',
+      height: '20%',
     },
     recentGuessesTitle: {
       fontSize: 22,

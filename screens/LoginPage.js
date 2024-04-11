@@ -142,9 +142,9 @@ const LoginPage = ( {navigation, onLogin} ) => {
       )}
 
       <View style={styles.forgotPasswordContainer}>
-        <Text style={styles.forgotPassword}>Forgot password?&nbsp;</Text>
+        <Text style={styles.forgotPassword}>Forgot password? &nbsp;</Text>
         <TouchableOpacity onPress={() => handleResetPassword()}>
-          <Text style={styles.linkToReset}> Send a reset email to the input email address</Text>
+          <Text style={styles.linkToReset}>Reset your password</Text>
         </TouchableOpacity>
       </View>
 
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
       width: '100%',
       justifyContent: 'center',
       alignItems: 'center',
-      flexDirection: 'row'
+      flexDirection: 'row',
     },
     forgotPassword: {
       fontSize: 12,
@@ -260,6 +260,7 @@ const styles = StyleSheet.create({
       width: '100%',
       justifyContent: 'center',
       alignItems: 'center',
+      marginBottom: '2%',
     },
     errorMessage: {
       fontFamily: 'Londrina-Solid-Light',

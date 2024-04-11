@@ -15,7 +15,6 @@ const ImageHandleScreen = ({ navigation, route }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [location, setLocation] = useState(null);
     const [isUploadDisabled, setIsUploadDisabled] = useState(true);
-    console.log("image handle screen: ", location);
 
     // pull the currently saved town in storage (game they're currently playing)
     const fetchSavedTown = async () =>
@@ -59,7 +58,8 @@ const ImageHandleScreen = ({ navigation, route }) => {
     const handleUpload = async () =>
     {
         setIsUploadDisabled(true);
-        const data = await postUpload(imageResult, location, title, town.name, userId);
+        const data = await postUpload(imageResult, location, title, town.id, userId);
+        console.log(data);
         if (data)
         {
             setSuccessMessage('Photo has been posted!');
@@ -105,7 +105,7 @@ const ImageHandleScreen = ({ navigation, route }) => {
                                 <Text style={styles.bigTextField}>{town.name}</Text>
                             </View>
             {/* Only render ImageLocationSelector if location or its properties are null/undefined. */}
-            {!location ? (
+            {!location || location.latitude === undefined ? (
                 <ImageLocationSelector
                     coordinates={town.coordinates}
                     onConfirmPress={handleLocationSelected}

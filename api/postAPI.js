@@ -23,6 +23,8 @@ export const postUpload = async (image, location, title, townName, userId) =>
         formData.append('title', title);
         formData.append('coordinateX', location.latitude);
         formData.append('coordinateY', location.longitude);
+        
+        console.log('form stuffs');
 
         const response = await fetch(`${BASE_URL}/posts/createpost`, {
             method: 'POST',
