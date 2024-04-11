@@ -273,7 +273,6 @@ const styles = StyleSheet.create({
     listContainer: {
         paddingTop: '3%',
         width: '100%',
-        height: Platform.OS === 'ios' ? '100%' : 'auto',
     },
     membersText: {
         fontFamily: 'Londrina-Solid',
