@@ -70,11 +70,11 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
             {
                 // fetch town name
                 const iteratedTownName = await fetchTownName(allPosts[i].town);
-                console.log("Checking town: " + iteratedTownName + " against " + currentTown);
+                //console.log("Checking town: " + iteratedTownName + " against " + currentTown);
                 
                 if (iteratedTownName === currentTown)
                 {
-                    console.log("Added a guess to this town");
+                    //console.log("Added a guess to this town");
                     newTownGuesses = [...newTownGuesses, guesses[i]];
                 }
             }
@@ -84,7 +84,7 @@ const TownStatisticsComponent = ({userId, guesses, allPosts}) => {
         };
 
         fetchTownGuesses();
-    }, [currentTown]);
+    }, [currentTown, isFocused]);
 
 
     React.useEffect(() => {

@@ -44,7 +44,7 @@ const GuessBox = ({guessObject, key}) => {
     }
 
     const truncateTown = (str) => {
-        return str.length > 9 ? str.substring(0, 9) + "..." : str;
+        return str.length > 13 ? str.substring(0, 9) + "..." : str;
     }
 
     const fetchTownName = async (id) => {

@@ -142,7 +142,7 @@ const RegisterPage = ( {navigation} ) => {
 
 
         {/* Text under next button */}
-        <TouchableOpacity onPress={() => navigation.navigate("EmailVerification", {email})}>
+        <TouchableOpacity onPress={() => navigation.navigate("Login", {email})}>
           <Text style={styles.alreadyMemberText}>
             <Text>
               Already a member?&nbsp;
